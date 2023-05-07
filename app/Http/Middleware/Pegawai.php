@@ -22,6 +22,6 @@ class Pegawai
             return $next($request);
         }
 
-        return redirect('/');
+        return redirect('/transaksi/create');
     }
 }

@@ -23,9 +23,8 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <h6 class="mb-md-0 mb-lg-2">Total Transaksi Hari Ini</h6>
-                            <span class="badge rounded-pill badge-soft-success">Rp. {{ number_format($total_transaksi)
-                                }}</span>
+                            <h6 class="mb-md-0 mb-lg-2">Total Transaksi Anda Hari Ini</h6>
+                            <span class="badge rounded-pill badge-soft-success">Rp. {{ number_format($total_transaksi)}}</span>
                         </div>
                         <div>
                             <h6 class="mb-md-0 mb-lg-2">Total Proses</h6>
@@ -48,7 +47,7 @@
         <div class="card-header">
             <div class="d-flex justify-content-between">
                 <div class="col-auto align-self-center">
-                    <h5 class="mb-0">Rekapan Data Transaksi Hari Ini {{ $today }}
+                    <h5 class="mb-0">Rekapan Data Transaksi Anda Hari Ini {{ $today }}
                     </h5>
                     <p class="mb-0 pt-1 m-0 mt-0">Manajemen Data Transaksi</p>
                 </div>
@@ -63,7 +62,7 @@
                             <tr>
                                 <th class="sort text-center fs--1" data-sort="no">No.</th>
                                 <th class="sort text-center fs--1" data-sort="tanggal_transaksi">Jam</th>
-                                <th class="sort text-center fs--1" data-sort="nomor_transaksi">Pegawai</th>
+                                <th class="sort text-center fs--1" data-sort="nomor_transaksi">Kode</th>
                                 <th class="sort text-center fs--1" data-sort="nama_customer" style="width: 100px">
                                     Customer</th>
                                 <th class="sort text-center fs--1" data-sort="nomor_telephone">Phone</th>
@@ -83,7 +82,7 @@
                                 <th scope="row" class="no fs--1">{{ $loop->iteration}}.</th>
                                 <td class="text-center tanggal_transaksi fs--1">{{ date('H:i:s',
                                     strtotime($item->created_at)) }}</td>
-                                <td class="text-center nomor_transaksi fs--1">{{ $item->Pegawai->name }}</td>
+                                <td class="text-center nomor_transaksi fs--1">{{ $item->nomor_transaksi }}</td>
                                 <td class="text-center nama_customer fs--1">{{ $item->nama_customer }}</td>
                                 <td class="text-center nomor_telephone fs--1">{{ $item->nomor_telephone }}</td>
                                 <td class="text-center alamat fs--1">{{ $item->total_berat }} kg</td>

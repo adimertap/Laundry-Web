@@ -17,7 +17,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     {{-- <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js" defer></script> --}}
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet"
-    crossorigin="anonymous" />
+        crossorigin="anonymous" />
     <link rel="preconnect" href="https://fonts.gstatic.com/">
     <link
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap"
@@ -29,9 +29,11 @@
     <link href="/../falcon/assets/css/user.min.css" rel="stylesheet" id="user-style-default">
     <link href="/../falcon/vendors/choices/choices.min.css" rel="stylesheet" />
     <style>
-        .table-responsive { font-size: 12px }
+        .table-responsive {
+            font-size: 12px
+        }
     </style>
-   
+
     <script>
         var isFluid = JSON.parse(localStorage.getItem('isFluid'));
         if (isFluid) {
@@ -41,15 +43,11 @@
         }
 
 
-         $(document).ready(function () {
-            var path = window.location.pathname;
-
-            if (path === "/laundry" || path === "/") {
-                var tes = $('#ul_tes').html()
-                document.getElementById("dashboard-link").classList.add("show");
-            }
-         })
-
-
+        $(document).ready(function () {
+            $('.changeBtn').click(function (e) {
+                e.preventDefault();
+                $('#modalChangePassword').modal('show');
+            })
+        })
     </script>
 </head>

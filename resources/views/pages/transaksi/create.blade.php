@@ -49,11 +49,10 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-4">
-                            <label class="form-label" for="nama_customer">Nama Customer</label><span class="mr-4 mb-3"
-                                style="color: red">*</span>
+                            <label class="form-label" for="nama_customer">Nama Customer</label>
                             <input class="form-control form-select-sm  @error('nama_customer') is-invalid @enderror"
                                 name="nama_customer" type="text" placeholder="Input Nama Customer"
-                                value="{{ old('nama_customer') }}" required />
+                                value="{{ old('nama_customer') }}" />
                             @error('nama_customer')
                             <div class="invalid-feedback">
                                 <strong>{{ $message }}</strong>
@@ -61,11 +60,10 @@
                             @enderror
                         </div>
                         <div class="col-4">
-                            <label class="form-label" for="nomor_passport">Nomor Passport</label><span class="mr-4 mb-3"
-                                style="color: red">*</span>
+                            <label class="form-label" for="nomor_passport">Nomor Passport</label>
                             <input class="form-control form-select-sm  @error('nomor_passport') is-invalid @enderror"
                                 name="nomor_passport" type="number" placeholder="Input Nomor Passport"
-                                value="{{ old('nomor_passport') }}" required />
+                                value="{{ old('nomor_passport') }}" />
                             @error('nomor_passport')
                             <div class="invalid-feedback">
                                 <strong>{{ $message }}</strong>
@@ -87,11 +85,6 @@
                 </div>
             </div>
         </div>
-
-
-
-
-
         <div class="row g-3 mt-2">
             <div class="col-xl-7 order-xl-1">
                 <div class="card">
@@ -269,20 +262,7 @@
         var nomor_passport = form.find('input[name="nomor_passport"]').val()
         var asal_negara = form.find('input[name="asal_negara"]').val()
 
-        if(nama_customer == null || nama_customer == ""){
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Nama Customer Tidak Boleh Kosong',
-            })
-        }else if(nomor_passport == null || nomor_passport == "" || nomor_passport == 0){
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Nomor Passport Tidak Boleh Kosong',
-            })
-        }else{
-            if (check_grand == true) {
+        if (check_grand == true) {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -411,13 +391,6 @@
                 }
             }
         }
-        }
-
-
-
-
-
-       
     }
 
     function tambahdata(event, id_sparepart) {

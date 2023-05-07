@@ -14,22 +14,19 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-4">
-                        <label class="form-label" for="nama_customer">Nama Customer</label><span class="mr-4 mb-3"
-                            style="color: red">*</span>
+                        <label class="form-label" for="nama_customer">Nama Customer</label>
                         <input class="form-control form-select-sm" id="nama_customer" name="nama_customer" type="text"
-                            placeholder="Input Nama Customer" value="{{ $transaksi->nama_customer }}" required />
+                            placeholder="Input Nama Customer" value="{{ $transaksi->nama_customer }}" />
                     </div>
                     <div class="col-4">
-                        <label class="form-label" for="nomor_passport">Nomor Passport</label><span class="mr-4 mb-3"
-                            style="color: red">*</span>
+                        <label class="form-label" for="nomor_passport">Nomor Passport</label>
                         <input class="form-control form-select-sm " id="nomor_passport" name="nomor_passport"
-                            type="number" placeholder="Input Nomor Passport" value="{{ $transaksi->nomor_passport }}"
-                            required />
+                            type="number" placeholder="Input Nomor Passport" value="{{ $transaksi->nomor_passport }}" />
                     </div>
                     <div class="col-4">
                         <label class="form-label" for="asal_negara">Asal Negara</label>
-                        <input class="form-control form-select-sm negara_asal" id="negara_asal" name="asal_negara" type="text"
-                            placeholder="Input Asal Negara" value="{{ $transaksi->negara_asal }}" />
+                        <input class="form-control form-select-sm negara_asal" id="negara_asal" name="asal_negara"
+                            type="text" placeholder="Input Asal Negara" value="{{ $transaksi->negara_asal }}" />
                     </div>
                 </div>
             </div>
@@ -286,146 +283,133 @@
         var negara = $('.negara_asal').val()
         console.log(negara)
 
-        if (nama_customer == null || nama_customer == "") {
+
+        if (grand_total.includes("IDR&nbsp;0")) {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Nama Customer Tidak Boleh Kosong',
-            })
-        } else if (nomor_passport == null || nomor_passport == "" || nomor_passport == 0) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Nomor Passport Tidak Boleh Kosong',
+                text: 'Transaksi Kosong! Tambah Transaksi Terlebih Dahulu',
             })
         } else {
-            if (grand_total.includes("IDR&nbsp;0")) {
+            var total = grand_total.split('IDR&nbsp;')[1].replace(',', '').replace(',', '').trim()
+            var check_1 = $('#check_1').is(":checked")
+            var check_2 = $('#check_2').is(":checked")
+
+            var modal = $('#jumlah_modal').html()
+            var jumlah_modal = modal.split('IDR&nbsp;')[1].replace(',', '').replace(',', '').trim()
+
+            if (check_1 == false) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Transaksi Kosong! Tambah Transaksi Terlebih Dahulu',
+                    text: 'Check Terlebih Dahulu!',
                 })
-            } else {
-                var total = grand_total.split('IDR&nbsp;')[1].replace(',', '').replace(',', '').trim()
-                var check_1 = $('#check_1').is(":checked")
-                var check_2 = $('#check_2').is(":checked")
+            } else if (check_2 == false) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Check Terlebih Dahulu!',
+                })
+            } else if (check_1 == false && check_2 == false) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Check Terlebih Dahulu!',
+                })
+            } else if (check_1 == true && check_2 == true) {
 
-                var modal = $('#jumlah_modal').html()
-                var jumlah_modal = modal.split('IDR&nbsp;')[1].replace(',', '').replace(',', '').trim()
+                var detail = $('#konfirmasi').children()
+                for (let index = 0; index < detail.length; index++) {
+                    var children = $(detail[index]).children()
 
-                if (check_1 == false) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Check Terlebih Dahulu!',
-                    })
-                } else if (check_2 == false) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Check Terlebih Dahulu!',
-                    })
-                } else if (check_1 == false && check_2 == false) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Check Terlebih Dahulu!',
-                    })
-                } else if (check_1 == true && check_2 == true) {
+                    var td_currency = children[1]
+                    var span = $(td_currency).children()[0]
+                    var id_currency = $(span).attr('id')
 
-                    var detail = $('#konfirmasi').children()
-                    for (let index = 0; index < detail.length; index++) {
-                        var children = $(detail[index]).children()
-
-                        var td_currency = children[1]
-                        var span = $(td_currency).children()[0]
-                        var id_currency = $(span).attr('id')
-
-                        var td_jumlah_currency = children[2]
-                        var jumlah_currency_trim = $(td_jumlah_currency).html()
-                        var tes = jumlah_currency_trim.split('IDR&nbsp;')[1].replace(',', '').replace(',', '')
-                            .trim()
-                        var jumlah_currency = parseFloat(tes).toFixed(0)
+                    var td_jumlah_currency = children[2]
+                    var jumlah_currency_trim = $(td_jumlah_currency).html()
+                    var tes = jumlah_currency_trim.split('IDR&nbsp;')[1].replace(',', '').replace(',', '')
+                        .trim()
+                    var jumlah_currency = parseFloat(tes).toFixed(0)
 
 
-                        var td_jumlah_tukar = children[3]
-                        var jumlah_tukar = $(td_jumlah_tukar).html()
+                    var td_jumlah_tukar = children[3]
+                    var jumlah_tukar = $(td_jumlah_tukar).html()
 
-                        var total_tukar = children[4]
-                        var total_tukar_trim = $(total_tukar).html()
-                        var total_tukar = total_tukar_trim.split('IDR&nbsp;')[1].replace(',', '').replace(',', '')
+                    var total_tukar = children[4]
+                    var total_tukar_trim = $(total_tukar).html()
+                    var total_tukar = total_tukar_trim.split('IDR&nbsp;')[1].replace(',', '').replace(',', '')
                         .trim()
 
-                        dataform2.push({
-                            currency_id: id_currency,
-                            id_transaksi: id_transaksi,
-                            jumlah_currency: jumlah_currency,
-                            jumlah_tukar: jumlah_tukar,
-                            total_tukar: total_tukar,
-                        })
+                    dataform2.push({
+                        currency_id: id_currency,
+                        id_transaksi: id_transaksi,
+                        jumlah_currency: jumlah_currency,
+                        jumlah_tukar: jumlah_tukar,
+                        total_tukar: total_tukar,
+                    })
+                }
+
+                if (dataform2.length == 0) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Transaksi Kosong!, Isi Transaksi Terlebih Dahulu',
+                    })
+                } else {
+                    var data = {
+                        _token: _token,
+                        id_modal: id_modal,
+                        total: total,
+                        keterangan: keterangan,
+                        jumlah_modal: jumlah_modal,
+                        nama_customer: nama_customer,
+                        nomor_passport: nomor_passport,
+                        asal_negara: negara,
+                        detail: dataform2
                     }
 
-                    if (dataform2.length == 0) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Transaksi Kosong!, Isi Transaksi Terlebih Dahulu',
-                        })
-                    } else {
-                        var data = {
-                            _token: _token,
-                            id_modal: id_modal,
-                            total: total,
-                            keterangan: keterangan,
-                            jumlah_modal: jumlah_modal,
-                            nama_customer: nama_customer,
-                            nomor_passport: nomor_passport,
-                            asal_negara: negara,
-                            detail: dataform2
+                    console.log(data)
+
+                    $.ajax({
+                        method: 'put',
+                        url: '/transaksi/' + id_transaksi,
+                        data: data,
+                        beforeSend: function () {
+                            $('#btnSubmit').prop('disabled', true);
+                        },
+                        success: function (response) {
+                            window.location.href = '/transaksi'
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                            })
+
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'Data Masih Diproses Mohon Tunggu'
+                            })
+                        },
+                        error: function (response) {
+                            console.log(response)
+                            $('#btnSubmit').prop('disabled', false);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Error! Transaksi Tidak dapat disimpan',
+                            })
+                        },
+                        complete: function () {
+                            $('#btnSubmit').prop('disabled', false);
                         }
-
-                        console.log(data)
-
-                        $.ajax({
-                            method: 'put',
-                            url: '/transaksi/' + id_transaksi,
-                            data: data,
-                            beforeSend: function () {
-                                $('#btnSubmit').prop('disabled', true);
-                            },
-                            success: function (response) {
-                                window.location.href = '/transaksi'
-                                const Toast = Swal.mixin({
-                                    toast: true,
-                                    position: 'top-end',
-                                    showConfirmButton: false,
-                                    timer: 3000,
-                                    timerProgressBar: true,
-                                    didOpen: (toast) => {
-                                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                                    }
-                                })
-
-                                Toast.fire({
-                                    icon: 'success',
-                                    title: 'Data Masih Diproses Mohon Tunggu'
-                                })
-                            },
-                            error: function (response) {
-                                console.log(response)
-                                $('#btnSubmit').prop('disabled', false);
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Oops...',
-                                    text: 'Error! Transaksi Tidak dapat disimpan',
-                                })
-                            },
-                            complete: function(){
-                                $('#btnSubmit').prop('disabled', false);
-                            }
-                        });
-                    }
+                    });
                 }
             }
         }

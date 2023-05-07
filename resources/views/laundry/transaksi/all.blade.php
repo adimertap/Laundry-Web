@@ -5,16 +5,34 @@
     <div class="card py-3 mb-3">
         <div class="card-body py-3">
             <div class="row g-0">
-                <div class="col-6 col-md-6 border-200 border-bottom border-end pb-4">
-                    <h6 class="pb-1 text-700">Transaksi Keseluruhan</h6>
-                    <p class="font-sans-serif lh-1 mb-1 fs-2">{{ $jumlah }}</p>
+                <div class="col-3 col-md-2 border-200 border-bottom border-end">
+                    <h6 class="pb-1 fs--1 text-600">Transaksi Keseluruhan</h6>
+                    <p class="font-sans-serif lh-1 mb-1 fs-1">{{ $jumlah }} Data</p>
+                </div>
+                <div class="col-3 col-md-3 border-200 border-md-200 border-bottom border-md-end">
+                    <h6 class="pb-1 fs--1 text-600">Total Transaksi Keseluruhan</h6>
+                    <p class="font-sans-serif lh-1 mb-1 fs-1">Rp. {{ number_format($total, 0, ',', '.') }}</p>
                     <div class="d-flex align-items-center">
-                        <h6 class="fs--1 text-500 mb-0">Transaksi</h6>
+                        <h6 class="fs--1 text-500 mb-0"></h6>
                     </div>
                 </div>
-                <div class="col-6 col-md-6 border-200 border-md-200 border-bottom border-md-end pb-4 ps-3">
-                    <h6 class="pb-1 text-700">Total Transaksi Keseluruhan</h6>
-                    <p class="font-sans-serif lh-1 mb-1 fs-2">Rp. {{ number_format($total, 0, ',', '.') }}</p>
+                <div class="col-3 col-md-2 border-200 border-md-200 border-bottom border-md-end">
+                    <h6 class="pb-1 fs--2 text-600">Total Laundry Masih Proses</h6>
+                    <p class="font-sans-serif lh-1 mb-1 fs-1">{{ $proses }} Data</p>
+                    <div class="d-flex align-items-center">
+                        <h6 class="fs--1 text-500 mb-0"></h6>
+                    </div>
+                </div>
+                <div class="col-3 col-md-2 border-200 border-md-200 border-bottom border-md-end">
+                    <h6 class="pb-1 fs--2 text-600">Total Laundry Selesai</h6>
+                    <p class="font-sans-serif lh-1 mb-1 fs-1">{{ $selesai }} Data</p>
+                    <div class="d-flex align-items-center">
+                        <h6 class="fs--1 text-500 mb-0"></h6>
+                    </div>
+                </div>
+                <div class="col-3 col-md-3 border-200 border-md-200 border-bottom border-md-end">
+                    <h6 class="pb-1 fs--2 text-600">Total Laundry Belum Diambil</h6>
+                    <p class="font-sans-serif lh-1 mb-1 fs-1">{{ $diambil }} Data</p>
                     <div class="d-flex align-items-center">
                         <h6 class="fs--1 text-500 mb-0"></h6>
                     </div>
@@ -84,7 +102,7 @@
                             <tr>
                                 <th class="sort text-center fs--1" data-sort="no">No.</th>
                                 <th class="sort text-center fs--1" data-sort="tanggal_transaksi">Jam</th>
-                                <th class="sort text-center fs--1" data-sort="nomor_transaksi">Kode</th>
+                                <th class="sort text-center fs--1" data-sort="nomor_transaksi">Pegawai</th>
                                 <th class="sort text-center fs--1" data-sort="nama_customer" style="width: 100px">Customer</th>
                                 <th class="sort text-center fs--1" data-sort="nomor_telephone">Phone</th>
                                 <th class="sort text-center fs--1" data-sort="total_berat">Berat</th>
@@ -103,7 +121,7 @@
                                 <th scope="row" class="no fs--1">{{ $loop->iteration}}.</th>
                                 <td class="text-center tanggal_transaksi fs--1">{{ date('d-M-Y H:i:s',
                                     strtotime($item->created_at)) }}</td>
-                                <td class="text-center nomor_transaksi fs--1">{{ $item->nomor_transaksi }}</td>
+                                <td class="text-center nomor_transaksi fs--1">{{ $item->Pegawai->name }}</td>
                                 <td class="text-center nama_customer fs--1">{{ $item->nama_customer }}</td>
                                 <td class="text-center nomor_telephone fs--1">{{ $item->nomor_telephone }}</td>
                                 <td class="text-center alamat fs--1">{{ $item->total_berat }} kg</td>

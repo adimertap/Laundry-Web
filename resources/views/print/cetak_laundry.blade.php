@@ -52,14 +52,15 @@
         }
 
         @media print {
-            @page{
+            @page {
                 size: 80mm;
                 size: 80mm portrait;
                 margin: 0;
                 border: 1px solid red;
                 position: absolute;
             }
-            .anjay{
+
+            .anjay {
                 page-break-after: always;
             }
         }
@@ -79,11 +80,11 @@
             font-size: 16pt;
         }
 
-        hr.tebal{
-            height:2px;
-            border-width:0;
-            color:gray;
-            background-color:gray;
+        hr.tebal {
+            height: 2px;
+            border-width: 0;
+            color: gray;
+            background-color: gray;
             border-top: solid 1px #000 !important;
         }
 
@@ -91,133 +92,212 @@
             size: A4;
             margin: 0;
         }
+
         hr.putus {
             border-top: 2px dashed rgb(219, 218, 218);
         }
-
-
     </style>
 </head>
-  
+
 <body class="page" onload="window.print()">
     <main class="text-kecil" style="color: white; top: 0">
-        <div class="row align-items-center  text-center mb-3 mt-3">
-            
-            <div class="col-sm-12 text-center mt-3">
-                <h6 class="text-danger fw-bold m-0 ">RIASTA LAUNDRY & DRY</h6>
-                <h6 class="m-0 text-600">POPPIES LANE II KUTA - BALI</h6>
-                <p class="fs--2 text-black m-0 text-600">PADMA UTARA, KUTA-BALI</p>
-                <p class="fs--2 text-black m-0 text-600">PHONE: (0361) 4756405</p>
+        <section class="page_satu pb-0">
+            <div class="row align-items-center  text-center mb-3 mt-3">
+                <div class="col-sm-12 text-center mt-3">
+                    <h6 class="text-danger fw-bold m-0 ">RIASTA LAUNDRY & DRY</h6>
+                    <p class="fs--2 text-black m-0 text-600">PADMA UTARA, KUTA-BALI</p>
+                    <p class="fs--2 text-black m-0 text-600">PHONE: (0361) 4756405</p>
+                </div>
             </div>
-        </div>
-        <hr class="tebal mb-2" style="height:0.3px;border-width:0;color:gray;background-color:gray">
-        {{-- <div class="row align-items-center">
-            <div class="col">
-                <h6 class="text-500 fs--2">{{ date('d-M-Y', strtotime($tr->tanggal_transaksi)) }}</h6>
-                <h6 class="m-0 fs--2 text-600">Buying</h6>
-                <p class="fs--2 text-black m-0 text-600">{{ $transaksi->Pegawai->nama_panggilan }}</p>
+            <hr class="tebal mb-2" style="height:0.3px;border-width:0;color:gray;background-color:gray">
+            <div class="row">
+                <div class="col-3">
+                    <h6 class="m-0 fs--2 text-600">Name</h6>
+                </div>
+                <div class="col-9">
+                    <p class="fs--2 text-black m-0 text-600">: {{ $tr->nama_customer }}</p>
+                </div>
             </div>
-            <div class="col text-end">
-                <h6 class="text-500 fs--2">{{ date('H:i:s', strtotime($tr->created_at)) }}</h6>
-                <h6 class="text-500 fs--2 m-0">Order</h6>
-                <p class="fs--2 text-danger fw-bold m-0">{{ $transaksi->kode_transaksi }}</p>
+            <div class="row mt-0">
+                <div class="col-3">
+                    <h6 class="m-0 fs--2 text-600">Alamat</h6>
+                </div>
+                <div class="col-9">
+                    <p class="fs--2 text-black m-0 text-600">: {{ $tr->alamat ?? "-" }}</p>
+                </div>
             </div>
-        </div> --}}
-        <div class="row">
-            <div class="col-3">
-                <h6 class="m-0 fs--2 text-600">Name</h6>
+            <div class="row mt-0">
+                <div class="col-3">
+                    <h6 class="m-0 fs--2 text-600">Date</h6>
+                </div>
+                <div class="col-9">
+                    <p class="fs--2 text-black m-0 text-600">
+                        : {{ date_format($tr->created_at, 'd M Y H:i:s') }}
+                    </p>
+                </div>
             </div>
-            <div class="col-9">
-                <p class="fs--2 text-black m-0 text-600">: {{ $tr->nama_customer }}</p>
+            <div class="row align-items-center mt-4">
+    
+                <div class="col-4">
+                    <p class="fs--2 text-danger fw-bold m-0 text-600">TYPE</p>
+                </div>
+                <div class="col-2">
+                    <p class="fs--2 text-danger fw-bold m-0 text-600">AMT</p>
+                </div>
+                <div class="col-3 text-end">
+                    <p class="fs--2 text-danger fw-bold m-0 text-600">PRICE</p>
+                </div>
+                <div class="col-3 text-end">
+                    <p class="fs--2 text-danger text-end fw-bold m-0 text-600">TOTAL</p>
+                </div>
             </div>
-        </div>
-        <div class="row mt-0">
-            <div class="col-3">
-                <h6 class="m-0 fs--2 text-600">Alamat</h6>
+            <hr class="tebal mt-2 mb-2" style="height:1px;border-width:0;color:gray;background-color:gray">
+            @forelse ($tr->detail as $item)
+            <div class="row align-items-center mt-3 mb-3">
+                <div class="col-4">
+                    <p class="fs--2 text-danger fw-bold m-0 text-600">{{ $item->Type->nama_type }}</p>
+                </div>
+                <div class="col-2">
+                    <p class="fs--2 text-danger fw-bold m-0 text-600">{{ $item->berat }}</p>
+                </div>
+                <div class="col-3 text-end">
+                    <p class="fs--2 text-danger fw-bold m-0 text-600">{{ number_format($item->Type->price, 0, ',', '.') }}
+                    </p>
+                </div>
+                <div class="col-3 text-end">
+                    <p class="fs--2 text-danger text-end fw-bold m-0 text-600">
+                        {{ number_format($item->total, 0, ',', '.') }}</p>
+                </div>
             </div>
-            <div class="col-9">
-                <p class="fs--2 text-black m-0 text-600">: {{ $tr->alamat ?? "-" }}</p>
+            <hr class="tebal mt-2 mb-2" style="height:1px;border-width:0;color:gray;background-color:gray">
+    
+            @empty
+    
+            @endforelse
+    
+            <div class="row">
+                <div class="col-6 text-start">
+                    <h6 class="m-0 fs--2 text-600">Total (Rp.)</h6>
+                </div>
+                <div class="col-6 text-end">
+                    <p class="fs--2 fw-bold m-0 text-end ps-4 text-600" id="total">
+                        {{ number_format($tr->total, 0, ',', '.') }}</p>
+                </div>
             </div>
-        </div>
-        <div class="row mt-0">
-            <div class="col-3">
-                <h6 class="m-0 fs--2 text-600">Date</h6>
+            <div class="mt-6">
+    
+    
             </div>
-            <div class="col-9">
-                <p class="fs--2 text-black m-0 text-600">
-                    : {{ date_format($tr->created_at, 'd M Y H:i:s') }}
-                </p>
-            </div>
-        </div>
+            <p class="text-600 fs--2 text-center m-0 justify">
+                THANK YOU FOR TRANSACTING WITH RIASTA LAUNDRY & DRY
+                PLEASE CHECK YOUR CASH AND TRANSACTION BEFORE LEAVING.
+            </p>
+            <div class="mt-4" style="border-top: 1px dotted rgb(189, 189, 189);"></div>
+        </section>
+        {{-- PAGE 2----------------------------------------------------------------- --}}
+        <section class="page_dua mt-2 pt-0">
+            <div class="row align-items-center  text-center mb-3 mt-3">
 
-
-        {{-- <hr class="tebal mt-2 mb-2"> --}}
-        <div class="row align-items-center mt-4">
-         
-            <div class="col-4">
-                <p class="fs--2 text-danger fw-bold m-0 text-600">TYPE</p>
+                <div class="col-sm-12 text-center mt-3">
+                    <h6 class="text-danger fw-bold m-0 ">RIASTA LAUNDRY & DRY</h6>
+                    <p class="fs--2 text-black m-0 text-600">PADMA UTARA, KUTA-BALI</p>
+                    <p class="fs--2 text-black m-0 text-600">PHONE: (0361) 4756405</p>
+                </div>
             </div>
-            <div class="col-2">
-                <p class="fs--2 text-danger fw-bold m-0 text-600">AMT</p>
+            <hr class="tebal mb-2" style="height:0.3px;border-width:0;color:gray;background-color:gray">
+            <div class="row">
+                <div class="col-3">
+                    <h6 class="m-0 fs--2 text-600">Name</h6>
+                </div>
+                <div class="col-9">
+                    <p class="fs--2 text-black m-0 text-600">: {{ $tr->nama_customer }}</p>
+                </div>
             </div>
-            <div class="col-3 text-end">
-                <p class="fs--2 text-danger fw-bold m-0 text-600">PRICE</p>
+            <div class="row mt-0">
+                <div class="col-3">
+                    <h6 class="m-0 fs--2 text-600">Alamat</h6>
+                </div>
+                <div class="col-9">
+                    <p class="fs--2 text-black m-0 text-600">: {{ $tr->alamat ?? "-" }}</p>
+                </div>
             </div>
-            <div class="col-3 text-end">
-                <p class="fs--2 text-danger text-end fw-bold m-0 text-600">TOTAL</p>
+            <div class="row mt-0">
+                <div class="col-3">
+                    <h6 class="m-0 fs--2 text-600">Date</h6>
+                </div>
+                <div class="col-9">
+                    <p class="fs--2 text-black m-0 text-600">
+                        : {{ date_format($tr->created_at, 'd M Y H:i:s') }}
+                    </p>
+                </div>
             </div>
-        </div>
-        <hr class="tebal mt-2 mb-2" style="height:1px;border-width:0;color:gray;background-color:gray">
-        @forelse ($tr->detail as $item)
-        <div class="row align-items-center mt-3 mb-3">
-            <div class="col-4">
-                <p class="fs--2 text-danger fw-bold m-0 text-600">{{ $item->Type->nama_type }}</p>
+            <div class="row align-items-center mt-4">
+    
+                <div class="col-4">
+                    <p class="fs--2 text-danger fw-bold m-0 text-600">TYPE</p>
+                </div>
+                <div class="col-2">
+                    <p class="fs--2 text-danger fw-bold m-0 text-600">AMT</p>
+                </div>
+                <div class="col-3 text-end">
+                    <p class="fs--2 text-danger fw-bold m-0 text-600">PRICE</p>
+                </div>
+                <div class="col-3 text-end">
+                    <p class="fs--2 text-danger text-end fw-bold m-0 text-600">TOTAL</p>
+                </div>
             </div>
-            <div class="col-2">
-                <p class="fs--2 text-danger fw-bold m-0 text-600">{{ $item->berat }}</p>
+            <hr class="tebal mt-2 mb-2" style="height:1px;border-width:0;color:gray;background-color:gray">
+            @forelse ($tr->detail as $item)
+            <div class="row align-items-center mt-3 mb-3">
+                <div class="col-4">
+                    <p class="fs--2 text-danger fw-bold m-0 text-600">{{ $item->Type->nama_type }}</p>
+                </div>
+                <div class="col-2">
+                    <p class="fs--2 text-danger fw-bold m-0 text-600">{{ $item->berat }}</p>
+                </div>
+                <div class="col-3 text-end">
+                    <p class="fs--2 text-danger fw-bold m-0 text-600">{{ number_format($item->Type->price, 0, ',', '.') }}
+                    </p>
+                </div>
+                <div class="col-3 text-end">
+                    <p class="fs--2 text-danger text-end fw-bold m-0 text-600">
+                        {{ number_format($item->total, 0, ',', '.') }}</p>
+                </div>
             </div>
-            <div class="col-3 text-end">
-                <p class="fs--2 text-danger fw-bold m-0 text-600">{{ number_format($item->Type->price, 0, ',', '.') }}</p>
+            <hr class="tebal mt-2 mb-2" style="height:1px;border-width:0;color:gray;background-color:gray">
+    
+            @empty
+    
+            @endforelse
+    
+            <div class="row">
+                <div class="col-6 text-start">
+                    <h6 class="m-0 fs--2 text-600">Total (Rp.)</h6>
+                </div>
+                <div class="col-6 text-end">
+                    <p class="fs--2 fw-bold m-0 text-end ps-4 text-600" id="total">
+                        {{ number_format($tr->total, 0, ',', '.') }}</p>
+                </div>
             </div>
-            <div class="col-3 text-end">
-                <p class="fs--2 text-danger text-end fw-bold m-0 text-600">{{ number_format($item->total, 0, ',', '.') }}</p>
+            <div class="mt-6">
+    
+    
             </div>
-        </div>
-        <hr class="tebal mt-2 mb-2" style="height:1px;border-width:0;color:gray;background-color:gray">
-
-        @empty
-
-        @endforelse
-
-        <div class="row">
-            <div class="col-6 text-start">
-                <h6 class="m-0 fs--2 text-600">Total (Rp.)</h6>
-            </div>
-            <div class="col-6 text-end">
-                <p class="fs--2 fw-bold m-0 text-end ps-4 text-600" id="total">{{ number_format($tr->total, 0, ',', '.') }}</p>
-            </div>
-            {{-- <h6 class="text-600 m-0 fs--2 text-center mt-4">Thank You</h6> --}}
-        </div>
-        <div class="mt-6">
-         
-           
-        </div>
-        {{-- <hr class="tebal mb-2" style="height:1px;border-width:0;color:gray;background-color:gray"> --}}
-        <p class="text-600 fs--2 text-center m-0 justify">
-            THANK YOU FOR TRANSACTING WITH RIASTA LAUNDRY & DRY
-            PLEASE CHECK YOUR CASH AND TRANSACTION BEFORE LEAVING. 
-        </p>
+            <p class="text-600 fs--2 text-center m-0 justify">
+                THANK YOU FOR TRANSACTING WITH RIASTA LAUNDRY & DRY
+                PLEASE CHECK YOUR CASH AND TRANSACTION BEFORE LEAVING.
+            </p>
+            <div class="mt-4" style="border-top: 1px dotted rgb(189, 189, 189);"></div>
+        </section>
+       
     </main>
-    
-    
+
+
 
     <script>
-          $(document).ready(function () {
-            
-          });
+        $(document).ready(function () {
 
-        
-
+        });
     </script>
 
     {{-- <script src="sweetalert2.all.min.js"></script> --}}

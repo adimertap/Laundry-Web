@@ -264,6 +264,36 @@ class TransaksiController extends Controller
             $total = TransaksiLaundry::sum('total');
             $pegawai = User::where('role','!=','Owner')->get();
             $jenis = MasterCategoryPenerima::get();
+
+            $proses = TransaksiLaundry::where('status', 'proses')->count();
+            $selesai = TransaksiLaundry::where('status', 'selesai')->count();
+            $diambil = TransaksiLaundry::where('status', 'diambil')->count();
+    
+            return view('laundry.transaksi.all', compact('pegawai','tr','jumlah','total','jenis','proses','selesai','diambil'));
+        } catch (\Throwable $th) {
+            Alert::warning('Error', 'Internal Server Error, Try Refreshing The Page');
+            return redirect()->back();
+        }
+    }
+
+    public function getPegawai(Request $request)
+    {
+        try {
+            $tr = TransaksiLaundry::with([
+                'Pegawai','Jenis'
+            ])->where('id_pegawai', Auth::user()->id)->where('tanggal_transaksi', Carbon::now()->format('Y-m-d'));        
+            if($request->from){
+                $tr->where('tanggal_transaksi', '>=', $request->from);
+            }
+            if($request->to){
+                $tr->where('tanggal_transaksi', '<=', $request->to);
+            }
+            $tr = $tr->orderBy('created_at','DESC')->get();
+            
+            $jumlah = TransaksiLaundry::count();
+            $total = TransaksiLaundry::sum('total');
+            $pegawai = User::where('role','!=','Owner')->get();
+            $jenis = MasterCategoryPenerima::get();
     
             return view('laundry.transaksi.all', compact('pegawai','tr','jumlah','total','jenis'));
         } catch (\Throwable $th) {
@@ -271,6 +301,7 @@ class TransaksiController extends Controller
             return redirect()->back();
         }
     }
+
 
     public function export_dokumen_tanggal(Request $request, $tanggal_transaksi)
     {

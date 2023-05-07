@@ -30,15 +30,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
-
-
-
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/pilih', [App\Http\Controllers\PilihAplikasiController::class, 'index'])->name('pilihAplikasi');
     // LAUNDRY
-    Route::get('/laundry', [App\Http\Controllers\Laundry\DashboardController::class, 'index'])->middleware('Owner')->name('dashboard-laundry');
-    Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->middleware('Owner')->name('dashboard');
+    Route::get('/laundry', [App\Http\Controllers\Laundry\DashboardController::class, 'index'])->name('dashboard-laundry');
+    Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/aplikasi', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard-pegawai');
+    Route::post('/change-password', [\App\Http\Controllers\DashboardController::class, 'change_password'])->name('change_password');
+
     Route::prefix('owner')->middleware(['Owner'])->group(function(){
         // MASTER DATA
         Route::resource('master-pegawai', MasterPegawaiController::class);
@@ -70,6 +69,7 @@ Route::group(['middleware' => 'auth'], function () {
     //LAUNDRY
     Route::resource('transaksi-laundry', LaundryTransaksiController::class);
     Route::get('/transaksi-laundry-all', [\App\Http\Controllers\Laundry\TransaksiController::class, 'getAll'])->name('transaksi-laundry-all');
+    Route::get('/transaksi-laundry-pegawai', [\App\Http\Controllers\Laundry\TransaksiController::class, 'getPegawai'])->name('transaksi-laundry-pegawai');
     Route::get('/transaksi-laundry-customer', [\App\Http\Controllers\Laundry\TransaksiController::class, 'getCustomer'])->name('transaksi-laundry-customer');
     Route::post('/transaksi-laundry-selesai', [\App\Http\Controllers\Laundry\TransaksiController::class, 'selesai'])->name('transaksi-laundry-selesai');
     Route::post('/transaksi-laundry-diambil', [\App\Http\Controllers\Laundry\TransaksiController::class, 'diambil'])->name('transaksi-laundry-diambil');
