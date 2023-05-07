@@ -159,7 +159,7 @@
                 </div><button class="btn-close btn-close-white position-absolute top-0 end-0 mt-2 me-2"
                     id="btn-close-modal" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{ route('master-currency-store') }}" id="form1" method="POST">
+            <form action="#" id="form1" method="POST">
                 @csrf
                 <div class="modal-body p-0">
                     <div class="p-4 pb-0">
