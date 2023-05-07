@@ -45,10 +45,10 @@
                                         </div>
                                         <!--/.bg-holder-->
                                         <div class="z-index-1 position-relative"><a
-                                                class="link-light mb-4 font-sans-serif fs-4 d-inline-block fw-bolder"
-                                                href="#">Money Changer</a>
+                                                class="link-light mb-4 font-sans-serif fs-3 d-inline-block fw-bolder"
+                                                href="#">Aplikasi Money Changer dan Laundry</a>
                                             <p class="opacity-75 text-white">Silahkan melakukan login terlebih dahulu
-                                                sebelum masuk ke dalam sistem kasir money changer!
+                                                sebelum masuk ke dalam sistem kasir money changer dan laundry!
                                             </p>
                                         </div>
                                     </div>

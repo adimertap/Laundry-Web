@@ -60,6 +60,7 @@ class JurnalBulananController extends Controller
         $transaksi = Transaksi::whereMonth('tanggal_transaksi', '=', $month)
         ->selectRaw('DATE_FORMAT(tanggal_transaksi, "%M") as month, SUM(total) as grand_total, tanggal_transaksi, COUNT(id_transaksi) as jumlah_transaksi')
         ->groupBy('tanggal_transaksi')
+        ->orderBy('tanggal_transaksi','DESC')
         ->get();
 
         $transaksi_seluruh = Transaksi::with('Pegawai')->whereMonth('tanggal_transaksi', '=', $month);
@@ -69,7 +70,7 @@ class JurnalBulananController extends Controller
         if($request->to){
             $transaksi_seluruh->where('tanggal_transaksi', '<=', $request->to);
         }
-        $transaksi_seluruh = $transaksi_seluruh->get();
+        $transaksi_seluruh = $transaksi_seluruh->orderBy('tanggal_transaksi','DESC')->get();
         $bulan = $month;
 
         return view('pages.jurnal.bulan.detail', compact('transaksi','transaksi_seluruh','bulan'));

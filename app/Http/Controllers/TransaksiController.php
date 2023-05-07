@@ -101,61 +101,67 @@ class TransaksiController extends Controller
 
     public function Export_dokumen(Request $request)
     {
-        if(Auth::user()->role == 'Pegawai'){
-            $transaksi = Transaksi::with('Pegawai')->join('tb_detail_transaksi','tb_transaksi.id_transaksi','tb_detail_transaksi.id_transaksi')
-            ->join('tb_currency','tb_detail_transaksi.currency_id','tb_currency.id_currency')->where('id_pegawai', Auth::user()->id);
-            if($request->id_currency){
-                $transaksi->where('currency_id', $request->id_currency);
-            }
-            $transaksi = $transaksi->where('tanggal_transaksi', Carbon::today())->get();
-            $total = $transaksi->sum('total');
-            $jumlah = $transaksi->count();
-            $today = Carbon::now()->format('d-M-Y');
-            // return $transaksi;
-    
-            if(count($transaksi) == 0){
-                Alert::warning('Tidak Ditemukan Data', 'Data yang Anda Cari Tidak Ditemukan');
-                return redirect()->back();
-            }else{
-                if($request->radio_input == 'pdf'){
-                    $pdf = Pdf::loadview('export.pdf-harian',['transaksi'=>$transaksi, 'total' =>$total,'jumlah' => $jumlah, 'today'=> $today]);
-                    return $pdf->download('report-harian '.$today.' '.Auth::user()->name.' .pdf');
-                    Alert::success('Berhasil', 'Data Transaksi Berhasil Didownload');
-                }else{
-                    return new ExcelHarian($transaksi);
+        try {
+            if(Auth::user()->role == 'Pegawai'){
+                $transaksi = Transaksi::with('Pegawai')->join('tb_detail_transaksi','tb_transaksi.id_transaksi','tb_detail_transaksi.id_transaksi')
+                ->join('tb_currency','tb_detail_transaksi.currency_id','tb_currency.id_currency')->where('id_pegawai', Auth::user()->id);
+                if($request->id_currency){
+                    $transaksi->where('currency_id', $request->id_currency);
                 }
-            }
-        }else{
-            $transaksi = Transaksi::with('Pegawai')->join('tb_detail_transaksi','tb_transaksi.id_transaksi','tb_detail_transaksi.id_transaksi')
-            ->join('tb_currency','tb_detail_transaksi.currency_id','tb_currency.id_currency')
-            ->where('tanggal_transaksi', Carbon::now()->format('Y-m-d'))->OrderBy('tb_transaksi.updated_at');
-            if($request->id_currency){
-                $transaksi->where('currency_id', $request->id_currency);
-            }
-            if($request->id_pegawai){
-                $transaksi->where('id_pegawai', $request->id_pegawai);
-            }
-            $transaksi = $transaksi->get();
-            $total = $transaksi->sum('total');
-            $jumlah = $transaksi->count();
-            $today = Carbon::now()->format('d-M-Y');
-            
-            if(count($transaksi) == 0){
-                Alert::warning('Tidak Ditemukan Data', 'Data yang Anda Cari Tidak Ditemukan');
-                return redirect()->back();
-            }else{
-                if($request->radio_input == 'pdf'){
-                    $pdf = Pdf::loadview('export.pdf-harian-owner',['transaksi'=>$transaksi, 'total' =>$total,'jumlah' => $jumlah, 'today' => $today]);
-                    if($request->id_pegawai){
-                        return $pdf->download('report-harian '.$today.' '.$transaksi[0]->Pegawai->name.' .pdf');
+                $transaksi = $transaksi->where('tanggal_transaksi', Carbon::today())->get();
+                $total = $transaksi->sum('total');
+                $jumlah = $transaksi->count();
+                $today = Carbon::now()->format('d-M-Y');
+                // return $transaksi;
+        
+                if(count($transaksi) == 0){
+                    Alert::warning('Tidak Ditemukan Data', 'Data yang Anda Cari Tidak Ditemukan');
+                    return redirect()->back();
+                }else{
+                    if($request->radio_input == 'pdf'){
+                        $pdf = Pdf::loadview('export.pdf-harian',['transaksi'=>$transaksi, 'total' =>$total,'jumlah' => $jumlah, 'today'=> $today]);
+                        return $pdf->download('report-harian '.$today.' '.Auth::user()->name.' .pdf');
+                        Alert::success('Berhasil', 'Data Transaksi Berhasil Didownload');
+                    }else{
+                        return new ExcelHarian($transaksi);
                     }
-                        return $pdf->download('report-harian '.$today.' .pdf');
-                    Alert::success('Berhasil', 'Data Transaksi Berhasil Didownload');
-                }else{
-                    return new ExcelHarianOwner($transaksi);
                 }
-            }
-        }        
+            }else{
+                $transaksi = Transaksi::with('Pegawai')->join('tb_detail_transaksi','tb_transaksi.id_transaksi','tb_detail_transaksi.id_transaksi')
+                ->join('tb_currency','tb_detail_transaksi.currency_id','tb_currency.id_currency')
+                ->where('tanggal_transaksi', Carbon::now()->format('Y-m-d'))->OrderBy('tb_transaksi.updated_at');
+                if($request->id_currency){
+                    $transaksi->where('currency_id', $request->id_currency);
+                }
+                if($request->id_pegawai){
+                    $transaksi->where('id_pegawai', $request->id_pegawai);
+                }
+                $transaksi = $transaksi->get();
+                $total = $transaksi->sum('total');
+                $jumlah = $transaksi->count();
+                $today = Carbon::now()->format('d-M-Y');
+                
+                if(count($transaksi) == 0){
+                    Alert::warning('Tidak Ditemukan Data', 'Data yang Anda Cari Tidak Ditemukan');
+                    return redirect()->back();
+                }else{
+                    if($request->radio_input == 'pdf'){
+                        $pdf = Pdf::loadview('export.pdf-harian-owner',['transaksi'=>$transaksi, 'total' =>$total,'jumlah' => $jumlah, 'today' => $today]);
+                        if($request->id_pegawai){
+                            return $pdf->download('report-harian '.$today.' '.$transaksi[0]->Pegawai->name.' .pdf');
+                        }
+                            return $pdf->download('report-harian '.$today.' .pdf');
+                        Alert::success('Berhasil', 'Data Transaksi Berhasil Didownload');
+                    }else{
+                        return new ExcelHarianOwner($transaksi);
+                    }
+                }
+            }      
+        } catch (\Throwable $th) {
+            Alert::warning('Error', 'Internal Server Error, Try Refreshing The Page');
+            return redirect()->back();
+        }
+         
     }
 
     /**
@@ -238,7 +244,6 @@ class TransaksiController extends Controller
             Alert::success('Berhasil', 'Data Transaksi Berhasil Ditambahkan');
             return $request;
         } catch (\Throwable $th) {
-            dd($th);
             Alert::warning('Error', 'Internal Server Error, Try Refreshing The Page');
             return redirect()->back();
         }  
@@ -351,7 +356,6 @@ class TransaksiController extends Controller
             Alert::success('Berhasil', 'Data Transaksi Berhasil Diedit');
             return $request;
         } catch (\Throwable $th) {
-            dd($th);
             Alert::warning('Error', 'Internal Server Error, Try Refreshing The Page');
             return redirect()->back();
         }
@@ -371,44 +375,48 @@ class TransaksiController extends Controller
 
     public function hapus(Request $request)
     {
-        $transaksi = Transaksi::find($request->transaksi_id);
-        $log = new LogEdit;
-        $log->id_pegawai = $transaksi->id_pegawai;
-        $log->id_modal = $transaksi->id_modal;
-        $log->jenis_log = 'Delete';
-        $log->keterangan_log = $request->keterangan_log;
-        $log->tanggal_transaksi = $transaksi->tanggal_transaksi;
-        $log->kode_transaksi = $transaksi->kode_transaksi;
-        $log->total = $transaksi->total;
-        $log->save();
-
-        $getDetail = DetailTransaksi::where('id_transaksi', $request->transaksi_id)->get(); 
-        foreach($getDetail as $item){
-            $new_det_log = new LogEditDetail();
-            $new_det_log->id_log = $log->id_log;
-            $new_det_log->currency_id = $item->currency_id;
-            $new_det_log->jumlah_currency = $item->jumlah_currency;
-            $new_det_log->jumlah_tukar = $item->jumlah_tukar;
-            $new_det_log->total_tukar = $item->total_tukar;
-            $new_det_log->save();
+        try {
+            $transaksi = Transaksi::find($request->transaksi_id);
+            $log = new LogEdit;
+            $log->id_pegawai = $transaksi->id_pegawai;
+            $log->id_modal = $transaksi->id_modal;
+            $log->jenis_log = 'Delete';
+            $log->keterangan_log = $request->keterangan_log;
+            $log->tanggal_transaksi = $transaksi->tanggal_transaksi;
+            $log->kode_transaksi = $transaksi->kode_transaksi;
+            $log->total = $transaksi->total;
+            $log->save();
+    
+            $getDetail = DetailTransaksi::where('id_transaksi', $request->transaksi_id)->get(); 
+            foreach($getDetail as $item){
+                $new_det_log = new LogEditDetail();
+                $new_det_log->id_log = $log->id_log;
+                $new_det_log->currency_id = $item->currency_id;
+                $new_det_log->jumlah_currency = $item->jumlah_currency;
+                $new_det_log->jumlah_tukar = $item->jumlah_tukar;
+                $new_det_log->total_tukar = $item->total_tukar;
+                $new_det_log->save();
+            }
+    
+            $jurnal = Jurnal::where('id_transaksi', $transaksi->id_transaksi)->get();
+            foreach($jurnal as $tes){
+                $tes->delete();
+            }
+            $detail = DetailTransaksi::where('id_transaksi', $transaksi->id_transaksi)->get();
+            foreach($detail as $s){
+                $s->delete();
+            }
+            $modal = ModalTransaksi::where('id_modal', $transaksi->id_modal)->first();
+            $perhitungan = $modal->riwayat_modal + $transaksi->total;
+            $modal->riwayat_modal = $perhitungan;
+            $modal->save();
+            $transaksi->delete();
+          
+            Alert::success('Berhasil', 'Data Transaksi Berhasil Terhapus');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            Alert::warning('Error', 'Internal Server Error, Try Refreshing The Page');
+            return redirect()->back();
         }
-
-        $jurnal = Jurnal::where('id_transaksi', $transaksi->id_transaksi)->get();
-        foreach($jurnal as $tes){
-            $tes->delete();
-        }
-        $detail = DetailTransaksi::where('id_transaksi', $transaksi->id_transaksi)->get();
-        foreach($detail as $s){
-            $s->delete();
-        }
-        $modal = ModalTransaksi::where('id_modal', $transaksi->id_modal)->first();
-        $perhitungan = $modal->riwayat_modal + $transaksi->total;
-        $modal->riwayat_modal = $perhitungan;
-        $modal->save();
-        $transaksi->delete();
-      
-        Alert::success('Berhasil', 'Data Transaksi Berhasil Terhapus');
-        return redirect()->back();
-
     }
 }

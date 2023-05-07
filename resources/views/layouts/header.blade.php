@@ -2,7 +2,7 @@
     data-navbar-top="combo">
     <button class="btn navbar-toggler-humburger-icon navbar-toggler me-1 me-sm-3 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
     <div class="collapse navbar-collapse scrollbar" id="navbarStandard">
-        <h6 class="mb-0">Aplikasi Money Changer</span></h6>
+        <h6 class="mb-0 fw-semibold text-muted underline">Aplikasi Money Changer dan Laundry</span></h6>
     </div>
     <ul class="navbar-nav navbar-nav-icons ms-auto flex-row align-items-center">
         <li class="nav-item">
@@ -36,9 +36,7 @@
                         </form>
                     </a>
                 </div>
-                <a href="{{ route('pilihAplikasi') }}" style="cursor: pointer; color:black">
-                    <div class="dropdown-item">Back to Home
-                </a>
+               
             </div>
         </li>
     </ul>

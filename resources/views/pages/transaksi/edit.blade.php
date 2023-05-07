@@ -28,7 +28,7 @@
                     </div>
                     <div class="col-4">
                         <label class="form-label" for="asal_negara">Asal Negara</label>
-                        <input class="form-control form-select-sm" id="asal_negara" name="asal_negara" type="text"
+                        <input class="form-control form-select-sm negara_asal" id="negara_asal" name="asal_negara" type="text"
                             placeholder="Input Asal Negara" value="{{ $transaksi->negara_asal }}" />
                     </div>
                 </div>
@@ -197,7 +197,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-                <button class="btn btn-success" type="button"
+                <button class="btn btn-success" type="button" id="btnSubmit"
                     onclick="submitdata(event, {{ $transaksi->id_transaksi }})">Kirim dan Update </button>
             </div>
         </div>
@@ -283,7 +283,9 @@
         var grand_total = $('#grand_total').html()
         var nama_customer = $('#nama_customer').val()
         var nomor_passport = $('#nomor_passport').val()
-        var negara_asal = $('#asal_negara').val()
+        var negara = $('.negara_asal').val()
+        console.log(negara)
+
         if (nama_customer == null || nama_customer == "") {
             Swal.fire({
                 icon: 'error',
@@ -378,14 +380,19 @@
                             jumlah_modal: jumlah_modal,
                             nama_customer: nama_customer,
                             nomor_passport: nomor_passport,
-                            asal_negara: asal_negara,
+                            asal_negara: negara,
                             detail: dataform2
                         }
+
+                        console.log(data)
 
                         $.ajax({
                             method: 'put',
                             url: '/transaksi/' + id_transaksi,
                             data: data,
+                            beforeSend: function () {
+                                $('#btnSubmit').prop('disabled', true);
+                            },
                             success: function (response) {
                                 window.location.href = '/transaksi'
                                 const Toast = Swal.mixin({
@@ -406,12 +413,16 @@
                                 })
                             },
                             error: function (response) {
-                                // console.log(response)
+                                console.log(response)
+                                $('#btnSubmit').prop('disabled', false);
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Oops...',
                                     text: 'Error! Transaksi Tidak dapat disimpan',
                                 })
+                            },
+                            complete: function(){
+                                $('#btnSubmit').prop('disabled', false);
                             }
                         });
                     }

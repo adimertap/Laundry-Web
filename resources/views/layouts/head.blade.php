@@ -40,5 +40,16 @@
             container.classList.add('container-fluid');
         }
 
+
+         $(document).ready(function () {
+            var path = window.location.pathname;
+
+            if (path === "/laundry" || path === "/") {
+                var tes = $('#ul_tes').html()
+                document.getElementById("dashboard-link").classList.add("show");
+            }
+         })
+
+
     </script>
 </head>
