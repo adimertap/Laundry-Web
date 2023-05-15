@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col">
                     <h5 class="mb-2">Transaksi Kode: <span class="text-primary">#{{ $tr->nomor_transaksi }}</span>
-                      <h6 class="text-uppercase text-600">Status: {{ $tr->status }}</h6>
+                      <h6 class="text-uppercase text-600">Status: {{ $tr->status }} dan {{ $tr->status_paid }}</h6>
                     
                 </div>
                 <div class="col-auto d-none d-sm-block">

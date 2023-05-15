@@ -34,17 +34,29 @@
                     </div>
                     <div class="card-body pt-1">
                         <input type="hidden" value="{{ $idbaru }}" id="id_transaksi" />
-                        <div class="col-12 mt-2">
-                            <label class="form-label" for="tanggal">Tanggal Transaksi</label><span class="mr-4 mb-3"
-                                style="color: red">*</span>
-                            <input class="form-control form-select-sm  @error('tanggal') is-invalid @enderror"
-                                name="tanggal" type="date" placeholder="Input Tanggal Transaksi" value="{{ $sekarang }}"
-                                required />
-                            @error('tanggal')
-                            <div class="invalid-feedback">
-                                <strong>{{ $message }}</strong>
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <label class="form-label" for="tanggal">Tanggal Transaksi</label><span class="mr-4 mb-3"
+                                    style="color: red">*</span>
+                                <input class="form-control form-select-sm  @error('tanggal') is-invalid @enderror"
+                                    name="tanggal" type="date" placeholder="Input Tanggal Transaksi" value="{{ $sekarang }}"
+                                    required />
+                                @error('tanggal')
+                                <div class="invalid-feedback">
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                                @enderror
                             </div>
-                            @enderror
+                            <div class="col-6">
+                                <label for="status_paid">Status Bayar</label><span class="mr-4 mb-3"
+                                    style="color: red">*</span>
+                                <select class="form-select form-select-sm" id="status_paid" size="1"
+                                    name="status_paid"
+                                    data-options='{"removeItemButton":true,"placeholder":true,"shouldSort":false}'>
+                                    <option value="unpaid">Belum</option>
+                                    <option value="paid">Terbayar</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="col-12 mt-2">
                             <label for="jenis">Pilih Jenis Customer</label><span class="mr-4 mb-3"
@@ -308,6 +320,7 @@
         var nama = form.find('input[name="nama_customer"]').val()
         var phone = form.find('input[name="nomor_telephone"]').val()
         var alamat = $('#alamat').val()
+        var status_paid = $('#status_paid').val()
         var tanggal = form.find('input[name="tanggal"]').val()
         var id_category = $('#jenisCustomer').val()
         var dataform2 = []
@@ -315,7 +328,6 @@
         var grand_total = temp_total.split('Rp&nbsp;')[1].replace('.', '').replace('.', '').trim()
         var total_berat = $('#berat_total').html().replace(' KG', '').trim()
 
-        console.log(alamat)
 
         if (jenis == "Pilih Jenis Terlebih Dahulu") {
             Swal.fire({
@@ -386,6 +398,7 @@
                     tanggal_transaksi: tanggal,
                     total: grand_total,
                     total_berat: total_berat,
+                    status_paid:status_paid,
                     detail: dataform2
                 }
                 console.log(data)

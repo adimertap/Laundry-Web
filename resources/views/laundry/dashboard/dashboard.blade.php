@@ -86,6 +86,27 @@
                     <div class="row g-0">
                         <div
                             class="col-6 col-md-6 border-200 border-md-200 border-bottom border-md-bottom-0 border-md-end pt-4 pb-md-0 ps-3 ps-md-0">
+                            <h6 class="pb-1 text-700">Transaksi Paid Hari Ini</h6>
+                            <p class="font-sans-serif lh-1 mb-1 fs-2">
+                                {{ number_format($total_paid_today, 0, ',', '.') }}</p>
+                            <div class="d-flex align-items-center">
+                                <h6 class="fs--1 text-500 mb-0">Transaksi</h6>
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-6 border-200 border-md-bottom-0 border-end pt-4 pb-md-0 ps-md-3">
+                            <h6 class="pb-1 text-700">Total Paid Keseluruhan </h6>
+                            <p class="font-sans-serif lh-1 mb-1 fs-2">Rp. {{ number_format($total_paid_all, 0, ',',
+                                '.') }}</p>
+                            <div class="d-flex align-items-center">
+                                <h6 class="fs--1 text-500 mb-0">Bulan {{ $bulan_ini }}</h6>
+                            </div>
+                        </div>
+
+                        <hr class="m-0 mt-3">
+
+                        <div
+                            class="col-6 col-md-6 border-200 border-md-200 border-bottom border-md-bottom-0 border-md-end pt-4 pb-md-0 ps-3 ps-md-0">
                             <h6 class="pb-1 text-700">Transaksi Bulan Ini</h6>
                             <p class="font-sans-serif lh-1 mb-1 fs-2">{{ $jumlah_bulan_ini, 0, ',', '.' }}</p>
                             <div class="d-flex align-items-center">
@@ -96,13 +117,13 @@
                         <div class="col-6 col-md-6 border-200 border-md-bottom-0 border-end pt-4 pb-md-0 ps-md-3">
                             <h6 class="pb-1 text-700">Total Transaksi Bulan Ini </h6>
                             <p class="font-sans-serif lh-1 mb-1 fs-2">Rp. {{ number_format($total_bulan_ini, 0, ',',
-                                '.') }}</p>
+                            '.') }}</p>
                             <div class="d-flex align-items-center">
                                 <h6 class="fs--1 text-500 mb-0">Bulan {{ $bulan_ini }}</h6>
                             </div>
                         </div>
-
                     </div>
+
                 </div>
             </div>
         </div>
@@ -114,7 +135,7 @@
                             <div class="col d-md-flex d-lg-block flex-between-center">
                                 <h6 class="mb-md-0 mb-lg-2">Laundry Masih Di Proses</h6><span
                                     class="badge rounded-pill badge-soft-success">
-                                  <span class="fas fa-caret-up"></span>
+                                    <span class="fas fa-caret-up"></span>
                                     {{ $proses_today }} Hari Ini</span>
                             </div>
                             <div class="col-auto">

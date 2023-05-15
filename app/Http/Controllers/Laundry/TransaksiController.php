@@ -90,6 +90,7 @@ class TransaksiController extends Controller
             $tr->id_pegawai = Auth::user()->id;
             $tr->nomor_transaksi = $nomor;
             $tr->status = 'proses';
+            $tr->status_paid = $request->status_paid;
             $tr->save();
             $tr->detail()->insert($request->detail);
             
@@ -102,10 +103,10 @@ class TransaksiController extends Controller
         }
     }
 
-    public function selesai(Request $request)
+    public function selesai(Request $request, $id)
     {
         try {
-            $tr = TransaksiLaundry::where('id_transaksi', $request->transaksi_id)->first();
+            $tr = TransaksiLaundry::where('id_transaksi', $id)->first();
             if($tr){
                 $tr->status = "selesai";
                 $tr->update();
@@ -122,12 +123,13 @@ class TransaksiController extends Controller
         }
     }
 
-    public function diambil(Request $request)
+    public function diambil(Request $request, $id)
     {
         try {
-            $tr = TransaksiLaundry::where('id_transaksi', $request->transaksi_id)->first();
+            $tr = TransaksiLaundry::where('id_transaksi', $id)->first();
             if($tr){
                 $tr->status = "diambil";
+                $tr->status_paid = 'paid';
                 $tr->tanggal_ambil = Carbon::now()->format('Y-m-d H:m:s');
                 $tr->update();
             }else{
@@ -206,6 +208,7 @@ class TransaksiController extends Controller
             $tr->nomor_telephone =$request->phone;
             $tr->total_berat = $request->total_berat;
             $tr->total = $request->total;
+            $tr->status_paid = $request->status_paid;
             $tr->detail()->delete();
             $tr->detail()->insert($request->detail);
             $tr->update();
@@ -229,10 +232,10 @@ class TransaksiController extends Controller
     public function destroy(Request $request, $id)
     {
         try {
-            $tr = TransaksiLaundry::find($request->transaksi_id);
+            $tr = TransaksiLaundry::find($id);
             $tr->delete();
 
-            $det = DetailTransaksiLaundry::where('id_transaksi', $request->transaksi_id)->first();
+            $det = DetailTransaksiLaundry::where('id_transaksi', $id)->first();
             if($det){
                 $det->delete();
             }

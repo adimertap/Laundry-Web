@@ -72,6 +72,8 @@
                                 <th class="sort text-center fs--1" data-sort="nomor_telephone">Phone</th>
                                 <th class="sort text-center fs--1" data-sort="total_berat">Berat</th>
                                 <th class="sort text-center fs--1" data-sort="total">Total</th>
+                                <th class="sort text-center fs--1" data-sort="status_paid">Bayar</th>
+
                                 <th class="sort text-center fs--1" data-sort="status">Status</th>
                                 <th class="text-center" style="width: 80px">Actions</th>
                             </tr>
@@ -86,7 +88,15 @@
                                 <td class="text-center nomor_telephone fs--1">{{ $item->nomor_telephone }}</td>
                                 <td class="text-center alamat fs--1">{{ $item->total_berat }} kg</td>
                                 <td class="text-center total text-center fs--1">Rp.
-                                    {{ number_format($item->total, 0,',', '.') }}</td>
+                                    {{ number_format($item->total, 0,',', '.') }}
+                                </td>
+                                <td class="text-center status text-center fs--1">
+                                    @if($item->status_paid == 'paid')
+                                        <span class="badge rounded-pill badge-soft-success">Paid</span>
+                                    @else
+                                        <span class="badge rounded-pill badge-soft-danger">Unpaid</span>
+                                    @endif
+                                </td>
                                 <td class="text-center status text-center fs--1">
                                     @if($item->status == 'diambil')
                                     <span class="badge rounded-pill badge-soft-success">Diambil</span>

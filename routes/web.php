@@ -71,8 +71,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/transaksi-laundry-all', [\App\Http\Controllers\Laundry\TransaksiController::class, 'getAll'])->name('transaksi-laundry-all');
     Route::get('/transaksi-laundry-pegawai', [\App\Http\Controllers\Laundry\TransaksiController::class, 'getPegawai'])->name('transaksi-laundry-pegawai');
     Route::get('/transaksi-laundry-customer', [\App\Http\Controllers\Laundry\TransaksiController::class, 'getCustomer'])->name('transaksi-laundry-customer');
-    Route::post('/transaksi-laundry-selesai', [\App\Http\Controllers\Laundry\TransaksiController::class, 'selesai'])->name('transaksi-laundry-selesai');
-    Route::post('/transaksi-laundry-diambil', [\App\Http\Controllers\Laundry\TransaksiController::class, 'diambil'])->name('transaksi-laundry-diambil');
+    Route::post('/transaksi-laundry-selesai/{id}', [\App\Http\Controllers\Laundry\TransaksiController::class, 'selesai'])->name('transaksi-laundry-selesai');
+    Route::post('/transaksi-laundry-diambil/{id}', [\App\Http\Controllers\Laundry\TransaksiController::class, 'diambil'])->name('transaksi-laundry-diambil');
     Route::get('/laundry-cetak/{id}', [\App\Http\Controllers\CetakController::class, 'cetak_laundry'])->name('cetak-laundry');
     Route::get('/laundry/download-harian', [\App\Http\Controllers\Laundry\TransaksiController::class, 'export_dokumen'])->name('export-dokumen-harian-laundry');
     Route::get('/laundry/download-tanggal/{tanggal_transaksi}', [\App\Http\Controllers\Laundry\TransaksiController::class, 'export_dokumen_tanggal'])->name('export-dokumen-tanggal-laundry');

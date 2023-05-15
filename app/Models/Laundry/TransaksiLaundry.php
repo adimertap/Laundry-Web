@@ -27,7 +27,8 @@ class TransaksiLaundry extends Model
         'total_berat',
         'id_pegawai',
         'status',
-        'tanggal_ambil'
+        'tanggal_ambil',
+        'status_paid'
     ];
 
     protected $hidden = [

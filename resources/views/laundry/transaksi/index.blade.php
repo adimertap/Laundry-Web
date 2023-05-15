@@ -69,6 +69,7 @@
                                 <th class="sort text-center fs--1" data-sort="nomor_telephone">Phone</th>
                                 <th class="sort text-center fs--1" data-sort="total_berat">Berat</th>
                                 <th class="sort text-center fs--1" data-sort="total">Total</th>
+                                <th class="sort text-center fs--1" data-sort="status_paid">Bayar</th>
                                 <th class="sort text-center fs--1" data-sort="status">Status</th>
                                 <th class="sort text-center fs--1" data-sort="print">Diambil</th>
                                 <th class="text-center" style="width: 80px">Actions</th>
@@ -87,8 +88,15 @@
                                 <td class="text-center nama_customer fs--1">{{ $item->nama_customer }}</td>
                                 <td class="text-center nomor_telephone fs--1">{{ $item->nomor_telephone }}</td>
                                 <td class="text-center alamat fs--1">{{ $item->total_berat }} kg</td>
-                                <td class="text-center total text-center fs--1">Rp.
+                                <td class="text-center status_paid text-center fs--1">Rp.
                                     {{ number_format($item->total, 0,',', '.') }}</td>
+                                    <td class="text-center status text-center fs--1">
+                                        @if($item->status_paid == 'paid')
+                                            <span class="badge rounded-pill badge-soft-success">Paid</span>
+                                        @else
+                                            <span class="badge rounded-pill badge-soft-danger">Unpaid</span>
+                                        @endif
+                                    </td>
                                 <td class="text-center status text-center fs--1">
                                     @if($item->status == 'diambil')
                                     <span class="badge rounded-pill badge-soft-success">Diambil</span>
@@ -100,15 +108,21 @@
                                 </td>
                                 <td class="text-center fs--1">
                                     @if($item->status == 'proses')
-                                    <button class="btn btn-xs btn-light fs---1 selesaiBtn"
-                                        value="{{ $item->id_transaksi }}" type="button"> Selesai
+                                    <button class="btn btn-xs btn-light fs---1" onclick="selesaiFunction({{ $item->id_transaksi }})"
+                                        value="{{ $item->id_transaksi }}"> Selesai
                                     </button>
+                                    <form id="selesai-form-{{ $item->id_transaksi }}" action="{{ route('transaksi-laundry-selesai', $item->id_transaksi) }}" method="post" style="display: none">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    </form>
                                     @elseif($item->status == 'selesai')
-                                    <button class="btn btn-xs btn-primary fs---1 diambilBtn"
-                                        value="{{ $item->id_transaksi }}" type="button"> Diambil
+                                    <button class="btn btn-xs btn-primary fs---1" onclick="diambiFunctionl({{ $item->id_transaksi }})"
+                                        value="{{ $item->id_transaksi }}"> Diambil
                                     </button>
+                                    <form id="diambil-form-{{ $item->id_transaksi }}" action="{{ route('transaksi-laundry-diambil', $item->id_transaksi) }}" method="post" style="display: none">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    </form>
                                     @else
-                                    {{ $formatted_date = date_format($date, 'd M Y H:i:s') }}
+                                    {{ date('d-M-Y H:i:s',strtotime($item->tanggal_ambil ?? '-')) }}
                                     @endif
                                 </td>
                                 <td class="text-center fs--1">
@@ -125,10 +139,13 @@
                                         type="button" data-bs-toggle="tooltip" data-bs-placement="top"
                                         title="Edit"><span class="text-700 fas fa-edit"></span>
                                     </a>
-                                    <button class="btn p-0 deleteModalBtn" value="{{ $item->id_transaksi }}"
-                                        type="button" data-bs-toggle="tooltip" data-bs-placement="top"
-                                        title="Delete"><span class="text-700 fas fa-trash-alt"></span>
+                                    <button class="btn p-0" onclick="deleteFunction({{ $item->id_transaksi }})"
+                                        value="{{ $item->id_transaksi }}"> <span class="text-700 fas fa-trash-alt"></span>
                                     </button>
+                                    <form id="delete-form-{{ $item->id_transaksi }}" action="{{ route('transaksi-laundry.destroy', $item->id_transaksi) }}" method="post" style="display: none">
+                                        @method('DELETE')
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    </form>
 
                                     @endif
 
@@ -145,44 +162,6 @@
         </div>
     </div>
 </main>
-
-<div class="modal fade" id="deleteModal" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content border-0">
-            <div class="position-absolute top-0 end-0 mt-3 me-3 z-index-1"><button
-                    class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal"
-                    aria-label="Close"></button></div>
-            <form action="{{ route('transaksi-laundry.destroy', "1") }}" method="POST">
-                @method("DELETE")
-                @csrf
-                <div class="modal-body p-0">
-                    <div class="bg-danger rounded-top-lg py-3 ps-4 pe-6">
-                        <h4 class="mb-1 text-white">Hapus Data Transaksi</h4>
-                    </div>
-                    <div class="p-3">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="d-flex">
-                                    <div class="flex-1">
-                                        <input type="hidden" name="transaksi_id" id="id_transaksi">
-                                        <h5 class="mb-2 fs-0">Confirmation</h5>
-                                        <p class="text-word-break fs--1">Apakah Anda Yakin Menghapus Data Transaksi ini?
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary btn-sm" type="button" data-bs-dismiss="modal">Close</button>
-                    <button class="btn btn-danger btn-sm" type="submit">Yes! Delete </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 
 <div class="modal fade" id="modalfilter" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
@@ -250,78 +229,6 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalSelesai" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content border-0">
-            <div class="position-absolute top-0 end-0 mt-3 me-3 z-index-1"><button
-                    class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal"
-                    aria-label="Close"></button></div>
-            <form action="{{ route('transaksi-laundry-selesai') }}" method="POST">
-                @csrf
-                <div class="modal-body p-0">
-                    <div class="bg-light rounded-top-lg py-3 ps-4 pe-6">
-                        <h4 class="mb-1">Ubah Status Transaksi</h4>
-                    </div>
-                    <div class="p-3">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="d-flex">
-                                    <div class="flex-1">
-                                        <input type="hidden" name="transaksi_id" id="id_transaksi_selesai">
-                                        <h5 class="mb-2 fs-0">Confirmation</h5>
-                                        <p class="text-word-break fs--1">Apakah Transaksi ini Telah Selesai?</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary btn-sm" type="button" data-bs-dismiss="modal">Close</button>
-                    <button class="btn btn-success btn-sm" type="submit">Ya! Selesai </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="modalDiambil" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content border-0">
-            <div class="position-absolute top-0 end-0 mt-3 me-3 z-index-1"><button
-                    class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal"
-                    aria-label="Close"></button></div>
-            <form action="{{ route('transaksi-laundry-diambil') }}" method="POST">
-                @csrf
-                <div class="modal-body p-0">
-                    <div class="bg-light rounded-top-lg py-3 ps-4 pe-6">
-                        <h5 class="mb-1">Ubah Status Laundry Telah Diambil</h5>
-                    </div>
-                    <div class="p-3">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="d-flex">
-                                    <div class="flex-1">
-                                        <input type="hidden" name="transaksi_id" id="id_transaksi_diambil">
-                                        <h6 class="mb-2 fs-0">Confirmation</h6>
-                                        <p class="text-word-break fs--1">Apakah Laundry Telah diambil oleh Customer?</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary btn-sm" type="button" data-bs-dismiss="modal">Close</button>
-                    <button class="btn btn-success btn-sm" type="submit">Ya! Sudah </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
 @if(!empty(Session::get('modal-tes')) && Session::get('modal-tes') == 5)
 <script>
     $(function () {
@@ -331,6 +238,59 @@
 @endif
 
 <script>
+      function deleteFunction(itemId) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                event.preventDefault()
+                document.getElementById(`delete-form-${itemId}`).submit()
+            }
+        })
+    }
+
+      function selesaiFunction(itemId) {
+        Swal.fire({
+            title: 'Laundry Selesai?',
+            text: "Apakah Laundry Ini Telah Selesai?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya! Telah Selesai'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                event.preventDefault()
+                document.getElementById(`selesai-form-${itemId}`).submit()
+            }
+        })
+    }
+
+    function diambiFunctionl(itemId) {
+        Swal.fire({
+            title: 'Laundry Diambil?',
+            text: "Apakah Laundry Telah Diambil?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya! Telah Diambil'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                event.preventDefault()
+                document.getElementById(`diambil-form-${itemId}`).submit()
+            }
+        })
+    }
+
+
+
     $(document).ready(function () {
         $('.deleteModalBtn').click(function (e) {
             e.preventDefault();

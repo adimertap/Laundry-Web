@@ -26,6 +26,7 @@ class DashboardController extends Controller
             $pegawai = User::count();
             $modal = ModalTransaksi::where('tanggal_modal', Carbon::now()->format('Y-m-d'))->where('status_modal', 'Pending')->count();
             $sisa_modal = ModalTransaksi::where('tanggal_modal', Carbon::now()->format('Y-m-d'))->where('status_modal', 'Terima')->first();
+            $laundry = TransaksiLaundry::where('tanggal_transaksi', Carbon::now()->format('Y-m-d'))->where('status_paid','paid')->sum('total');
             $jumlah_bulan_ini = Transaksi::whereMonth('tanggal_transaksi', $month)->count();
             $total_bulan_ini = Transaksi::whereMonth('tanggal_transaksi', $month)->sum('total');
             $total_modal_bulan_ini = ModalTransaksi::whereMonth('tanggal_modal', $month)->sum('jumlah_modal');
@@ -64,6 +65,7 @@ class DashboardController extends Controller
                 'total_hari_ini',
                 'currency',
                 'pegawai',
+                'laundry',
                 'modal',
                 'sisa_modal',
                 'jumlah_bulan_ini',

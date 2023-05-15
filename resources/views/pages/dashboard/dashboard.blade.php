@@ -151,14 +151,14 @@
             <div class="card py-3 mb-3">
                 <div class="card-body py-3">
                     <div class="row g-0">
-                        <div class="col-6 col-md-4 border-200 border-bottom border-end pb-4">
+                        <div class="col-6 col-md-3 border-200 border-bottom border-end pb-4">
                             <h6 class="pb-1 text-700">Transaksi Hari Ini</h6>
                             <p class="font-sans-serif lh-1 mb-1 fs-2">{{ $jumlah_hari_ini }}</p>
                             <div class="d-flex align-items-center">
                                 <h6 class="fs--1 text-500 mb-0">Transaksi</h6>
                             </div>
                         </div>
-                        <div class="col-6 col-md-4 border-200 border-md-200 border-bottom border-md-end pb-4 ps-3">
+                        <div class="col-6 col-md-3 border-200 border-md-200 border-bottom border-md-end pb-4 ps-3">
                             <h6 class="pb-1 text-700">Total Transaksi Hari Ini</h6>
                             <p class="font-sans-serif lh-1 mb-1 fs-2">Rp. {{ number_format($total_hari_ini, 0, ',', '.')
                                 }}</p>
@@ -166,8 +166,7 @@
                                 <h6 class="fs--1 text-500 mb-0">Hari Ini</h6>
                             </div>
                         </div>
-                        <div
-                            class="col-6 col-md-4 border-200 border-bottom border-end border-md-end-0 pb-4 pt-4 pt-md-0 ps-md-3">
+                        <div class="col-6 col-md-3 border-200 border-md-200 border-bottom border-end border-md-end pb-4 ps-3">
                             <h6 class="pb-1 text-700">Sisa Modal Hari Ini </h6>
                             <p class="font-sans-serif lh-1 mb-1 fs-2">
                                 @if ($sisa_modal == null)
@@ -187,6 +186,27 @@
                                 </h6>
                             </div>
                         </div>
+                        <div class="col-6 col-md-3 border-200 border-bottom border-end border-md-end-0 pb-4 pt-4 pt-md-0 ps-md-3">
+                            <h6 class="pb-1 text-700">Sisa Modal Hari Ini + Laundry Terbayar</h6>
+                            <p class="font-sans-serif lh-1 mb-1 fs-2">
+                                @if ($sisa_modal == null)
+
+                                @else
+                                Rp. {{ number_format($sisa_modal->riwayat_modal + $laundry, 0, ',', '.') }}
+                                @endif
+                            </p>
+
+                            <div class="d-flex align-items-center">
+                                <h6 class="fs--1 text-500 mb-0">
+                                    @if ($sisa_modal == null)
+                                    Hari Ini Belum Terdapat Modal
+                                    @else
+                                    Dari Rp. {{ number_format($sisa_modal->total_modal_backup + $laundry, 0, ',', '.') }}
+                                    @endif
+                                </h6>
+                            </div>
+                        </div>
+
                         <div
                             class="col-6 col-md-4 border-200 border-md-200 border-bottom border-md-bottom-0 border-md-end pt-4 pb-md-0 ps-3 ps-md-0">
                             <h6 class="pb-1 text-700">Transaksi Bulan Ini</h6>

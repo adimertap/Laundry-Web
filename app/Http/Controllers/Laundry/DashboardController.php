@@ -33,7 +33,17 @@ class DashboardController extends Controller
         $selesai = TransaksiLaundry::where('status', 'selesai')->count();
         $selesai_today = TransaksiLaundry::where('tanggal_transaksi', Carbon::now()->format('Y-m-d'))->where('status', 'selesai')->count();
 
+        $total_paid_today = TransaksiLaundry::where('tanggal_transaksi', Carbon::now()->format('Y-m-d'))->where('status_paid','paid')->sum('total');
+        $total_paid_all = TransaksiLaundry::where('status_paid','paid')->sum('total');
+
+        $sisa_modal_today = ModalTransaksi::where('tanggal_modal', Carbon::now()->format('Y-m-d'))->where('status_modal', 'Terima')->first();
+        $sisa_modal_all = ModalTransaksi::where('status_modal', 'Terima')->first();
+        
+
+
         return view('laundry.dashboard.dashboard', compact(
+            'total_paid_today',
+            'total_paid_all',
             'jumlah_hari_ini',
             'total_hari_ini',
             'type',

@@ -184,10 +184,19 @@
                         {{ number_format($tr->total, 0, ',', '.') }}</p>
                 </div>
             </div>
-            <div class="mt-6">
+            <div class="mt-5">
     
     
             </div>
+            @if($tr->status_paid == 'paid')
+            <p class="fs-1 text-center text-600 fw-semibold mb-2 m-0">
+                -- PAID --
+            </p>
+            @else
+            <p class="fs-1 text-danger text-center fw-semibold mb-2 m-0">
+                -- UNPAID --
+            </p>
+            @endif
             <p class="text-600 fs--2 text-center m-0 justify">
                 THANK YOU FOR TRANSACTING WITH RIASTA LAUNDRY & DRY
                 PLEASE CHECK YOUR CASH AND TRANSACTION BEFORE LEAVING.
@@ -279,10 +288,21 @@
                         {{ number_format($tr->total, 0, ',', '.') }}</p>
                 </div>
             </div>
-            <div class="mt-6">
+            <div class="mt-5">
     
     
             </div>
+           
+            @if($tr->status_paid == 'paid')
+            <p class="fs-1 text-center text-600 fw-semibold mb-2 m-0">
+                -- PAID --
+            </p>
+            @else
+            <p class="fs-1 text-danger text-center fw-semibold mb-2 m-0">
+                -- UNPAID --
+            </p>
+            @endif
+        
             <p class="text-600 fs--2 text-center m-0 justify">
                 THANK YOU FOR TRANSACTING WITH RIASTA LAUNDRY & DRY
                 PLEASE CHECK YOUR CASH AND TRANSACTION BEFORE LEAVING.
