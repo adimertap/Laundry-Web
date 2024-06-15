@@ -18,8 +18,9 @@
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
+
 namespace Teapot\StatusCode\Vendor;
 
 /**
@@ -39,7 +40,7 @@ namespace Teapot\StatusCode\Vendor;
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
 interface Apache
 {
@@ -50,5 +51,5 @@ interface Apache
      *
      * @var int
      */
-    const BANDWIDTH_LIMIT_EXCEEDED = 509;
+    public const BANDWIDTH_LIMIT_EXCEEDED = 509;
 }

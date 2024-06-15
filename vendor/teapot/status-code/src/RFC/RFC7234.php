@@ -18,8 +18,9 @@
  * @copyright 2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
+
 namespace Teapot\StatusCode\RFC;
 
 use Teapot\StatusCode\RFC\Status\ProposedStandard;
@@ -42,47 +43,46 @@ use Teapot\StatusCode\RFC\Stream\IETF as IETFStream;
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
-
-interface RFC7234 extends ProposedStandard, IETFStream
+interface RFC7234 extends IETFStream, ProposedStandard
 {
     /**
      * A cache SHOULD generate this whenever the sent response is stale.
      *
-     * @link https://tools.ietf.org/html/rfc7234#section-5.5.1
-     * @var  int
+     * @see https://datatracker.ietf.org/doc/html/rfc7234#section-5.5.1
+     * @var int
      */
-    const RESPONSE_IS_STALE = 110;
+    public const RESPONSE_IS_STALE = 110;
 
     /**
      * A cache SHOULD generate this when sending a stale response because an
      * attempt to validate the response failed, due to an inability to reach
      * the server.
      *
-     * @link https://tools.ietf.org/html/rfc7234#section-5.5.2
-     * @var  int
+     * @see https://datatracker.ietf.org/doc/html/rfc7234#section-5.5.2
+     * @var int
      */
-    const REVALIDATION_FAILED = 111;
+    public const REVALIDATION_FAILED = 111;
 
     /**
      * A cache SHOULD generate this if it is intentionally disconnected from
      * the rest of the network for a period of time.
      *
-     * @link https://tools.ietf.org/html/rfc7234#section-5.5.3
-     * @var  int
+     * @see https://datatracker.ietf.org/doc/html/rfc7234#section-5.5.3
+     * @var int
      */
-    const DISCONNECTED_OPERATION = 112;
+    public const DISCONNECTED_OPERATION = 112;
 
     /**
      * A cache SHOULD generate this if it heuristically chose a freshness
      * lifetime greater than 24 hours and the response's age is greater than
      * 24 hours.
      *
-     * @link https://tools.ietf.org/html/rfc7234#section-5.5.4
-     * @var  int
+     * @see https://datatracker.ietf.org/doc/html/rfc7234#section-5.5.4
+     * @var int
      */
-    const HEURISTIC_EXPIRATION = 113;
+    public const HEURISTIC_EXPIRATION = 113;
 
     /**
      * The warning text can include arbitrary information to be presented to
@@ -90,10 +90,10 @@ interface RFC7234 extends ProposedStandard, IETFStream
      * take any automated action, besides presenting the warning to the
      * user.
      *
-     * @link https://tools.ietf.org/html/rfc7234#section-5.5.5
-     * @var  int
+     * @see https://datatracker.ietf.org/doc/html/rfc7234#section-5.5.5
+     * @var int
      */
-    const MISCELLANEOUS_WARNING = 199;
+    public const MISCELLANEOUS_WARNING = 199;
 
     /**
      * This Warning code MUST be added by a proxy if it applies any
@@ -101,18 +101,18 @@ interface RFC7234 extends ProposedStandard, IETFStream
      * content-coding, media-type, or modifying the representation data,
      * unless this Warning code already appears in the response.
      *
-     * @link https://tools.ietf.org/html/rfc7234#section-5.5.6
-     * @var  int
+     * @see https://datatracker.ietf.org/doc/html/rfc7234#section-5.5.6
+     * @var int
      */
-    const TRANSFORMATION_APPLIED = 214;
+    public const TRANSFORMATION_APPLIED = 214;
 
     /**
      * The warning text can include arbitrary information to be presented to
      * a human user or logged.  A system receiving this warning MUST NOT
      * take any automated action.
      *
-     * @link https://tools.ietf.org/html/rfc7234#section-5.5.7
-     * @var  int
+     * @see https://datatracker.ietf.org/doc/html/rfc7234#section-5.5.7
+     * @var int
      */
-    const MISCELLANEOUS_PERSISTENT_WARNING = 299;
+    public const MISCELLANEOUS_PERSISTENT_WARNING = 299;
 }

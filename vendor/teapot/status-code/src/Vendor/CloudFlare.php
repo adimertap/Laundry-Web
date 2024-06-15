@@ -18,8 +18,9 @@
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
+
 namespace Teapot\StatusCode\Vendor;
 
 /**
@@ -39,7 +40,7 @@ namespace Teapot\StatusCode\Vendor;
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
 interface CloudFlare
 {
@@ -54,14 +55,11 @@ interface CloudFlare
      * be the case if you're sending an abnormally high number of cookies for
      * example.
      *
-     * @codingStandardsIgnoreStart
-     *
-     * @link https://support.cloudflare.com/hc/en-us/articles/200171936-Error-520
-     * @codingStandardsIgnoreEnd
+     * @see https://support.cloudflare.com/hc/en-us/articles/115003011431-Error-520#520error
      *
      * @var int
      */
-    const ORIGIN_ERROR = 520;
+    public const ORIGIN_ERROR = 520;
 
     /**
      * An Error 521 means that the origin web server refused the connection from
@@ -78,14 +76,11 @@ interface CloudFlare
      * security solutions can mistake the increase in connections from this
      * smaller set of IPs as an attack, when they are legitimate.
      *
-     * @codingStandardsIgnoreStart
-     *
-     * @link https://support.cloudflare.com/hc/en-us/articles/200171916-Error-521
-     * @codingStandardsIgnoreEnd
+     * @see https://support.cloudflare.com/hc/en-us/articles/115003011431-Error-520#521error
      *
      * @var int
      */
-    const ORIGIN_DECLINED_REQUEST = 521;
+    public const ORIGIN_DECLINED_REQUEST = 521;
 
     /**
      * An Error 522 means that the connection started on the origin web server,
@@ -104,14 +99,11 @@ interface CloudFlare
      * The likely cause is that a background task is timing out. The most common
      * cause would be the database or a slow application.
      *
-     * @codingStandardsIgnoreStart
-     *
-     * @link https://support.cloudflare.com/hc/en-us/articles/200171906-Error-522
-     * @codingStandardsIgnoreEnd
+     * @see https://support.cloudflare.com/hc/en-us/articles/115003011431-Error-520#522error
      *
      * @var int
      */
-    const CONNECTION_TIMED_OUT = 522;
+    public const CONNECTION_TIMED_OUT = 522;
 
     /**
      * This status code is not specified in any RFCs, but is used by
@@ -126,14 +118,11 @@ interface CloudFlare
      * As soon as you make the change in your CloudFlare DNS Settings page, wait
      * up to 5 minutes for it to take effect.
      *
-     * @codingStandardsIgnoreStart
-     *
-     * @link https://support.cloudflare.com/hc/en-us/articles/200171946-Error-523
-     * @codingStandardsIgnoreEnd
+     * @see https://support.cloudflare.com/hc/en-us/articles/115003011431-Error-520#523error
      *
      * @var int
      */
-    const PROXY_DECLINED_REQUEST = 523;
+    public const PROXY_DECLINED_REQUEST = 523;
 
     /**
      * This status code is not specified in any RFCs, but is used by
@@ -151,12 +140,9 @@ interface CloudFlare
      * server is overloaded. With a 524 error, the connection is made but then
      * the request times out.
      *
-     * @codingStandardsIgnoreStart
-     *
-     * @link https://support.cloudflare.com/hc/en-us/articles/200171926-Error-524
-     * @codingStandardsIgnoreEnd
+     * @see https://support.cloudflare.com/hc/en-us/articles/115003011431-Error-520#524error
      *
      * @var int
      */
-    const TIMEOUT_OCCURRED = 524;
+    public const TIMEOUT_OCCURRED = 524;
 }

@@ -18,12 +18,10 @@
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @codingStandardsIgnoreStart
- *
- * @link https://shrikeh.github.com/teapot
- * @link http://lists.w3.org/Archives/Public/public-web-perf/2013Apr/att-0007/WebRequestStatusCodes4.html
- * @codingStandardsIgnoreEnd
+ * @see https://github.com/teapot-php/status-code
+ * @see http://lists.w3.org/Archives/Public/public-web-perf/2013Apr/att-0007/WebRequestStatusCodes4.html
  */
+
 namespace Teapot\StatusCode;
 
 use Teapot\StatusCode\RFC\RFC7168 as HTCPCPTea;
@@ -53,21 +51,18 @@ use Teapot\StatusCode\RFC\RFC7725 as LegalObstacles;
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @codingStandardsIgnoreStart
- *
- * @link https://shrikeh.github.com/teapot
- * @link http://lists.w3.org/Archives/Public/public-web-perf/2013Apr/att-0007/WebRequestStatusCodes4.html
- * @codingStandardsIgnoreEnd
+ * @see https://github.com/teapot-php/status-code
+ * @see http://lists.w3.org/Archives/Public/public-web-perf/2013Apr/att-0007/WebRequestStatusCodes4.html
  */
 interface Http extends
-    HTCPCPTea,
-    SemanticsAndContent,
-    ConditionalRequests,
-    RangeRequests,
-    Caching,
     Authentication,
-    PermanentRedirect,
+    Caching,
+    ConditionalRequests,
+    HTCPCPTea,
     HTTP2,
-    LegalObstacles
+    LegalObstacles,
+    PermanentRedirect,
+    RangeRequests,
+    SemanticsAndContent
 {
 }

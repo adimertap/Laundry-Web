@@ -19,8 +19,9 @@
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
+
 namespace Teapot\StatusCode\RFC;
 
 use Teapot\StatusCode\RFC\Status\Expired as ExpiredStatus;
@@ -44,7 +45,7 @@ use Teapot\StatusCode\RFC\Stream\IETF as IETFStream;
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
 interface PEP extends ExpiredStatus, IETFStream
 {
@@ -66,11 +67,11 @@ interface PEP extends ExpiredStatus, IETFStream
      * Implementers may note the similarity to the way authentication
      * challenges are issued with the 401 (Unauthorized) status-code.
      *
-     * @link http://www.w3.org/TR/WD-http-pep-971121.html#_Toc404743960
+     * @see https://www.w3.org/TR/WD-http-pep-971121.html#_Toc404743960
      * @deprecated
      * @var int
      */
-    const POLICY_NOT_FULFILLED = 420;
+    public const POLICY_NOT_FULFILLED = 420;
 
     /**
      * The mappings indicated by one or more map attribute bags in the request
@@ -79,9 +80,9 @@ interface PEP extends ExpiredStatus, IETFStream
      * believes that it can find a unique set of header fields for which the
      * transaction will succeed.
      *
-     * @link http://www.w3.org/TR/WD-http-pep-971121.html#_Toc404743961
+     * @see https://www.w3.org/TR/WD-http-pep-971121.html#_Toc404743961
      * @deprecated
      * @var int
      */
-    const BAD_MAPPING = 421;
+    public const BAD_MAPPING = 421;
 }

@@ -18,8 +18,9 @@
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
+
 namespace Teapot\StatusCode\RFC;
 
 use Teapot\StatusCode\RFC\Status\Informational as InformationalStatus;
@@ -42,7 +43,7 @@ use Teapot\StatusCode\RFC\Stream\Legacy as LegacyStream;
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
 interface RFC2324 extends InformationalStatus, LegacyStream
 {
@@ -50,9 +51,9 @@ interface RFC2324 extends InformationalStatus, LegacyStream
      * The HTCPCP server is a teapot; the resulting entity may be short and
      * stout. Demonstrations of this behaviour exist.
      *
-     * @link http://www.ietf.org/rfc/rfc2324.txt
+     * @see https://datatracker.ietf.org/doc/html/rfc2324#section-2.3.2
      *
      * @var int
      */
-    const I_AM_A_TEAPOT = 418;
+    public const I_AM_A_TEAPOT = 418;
 }

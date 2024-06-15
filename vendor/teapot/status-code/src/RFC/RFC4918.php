@@ -18,8 +18,9 @@
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
+
 namespace Teapot\StatusCode\RFC;
 
 use Teapot\StatusCode\RFC\Status\ProposedStandard;
@@ -42,9 +43,9 @@ use Teapot\StatusCode\RFC\Stream\IETF as IETFStream;
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
-interface RFC4918 extends ProposedStandard, IETFStream
+interface RFC4918 extends IETFStream, ProposedStandard
 {
     /**
      * The message body that follows is an XML message and can contain a
@@ -58,11 +59,11 @@ interface RFC4918 extends ProposedStandard, IETFStream
      * destination resource was locked and could not be overwritten, then the
      * destination resource URL appears with the 423 (Locked) status.
      *
-     * @link http://www.ietf.org/rfc/rfc4918.txt
+     * @see https://datatracker.ietf.org/doc/html/rfc4918/#section-11.1
      *
      * @var int
      */
-    const MULTI_STATUS = 207;
+    public const MULTI_STATUS = 207;
 
     /**
      * The 422 (Unprocessable Entity) status code means the server understands
@@ -74,11 +75,11 @@ interface RFC4918 extends ProposedStandard, IETFStream
      * request body contains well-formed (i.e., syntactically correct), but
      * semantically erroneous, XML instructions.
      *
-     * @link http://www.ietf.org/rfc/rfc4918.txt
+     * @see https://datatracker.ietf.org/doc/html/rfc4918/#section-11.2
      *
      * @var int
      */
-    const UNPROCESSABLE_ENTITY = 422;
+    public const UNPROCESSABLE_ENTITY = 422;
 
     /**
      * The 423 (Locked) status code means the source or destination resource
@@ -86,22 +87,22 @@ interface RFC4918 extends ProposedStandard, IETFStream
      * precondition or post-condition code, such as 'lock-token-submitted' or
      * 'no-conflicting-lock'.
      *
-     * @link http://www.ietf.org/rfc/rfc4918.txt
+     * @see https://datatracker.ietf.org/doc/html/rfc4918/#section-11.3
      *
      * @var int
      */
-    const ENTITY_LOCKED = 423;
+    public const ENTITY_LOCKED = 423;
 
     /**
      * Indicates the method was not executed on a particular resource within
      * its scope because some part of the method's execution failed causing the
      * entire method to be aborted.
      *
-     * @link http://www.ietf.org/rfc/rfc4918.txt
+     * @see https://datatracker.ietf.org/doc/html/rfc4918/#section-11.4
      *
      * @var int
      */
-    const METHOD_FAILURE = 424;
+    public const METHOD_FAILURE = 424;
 
     /**
      * The 424 (Failed Dependency) status code means that the method could not
@@ -110,19 +111,19 @@ interface RFC4918 extends ProposedStandard, IETFStream
      * command in a PROPPATCH method fails then, at minimum, the rest
      * of the commands will also fail with 424 (Failed Dependency).
      *
-     * @link http://www.ietf.org/rfc/rfc4918.txt
+     * @see https://datatracker.ietf.org/doc/html/rfc4918/#section-11.4
      *
      * @var int
      */
-    const FAILED_DEPENDENCY = 424;
+    public const FAILED_DEPENDENCY = 424;
 
     /**
      * The server is unable to store the representation needed to complete the
      * request.
      *
-     * @link http://www.ietf.org/rfc/rfc4918.txt
+     * @see https://datatracker.ietf.org/doc/html/rfc4918/#section-11.5
      *
      * @var int
      */
-    const INSUFFICIENT_STORAGE = 507;
+    public const INSUFFICIENT_STORAGE = 507;
 }

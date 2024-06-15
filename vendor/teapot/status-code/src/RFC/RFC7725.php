@@ -19,8 +19,9 @@
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
+
 namespace Teapot\StatusCode\RFC;
 
 use Teapot\StatusCode\RFC\Status\ProposedStandard;
@@ -44,9 +45,9 @@ use Teapot\StatusCode\RFC\Stream\IETF as IETFStream;
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
-interface RFC7725 extends ProposedStandard, IETFStream
+interface RFC7725 extends IETFStream, ProposedStandard
 {
     /**
      * This status code indicates that the server is subject to legal
@@ -62,12 +63,9 @@ interface RFC7725 extends ProposedStandard, IETFStream
      * legal authority is imposing it, and what class of resources it
      * applies to.
      *
-     * @codingStandardsIgnoreStart
-     *
-     * @link http://tools.ietf.org/html/draft-tbray-http-legally-restricted-status-00#section-3
-     * @codingStandardsIgnoreEnd
+     * @see https://datatracker.ietf.org/doc/html/rfc7725#section-3
      *
      * @var int
      */
-    const UNAVAILABLE_FOR_LEGAL_REASONS = 451;
+    public const UNAVAILABLE_FOR_LEGAL_REASONS = 451;
 }

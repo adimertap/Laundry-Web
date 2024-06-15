@@ -82,9 +82,6 @@ class TransaksiController extends Controller
             Alert::warning('Error', 'Internal Server Error, Try Refreshing The Page');
             return redirect()->back();
         }
-      
-           
-             
     }
 
     public function getkurs($id_currency)

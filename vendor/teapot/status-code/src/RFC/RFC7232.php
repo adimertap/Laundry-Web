@@ -18,8 +18,9 @@
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
+
 namespace Teapot\StatusCode\RFC;
 
 use Teapot\StatusCode\RFC\Status\ProposedStandard;
@@ -42,9 +43,9 @@ use Teapot\StatusCode\RFC\Stream\IETF as IETFStream;
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
-interface RFC7232 extends ProposedStandard, IETFStream
+interface RFC7232 extends IETFStream, ProposedStandard
 {
     /**
      * The 304 (Not Modified) status code indicates that a conditional GET or
@@ -78,13 +79,11 @@ interface RFC7232 extends ProposedStandard, IETFStream
      * A 304 response cannot contain a message-body; it is always terminated by
      * the first empty line after the header fields.
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7232#section-4.1
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7232.html#status.304
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const NOT_MODIFIED = 304;
+    public const NOT_MODIFIED = 304;
 
     /**
      * The 412 (Precondition Failed) status code indicates that one or more
@@ -94,11 +93,9 @@ interface RFC7232 extends ProposedStandard, IETFStream
      * and metadata) and, thus, prevent the request method from being applied if
      * the target resource is in an unexpected state.
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7232#section-4.2
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7232.html#status.412
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const PRECONDITION_FAILED = 412;
+    public const PRECONDITION_FAILED = 412;
 }

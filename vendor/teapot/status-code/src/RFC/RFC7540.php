@@ -18,8 +18,9 @@
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
+
 namespace Teapot\StatusCode\RFC;
 
 use Teapot\StatusCode\RFC\Status\ProposedStandard;
@@ -44,9 +45,9 @@ use Teapot\StatusCode\RFC\Stream\IETF as IETFStream;
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
-interface RFC7540 extends ProposedStandard, IETFStream
+interface RFC7540 extends IETFStream, ProposedStandard
 {
     /**
      * The 421 (Misdirected Request) status code indicates that the request was
@@ -65,9 +66,9 @@ interface RFC7540 extends ProposedStandard, IETFStream
      * by the method definition or explicit cache controls (see Section 4.2.2 of
      * [RFC7234]).
      *
-     * @link https://http2.github.io/http2-spec/#MisdirectedRequest
+     * @see https://datatracker.ietf.org/doc/html/rfc7540#section-9.1.2
      *
      * @var int
      */
-    const MISDIRECTED_REQUEST = 421;
+    public const MISDIRECTED_REQUEST = 421;
 }

@@ -18,8 +18,9 @@
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
+
 namespace Teapot\StatusCode\RFC;
 
 use Teapot\StatusCode\RFC\Status\Experimental as ExperimentalStatus;
@@ -42,7 +43,7 @@ use Teapot\StatusCode\RFC\Stream\Legacy as LegacyStream;
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
 interface RFC2774 extends ExperimentalStatus, LegacyStream
 {
@@ -60,9 +61,9 @@ interface RFC2774 extends ExperimentalStatus, LegacyStream
      * included in the 510 response to the user, since that entity may
      * include relevant diagnostic information.
      *
-     * @link http://tools.ietf.org/search/rfc2774#section-7
+     * @see https://datatracker.ietf.org/doc/html/rfc2774#section-7
      *
      * @var int
      */
-    const NOT_EXTENDED = 510;
+    public const NOT_EXTENDED = 510;
 }

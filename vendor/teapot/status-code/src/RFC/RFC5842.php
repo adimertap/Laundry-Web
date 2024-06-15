@@ -18,8 +18,9 @@
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
+
 namespace Teapot\StatusCode\RFC;
 
 use Teapot\StatusCode\RFC\Status\Experimental as ExperimentalStatus;
@@ -42,7 +43,7 @@ use Teapot\StatusCode\RFC\Stream\IETF as IETFStream;
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
 interface RFC5842 extends ExperimentalStatus, IETFStream
 {
@@ -58,23 +59,20 @@ interface RFC5842 extends ExperimentalStatus, IETFStream
      * bindings will use the 208 status, and no DAV:response elements for
      * their descendants are included.
      *
-     * @link http://www.ietf.org/rfc/rfc5842.txt
+     * @see https://datatracker.ietf.org/doc/html/rfc5842#section-7.1
      *
      * @var int
      */
-    const ALREADY_REPORTED = 208;
+    public const ALREADY_REPORTED = 208;
 
     /**
      * The 508 (Loop Detected) status code indicates that the server detected
      * an infinite loop while processing a request with "Depth: infinity".
      * (sent in lieu of 208).
      *
-     * @codingStandardsIgnoreStart
-     *
-     * @link https://tools.ietf.org/html/draft-ietf-webdav-collection-protocol-04#section-7.1
-     * @codingStandardsIgnoreEnd
+     * @see https://datatracker.ietf.org/doc/html/rfc5842#section-7.2
      *
      * @var int
      */
-    const LOOP_DETECTED = 508;
+    public const LOOP_DETECTED = 508;
 }

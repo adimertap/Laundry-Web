@@ -18,8 +18,9 @@
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
+
 namespace Teapot\StatusCode;
 
 use Teapot\StatusCode\RFC\PEP;
@@ -44,15 +45,15 @@ use Teapot\StatusCode\RFC\RFC3229 as HttpDeltas;
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
 interface All extends
-    WebDAV,
-    PEP,
     ContentNegotiation,
-    Rtsp,
     Http,
     HttpDeltas,
-    Vendor
+    PEP,
+    Rtsp,
+    Vendor,
+    WebDAV
 {
 }

@@ -28,13 +28,13 @@ use Cloudinary\Utils;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Promise;
+use GuzzleHttp\Promise\Create;
 use GuzzleHttp\Promise\PromiseInterface;
 use InvalidArgumentException;
 use JsonSerializable;
 use Psr\Http\Message\ResponseInterface;
-use Teapot\StatusCode;
-use Teapot\StatusCode\Vendor\Twitter;
+use Teapot\StatusCode\Http as HttpStatusCode;
+use Teapot\StatusCode\Vendor\Twitter as TwitterStatusCode;
 
 /**
  * Class BaseApiClient
@@ -55,13 +55,13 @@ class BaseApiClient
      */
     const CLOUDINARY_API_ERROR_CLASSES
         = [
-            StatusCode::BAD_REQUEST           => BadRequest::class,
-            StatusCode::UNAUTHORIZED          => AuthorizationRequired::class,
-            StatusCode::FORBIDDEN             => NotAllowed::class,
-            StatusCode::NOT_FOUND             => NotFound::class,
-            StatusCode::CONFLICT              => AlreadyExists::class,
-            Twitter::ENHANCE_YOUR_CALM        => RateLimited::class, // RFC6585::TOO_MANY_REQUESTS
-            StatusCode::INTERNAL_SERVER_ERROR => GeneralError::class,
+            HttpStatusCode::BAD_REQUEST           => BadRequest::class,
+            HttpStatusCode::UNAUTHORIZED          => AuthorizationRequired::class,
+            HttpStatusCode::FORBIDDEN             => NotAllowed::class,
+            HttpStatusCode::NOT_FOUND             => NotFound::class,
+            HttpStatusCode::CONFLICT              => AlreadyExists::class,
+            TwitterStatusCode::ENHANCE_YOUR_CALM  => RateLimited::class, // RFC6585::TOO_MANY_REQUESTS
+            HttpStatusCode::INTERNAL_SERVER_ERROR => GeneralError::class,
         ];
 
     /**
@@ -318,6 +318,10 @@ class BaseApiClient
     protected function callAsync($method, $endPoint, $options)
     {
         $endPoint = self::finalizeEndPoint($endPoint);
+        $options['headers'] = ArrayUtils::mergeNonEmpty(
+            ArrayUtils::get($options, 'headers', []),
+            ArrayUtils::get($options, 'extra_headers', [])
+        );
         $this->getLogger()->debug("Making async $method request", ['method' => $method, 'endPoint' => $endPoint]);
 
         return $this
@@ -330,7 +334,7 @@ class BaseApiClient
                         ['statusCode' => $response->getStatusCode()]
                     );
                     try {
-                        return Promise\promise_for($this->handleApiResponse($response));
+                        return Create::promiseFor($this->handleApiResponse($response));
                     } catch (Exception $e) {
                         $this->getLogger()->critical(
                             'Async request failed',
@@ -340,7 +344,7 @@ class BaseApiClient
                             ]
                         );
 
-                        return Promise\rejection_for($e);
+                        return Create::rejectionFor($e);
                     }
                 },
                 function (Exception $error) {
@@ -352,10 +356,10 @@ class BaseApiClient
                         ]
                     );
                     if ($error instanceof ClientException) {
-                        return Promise\rejection_for($this->handleApiResponse($error->getResponse()));
+                        return Create::rejectionFor($this->handleApiResponse($error->getResponse()));
                     }
 
-                    return Promise\rejection_for($error);
+                    return Create::rejectionFor($error);
                 }
             );
     }
@@ -393,7 +397,7 @@ class BaseApiClient
     {
         $statusCode = $response->getStatusCode();
 
-        if ($statusCode !== StatusCode::OK) {
+        if ($statusCode !== HttpStatusCode::OK) {
             if (array_key_exists($statusCode, self::CLOUDINARY_API_ERROR_CLASSES)) {
                 $errorClass   = self::CLOUDINARY_API_ERROR_CLASSES[$statusCode];
                 $responseJson = $this->parseJsonResponse($response);

@@ -28,9 +28,10 @@
                                 class="nav-link-text ps-1">Dashboard</span></div>
                     </a>
                     @php
-                        $dashboardRoutes = ['dashboard', 'dashboard-laundry'];
+                    $dashboardRoutes = ['dashboard', 'dashboard-laundry'];
                     @endphp
-                    <ul class="nav collapse {{ (in_array(request()->route()->getName(), $dashboardRoutes)) ? 'show' : '' }}" id="dashboard" style="">
+                    <ul class="nav collapse {{ (in_array(request()->route()->getName(), $dashboardRoutes)) ? 'show' : '' }}"
+                        id="dashboard" style="">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('dashboard') }}" data-bs-toggle="" aria-expanded="false">
                                 <div class="d-flex align-items-center">
@@ -92,9 +93,10 @@
                         </div>
                     </a>
                     @php
-                        $master_temp = ['laundry-type.index', 'laundry-jenis.index'];
+                    $master_temp = ['laundry-type.index', 'laundry-jenis.index'];
                     @endphp
-                    <ul class="nav collapse {{ (in_array(request()->route()->getName(), $master_temp)) ? 'show' : '' }}" id="master" style="">
+                    <ul class="nav collapse {{ (in_array(request()->route()->getName(), $master_temp)) ? 'show' : '' }}"
+                        id="master" style="">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('laundry-type.index') }}" data-bs-toggle=""
                                 aria-expanded="false">
@@ -127,9 +129,10 @@
                             </span><span class="nav-link-text ps-1">Money Changer</span></div>
                     </a>
                     @php
-                        $money_temp = ['modal.index', 'transaksi.create'];
+                    $money_temp = ['modal.index', 'transaksi.create'];
                     @endphp
-                    <ul class="nav collapse {{ (in_array(request()->route()->getName(), $money_temp)) ? 'show' : '' }}" id="transaksimoney" style="">
+                    <ul class="nav collapse {{ (in_array(request()->route()->getName(), $money_temp)) ? 'show' : '' }}"
+                        id="transaksimoney" style="">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('modal.index') }}" data-bs-toggle=""
                                 aria-expanded="false">
@@ -154,9 +157,10 @@
                             </span><span class="nav-link-text ps-1">Laundry</span></div>
                     </a>
                     @php
-                        $laundry_temp = ['transaksi-laundry.create'];
+                    $laundry_temp = ['transaksi-laundry.create'];
                     @endphp
-                    <ul class="nav collapse {{ (in_array(request()->route()->getName(), $laundry_temp)) ? 'show' : '' }}" id="transaksilaundry" style="">
+                    <ul class="nav collapse {{ (in_array(request()->route()->getName(), $laundry_temp)) ? 'show' : '' }}"
+                        id="transaksilaundry" style="">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('transaksi-laundry.create') }}" data-bs-toggle=""
                                 aria-expanded="false">
@@ -184,9 +188,11 @@
                         </div>
                     </a>
                     @php
-                        $laporan_money = ['transaksi.index', 'jurnal-harian.index', 'jurnal-debit-kredit.index', 'jurnal-bulanan.index' ];
+                    $laporan_money = ['transaksi.index', 'jurnal-harian.index', 'jurnal-debit-kredit.index',
+                    'jurnal-bulanan.index' ];
                     @endphp
-                    <ul class="nav collapse {{ (in_array(request()->route()->getName(), $laporan_money)) ? 'show' : '' }}" id="laporanmoney" style="">
+                    <ul class="nav collapse {{ (in_array(request()->route()->getName(), $laporan_money)) ? 'show' : '' }}"
+                        id="laporanmoney" style="">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('transaksi.index') }}" data-bs-toggle=""
                                 aria-expanded="false">
@@ -234,9 +240,11 @@
                                 Laundry</span></div>
                     </a>
                     @php
-                        $laporan_laundry = ['transaksi-laundry.index', 'transaksi-laundry-all', 'transaksi-laundry-customer', 'bulanan-laundry.index' ];
+                    $laporan_laundry = ['transaksi-laundry.index', 'transaksi-laundry-all',
+                    'transaksi-laundry-customer', 'bulanan-laundry.index' ];
                     @endphp
-                    <ul class="nav collapse {{ (in_array(request()->route()->getName(), $laporan_laundry)) ? 'show' : '' }}" id="laporanLaundry" style="">
+                    <ul class="nav collapse {{ (in_array(request()->route()->getName(), $laporan_laundry)) ? 'show' : '' }}"
+                        id="laporanLaundry" style="">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('transaksi-laundry.index') }}" data-bs-toggle=""
                                 aria-expanded="false">

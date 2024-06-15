@@ -18,8 +18,9 @@
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
+
 namespace Teapot\StatusCode\RFC;
 
 use Teapot\StatusCode\RFC\Status\ProposedStandard;
@@ -42,17 +43,17 @@ use Teapot\StatusCode\RFC\Stream\IETF as IETFStream;
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
-interface RFC2518 extends ProposedStandard, IETFStream
+interface RFC2518 extends IETFStream, ProposedStandard
 {
     /**
      * This code indicates that the server has received and is processing the
      * request, but no response is available yet.
      *
-     * @link http://www.ietf.org/rfc/rfc2518.txt
+     * @see https://datatracker.ietf.org/doc/html/rfc2518#section-10.1
      *
      * @var int
      */
-    const PROCESSING = 102;
+    public const PROCESSING = 102;
 }

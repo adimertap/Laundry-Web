@@ -18,8 +18,9 @@
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
+
 namespace Teapot\StatusCode\RFC;
 
 use Teapot\StatusCode\RFC\Status\ProposedStandard;
@@ -42,9 +43,9 @@ use Teapot\StatusCode\RFC\Stream\IETF as IETFStream;
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
-interface RFC6585 extends ProposedStandard, IETFStream
+interface RFC6585 extends IETFStream, ProposedStandard
 {
     /**
      * The origin server requires the request to be conditional. Its typical
@@ -59,11 +60,11 @@ interface RFC6585 extends ProposedStandard, IETFStream
      *
      * Responses with the 428 status code MUST NOT be stored by a cache.
      *
-     * @link http://tools.ietf.org/html/rfc6585
+     * @see https://datatracker.ietf.org/doc/html/rfc6585#section-3
      *
      * @var int
      */
-    const PRECONDITION_REQUIRED = 428;
+    public const PRECONDITION_REQUIRED = 428;
 
     /**
      * The 429 status code indicates that the user has sent too many requests
@@ -98,11 +99,11 @@ interface RFC6585 extends ProposedStandard, IETFStream
      *
      * Responses with the 429 status code MUST NOT be stored by a cache.
      *
-     * @link http://tools.ietf.org/html/rfc6585
+     * @see https://datatracker.ietf.org/doc/html/rfc6585#section-4
      *
      * @var int
      */
-    const TOO_MANY_REQUESTS = 429;
+    public const TOO_MANY_REQUESTS = 429;
 
     /**
      * The 431 status code indicates that the server is unwilling to process
@@ -114,11 +115,11 @@ interface RFC6585 extends ProposedStandard, IETFStream
      * case, the response representation SHOULD specify which header field
      * was too large.
      *
-     * @link http://tools.ietf.org/html/rfc6585
+     * @see https://datatracker.ietf.org/doc/html/rfc6585#section-5
      *
      * @var int
      */
-    const REQUEST_HEADER_FIELDS_TOO_LARGE = 431;
+    public const REQUEST_HEADER_FIELDS_TOO_LARGE = 431;
 
     /**
      * The 511 status code is designed to mitigate problems caused by
@@ -138,9 +139,9 @@ interface RFC6585 extends ProposedStandard, IETFStream
      * dedicated to "logging in" unknown clients, and of course traffic to
      * the login server itself.
      *
-     * @link http://tools.ietf.org/html/rfc6585
+     * @see https://datatracker.ietf.org/doc/html/rfc6585#section-6
      *
      * @var int
      */
-    const NETWORK_AUTHENTICATION_REQUIRED = 511;
+    public const NETWORK_AUTHENTICATION_REQUIRED = 511;
 }

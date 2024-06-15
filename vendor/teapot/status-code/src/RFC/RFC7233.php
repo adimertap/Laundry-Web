@@ -18,8 +18,9 @@
  * @copyright 2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
+
 namespace Teapot\StatusCode\RFC;
 
 use Teapot\StatusCode\RFC\Status\ProposedStandard;
@@ -42,9 +43,9 @@ use Teapot\StatusCode\RFC\Stream\IETF as IETFStream;
  * @copyright 2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
-interface RFC7233 extends ProposedStandard, IETFStream
+interface RFC7233 extends IETFStream, ProposedStandard
 {
     /**
      * The 206 (Partial Content) status code indicates that the server is
@@ -140,44 +141,38 @@ interface RFC7233 extends ProposedStandard, IETFStream
      * A 206 response is cacheable by default; i.e., unless otherwise indicated
      * by explicit cache controls (see Section 4.2.2 of [RFC7234]).
      *
-     * @codingStandardsIgnoreStart
-     *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7233.html#status.206
-     * @codingStandardsIgnoreEnd
+     * @see https://datatracker.ietf.org/doc/html/rfc7233#section-4.1
      *
      * @var int
      */
-    const PARTIAL_CONTENT = 206;
+    public const PARTIAL_CONTENT = 206;
 
     /**
-    * The 416 (Range Not Satisfiable) status code indicates that none of the
-    * ranges in the request's Range header field (Section 3.1) overlap the
-    * current extent of the selected resource or that the set of ranges
-    * requested has been rejected due to invalid ranges or an excessive request
-    * of small or overlapping ranges.
-    *
-    * For byte ranges, failing to overlap the current extent means that the
-    * first-byte-pos of all of the byte-range-spec values were greater than the
-    * current length of the selected representation. When this status code is
-    * generated in response to a byte-range request, the sender should generate
-    * a Content-Range header field specifying the current length of the selected
-    * representation (Section 4.2).
-    *
-    * Note: Because servers are free to ignore Range, many implementations will
-    * simply respond with the entire selected representation in a 200 (OK)
-    * response. That is partly because most clients are prepared to receive a
-    * 200 (OK) to complete the task (albeit less efficiently) and partly because
-    * clients might not stop making an invalid partial request until they have
-    * received a complete representation. Thus, clients cannot depend on
-    * receiving a 416 (Range Not Satisfiable) response even when it is most
-    * appropriate.
-    *
-    * @codingStandardsIgnoreStart
-    *
-    * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7233.html#status.416
-    * @codingStandardsIgnoreEnd
-    *
-    * @var int
-    */
-    const RANGE_NOT_SATISFIABLE = 416;
+     * The 416 (Range Not Satisfiable) status code indicates that none of the
+     * ranges in the request's Range header field (Section 3.1) overlap the
+     * current extent of the selected resource or that the set of ranges
+     * requested has been rejected due to invalid ranges or an excessive request
+     * of small or overlapping ranges.
+     *
+     * For byte ranges, failing to overlap the current extent means that the
+     * first-byte-pos of all of the byte-range-spec values were greater than the
+     * current length of the selected representation. When this status code is
+     * generated in response to a byte-range request, the sender should generate
+     * a Content-Range header field specifying the current length of the selected
+     * representation (Section 4.2).
+     *
+     * Note: Because servers are free to ignore Range, many implementations will
+     * simply respond with the entire selected representation in a 200 (OK)
+     * response. That is partly because most clients are prepared to receive a
+     * 200 (OK) to complete the task (albeit less efficiently) and partly because
+     * clients might not stop making an invalid partial request until they have
+     * received a complete representation. Thus, clients cannot depend on
+     * receiving a 416 (Range Not Satisfiable) response even when it is most
+     * appropriate.
+     *
+     * @see https://datatracker.ietf.org/doc/html/rfc7233#section-4.4
+     *
+     * @var int
+     */
+    public const RANGE_NOT_SATISFIABLE = 416;
 }

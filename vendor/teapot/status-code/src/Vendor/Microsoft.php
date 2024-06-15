@@ -18,8 +18,9 @@
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
+
 namespace Teapot\StatusCode\Vendor;
 
 /**
@@ -39,7 +40,7 @@ namespace Teapot\StatusCode\Vendor;
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
 interface Microsoft
 {
@@ -48,7 +49,7 @@ interface Microsoft
      *
      * @var int
      */
-    const LOGIN_TIMEOUT = 440;
+    public const LOGIN_TIMEOUT = 440;
 
     /**
      * A Microsoft extension. The request should be retried after performing
@@ -61,11 +62,11 @@ interface Microsoft
      * sends a "HTTP/1.1 449 Retry with valid parameters: param1, param2, . . ."
      * response. The applications may choose to learn, or not.
      *
-     * @link http://msdn.microsoft.com/en-us/library/dd891478.aspx
+     * @see https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-wdv/83ecf19f-e0f8-4706-aae5-ba618f52f100
      *
      * @var int
      */
-    const RETRY_WITH = 449;
+    public const RETRY_WITH = 449;
 
     /**
      * A Microsoft extension. This error is given when Windows Parental Controls
@@ -73,7 +74,7 @@ interface Microsoft
      *
      * @var int
      */
-    const BLOCKED_BY_WINDOWS_PARENTAL_CONTROLS = 450;
+    public const BLOCKED_BY_WINDOWS_PARENTAL_CONTROLS = 450;
 
     /**
      * Used in Exchange ActiveSync if there either is a more efficient server
@@ -84,5 +85,5 @@ interface Microsoft
      *
      * @var int
      */
-    const REDIRECT = 451;
+    public const REDIRECT = 451;
 }

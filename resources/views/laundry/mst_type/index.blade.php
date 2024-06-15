@@ -95,9 +95,7 @@
                 </div>
             </div>
         </div>
-
     </div>
-
 </main>
 
 <div class="modal fade" id="modal-tambah" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1"

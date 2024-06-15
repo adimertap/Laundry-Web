@@ -18,8 +18,9 @@
  * @copyright 2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
+
 namespace Teapot\StatusCode\RFC;
 
 use Teapot\StatusCode\RFC\Status\ProposedStandard;
@@ -42,65 +43,61 @@ use Teapot\StatusCode\RFC\Stream\IETF as IETFStream;
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
-
-interface RFC7231 extends ProposedStandard, IETFStream
+interface RFC7231 extends IETFStream, ProposedStandard
 {
+    /**
+     * The 100 (Continue) status code indicates that the initial part of a request
+     * has been received and has not yet been rejected by the server. The server
+     * intends to send a final response after the request has been fully received
+     * and acted upon.
+     *
+     * When the request contains an Expect header field that includes a
+     * 100-continue expectation, the 100 response indicates that the server wishes
+     * to receive the request payload body, as described in Section 5.1.1. The
+     * client ought to continue sending the request and discard the 100 response.
+     *
+     * If the request did not contain an Expect header field containing the
+     * 100-continue expectation, the client can simply discard this interim
+     * response.
+     *
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.2.1
+     *
+     * @var int
+     */
+    public const CONTINUING = 100;
 
     /**
-   * The 100 (Continue) status code indicates that the initial part of a request
-   * has been received and has not yet been rejected by the server. The server
-   * intends to send a final response after the request has been fully received
-   * and acted upon.
-   *
-   * When the request contains an Expect header field that includes a
-   * 100-continue expectation, the 100 response indicates that the server wishes
-   * to receive the request payload body, as described in Section 5.1.1. The
-   * client ought to continue sending the request and discard the 100 response.
-   *
-   * If the request did not contain an Expect header field containing the
-   * 100-continue expectation, the client can simply discard this interim
-   * response.
-   * @codingStandardsIgnoreStart
-   *
-   * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.100
-   * @codingStandardsIgnoreEnd
-   * @var int
-   */
-    const CONTINUING = 100;
+     * As 'continue' is a reserved word in PHP, we append an underscore, so
+     * developers can decide whether to use CONTINUING or CONTINUE_ as their
+     * preferred choice of constant.
+     *
+     * @see Teapot\StatusCode\RFC\RFC7231:CONTINUING
+     * @var int
+     */
+    public const CONTINUE_ = self::CONTINUING;
 
     /**
-   * As 'continue' is a reserved word in PHP, we append an underscore, so
-   * developers can decide whether to use CONTINUING or CONTINUE_ as their
-   * preferred choice of constant.
-   *
-   * @see Teapot\StatusCode\RFC\RFC7231:CONTINUING
-   * @var int
-   */
-    const CONTINUE_ = self::CONTINUING;
-
-    /**
-   * The 101 (Switching Protocols) status code indicates that the server
-   * understands and is willing to comply with the client's request, via the
-   * Upgrade header field (Section 6.7 of [RFC7230]), for a change in the
-   * application protocol being used on this connection. The server must
-   * generate an Upgrade header field in the response that indicates which
-   * protocol(s) will be switched to immediately after the empty line that
-   * terminates the 101 response.¶
-   *
-   * It is assumed that the server will only agree to switch protocols when it
-   * is advantageous to do so. For example, switching to a newer version of HTTP
-   * might be advantageous over older versions, and switching to a real-time,
-   * synchronous protocol might be advantageous when delivering resources that
-   * use such features.
-   * @codingStandardsIgnoreStart
-   *
-   * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.101
-   * @codingStandardsIgnoreEnd
-   * @var int
-   */
-    const SWITCHING_PROTOCOLS = 101;
+     * The 101 (Switching Protocols) status code indicates that the server
+     * understands and is willing to comply with the client's request, via the
+     * Upgrade header field (Section 6.7 of [RFC7230]), for a change in the
+     * application protocol being used on this connection. The server must
+     * generate an Upgrade header field in the response that indicates which
+     * protocol(s) will be switched to immediately after the empty line that
+     * terminates the 101 response.¶
+     *
+     * It is assumed that the server will only agree to switch protocols when it
+     * is advantageous to do so. For example, switching to a newer version of HTTP
+     * might be advantageous over older versions, and switching to a real-time,
+     * synchronous protocol might be advantageous when delivering resources that
+     * use such features.
+     *
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.2.2
+     *
+     * @var int
+     */
+    public const SWITCHING_PROTOCOLS = 101;
 
     /**
      * The 200 (OK) status code indicates that the request has succeeded. The
@@ -127,17 +124,16 @@ interface RFC7231 extends ProposedStandard, IETFStream
      * instead. For CONNECT, no payload is allowed because the successful result
      * is a tunnel, which begins immediately after the 200 response header
      * section.
-     * @codingStandardsIgnoreStart
      *
      *  A 200 response is cacheable by default; i.e., unless otherwise indicated
      * by the method definition or explicit cache controls (see Section 4.2.2 of
-     * {@link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7234.html#heuristic.freshness RFC7234}).
+     * {@link https://datatracker.ietf.org/doc/html/rfc7234#section-4.2.2 RFC7234}).
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.101
-     * @codingStandardsIgnoreEnd
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.3.1
+     *
      * @var int
      */
-    const OK = 200;
+    public const OK = 200;
 
     /**
      * The 201 (Created) status code indicates that the request has been
@@ -151,13 +147,11 @@ interface RFC7231 extends ProposedStandard, IETFStream
      * validator header fields, such as ETag and Last-Modified, in a 201
      * response.
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.3.2
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.201
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const CREATED = 201;
+    public const CREATED = 201;
 
     /**
      * The 202 (Accepted) status code indicates that the request has been
@@ -175,13 +169,11 @@ interface RFC7231 extends ProposedStandard, IETFStream
      * monitor that can provide the user with an estimate of when the request
      * will be fulfilled.
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.3.3
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.202
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const ACCEPTED = 202;
+    public const ACCEPTED = 202;
 
     /**
      * The 203 (Non-Authoritative Information) status code indicates that the
@@ -201,25 +193,11 @@ interface RFC7231 extends ProposedStandard, IETFStream
      * by the method definition or explicit cache controls (see Section 4.2.2 of
      * [RFC7234]).
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.3.4
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.203
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const NON_AUTHORITATIVE_INFORMATION = 203;
-
-    /**
-     * The 203 (Non-Authoritative Information) status code used to be available
-     * via NON_AUTHORATIVE_INFORMATION, which contained a typo. This typo has
-     * since been fixed and this constant has been deprecated in favor of the
-     * properly spelled constant.
-     *
-     * @see Teapot\StatusCode\RFC\RFC7231:NON_AUTHORITATIVE_INFORMATION
-     * @var int
-     * @deprecated
-     */
-    const NON_AUTHORATIVE_INFORMATION = self::NON_AUTHORITATIVE_INFORMATION;
+    public const NON_AUTHORITATIVE_INFORMATION = 203;
 
     /**
      * The 204 (No Content) status code indicates that the server has
@@ -254,13 +232,11 @@ interface RFC7231 extends ProposedStandard, IETFStream
      * by the method definition or explicit cache controls (see Section 4.2.2 of
      * [RFC7234]).
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.3.5
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.204
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const NO_CONTENT = 204;
+    public const NO_CONTENT = 204;
 
     /**
      * The 205 (Reset Content) status code indicates that the server has
@@ -286,13 +262,11 @@ interface RFC7231 extends ProposedStandard, IETFStream
      * c) close the connection immediately after sending the blank line
      * terminating the header section.
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.3.6
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.205
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const RESET_CONTENT = 205;
+    public const RESET_CONTENT = 205;
 
     /**
      * The 300 (Multiple Choices) status code indicates that the target resource
@@ -334,13 +308,11 @@ interface RFC7231 extends ProposedStandard, IETFStream
      * with a relationship of "alternate", though deployment is a
      * chicken-and-egg problem.
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.4.1
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.300
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const MULTIPLE_CHOICES = 300;
+    public const MULTIPLE_CHOICES = 300;
 
     /**
      * The 301 (Moved Permanently) status code indicates that the target
@@ -364,13 +336,11 @@ interface RFC7231 extends ProposedStandard, IETFStream
      * by the method definition or explicit cache controls (see Section 4.2.2 of
      * [RFC7234]).
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.4.2
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.301
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const MOVED_PERMANENTLY = 301;
+    public const MOVED_PERMANENTLY = 301;
 
     /**
      * The 302 (Found) status code indicates that the target resource resides
@@ -388,13 +358,11 @@ interface RFC7231 extends ProposedStandard, IETFStream
      * from POST to GET for the subsequent request. If this behavior is
      * undesired, the 307 (Temporary Redirect) status code can be used instead.
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.4.3
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.302
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const FOUND = 302;
+    public const FOUND = 302;
 
     /**
      * The 303 (See Other) status code indicates that the server is redirecting
@@ -426,39 +394,33 @@ interface RFC7231 extends ProposedStandard, IETFStream
      * response ought to contain a short hypertext note with a hyperlink to the
      * same URI reference provided in the Location header field.
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.4.4
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.303
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const SEE_OTHER = 303;
+    public const SEE_OTHER = 303;
 
     /**
      * The 305 (Use Proxy) status code was defined in a previous version of this
      * specification and is now deprecated
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.4.5
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.305
-     * @codingStandardsIgnoreEnd
      * @var int
      * @deprecated
      */
-    const USE_PROXY = 305;
+    public const USE_PROXY = 305;
 
     /**
      * The 306 (Unused) status code was defined in a previous version of this
      * specification, is no longer used, and the code is reserved.
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.4.6
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.306
-     * @codingStandardsIgnoreEnd
      * @var int
      * @deprecated
      */
-    const UNUSED = 306;
+    public const UNUSED = 306;
 
     /**
      * The 307 (Temporary Redirect) status code indicates that the target
@@ -480,13 +442,11 @@ interface RFC7231 extends ProposedStandard, IETFStream
      * however, defines the status code 308 (Permanent Redirect) for this
      * purpose).
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.4.7
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.307
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const TEMPORARY_REDIRECT = 307;
+    public const TEMPORARY_REDIRECT = 307;
 
     /**
      * The 400 (Bad Request) status code indicates that the server cannot or
@@ -494,24 +454,20 @@ interface RFC7231 extends ProposedStandard, IETFStream
      * client error (e.g., malformed request syntax, invalid request message
      * framing, or deceptive request routing).
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.1
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.400
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const BAD_REQUEST = 400;
+    public const BAD_REQUEST = 400;
 
     /**
      * The 402 (Payment Required) status code is reserved for future use.
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.2
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.402
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const PAYMENT_REQUIRED = 402;
+    public const PAYMENT_REQUIRED = 402;
 
     /**
      * The 403 (Forbidden) status code indicates that the server understood the
@@ -529,13 +485,11 @@ interface RFC7231 extends ProposedStandard, IETFStream
      * forbidden target resource may instead respond with a status code of 404
      * (Not Found).
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.3
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.403
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const FORBIDDEN = 403;
+    public const FORBIDDEN = 403;
 
     /**
      * The 404 (Not Found) status code indicates that the origin server did not
@@ -550,13 +504,11 @@ interface RFC7231 extends ProposedStandard, IETFStream
      * by the method definition or explicit cache controls (see Section 4.2.2 of
      * [RFC7234]).
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.4
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.404
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const NOT_FOUND = 404;
+    public const NOT_FOUND = 404;
 
     /**
      * The 405 (Method Not Allowed) status code indicates that the method
@@ -569,13 +521,11 @@ interface RFC7231 extends ProposedStandard, IETFStream
      * by the method definition or explicit cache controls (see Section 4.2.2 of
      * [RFC7234]).
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.5
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.405
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const METHOD_NOT_ALLOWED = 405;
+    public const METHOD_NOT_ALLOWED = 405;
 
     /**
      * The 406 (Not Acceptable) status code indicates that the target resource
@@ -591,13 +541,11 @@ interface RFC7231 extends ProposedStandard, IETFStream
      * that list. However, this specification does not define any standard for
      * such automatic selection, as described in Section 6.4.1.
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.6
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.406
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const NOT_ACCEPTABLE = 406;
+    public const NOT_ACCEPTABLE = 406;
 
     /**
      * The 408 (Request Timeout) status code indicates that the server did not
@@ -608,13 +556,11 @@ interface RFC7231 extends ProposedStandard, IETFStream
      * the client has an outstanding request in transit, the client may repeat
      * that request on a new connection.
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.7
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.408
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const REQUEST_TIMEOUT = 408;
+    public const REQUEST_TIMEOUT = 408;
 
     /**
      * The 409 (Conflict) status code indicates that the request could not be
@@ -632,13 +578,11 @@ interface RFC7231 extends ProposedStandard, IETFStream
      * response representation would likely contain information useful for
      * merging the differences based on the revision history.
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.8
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.409
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const CONFLICT = 409;
+    public const CONFLICT = 409;
 
     /**
      * The 410 (Gone) status code indicates that access to the target resource
@@ -660,13 +604,11 @@ interface RFC7231 extends ProposedStandard, IETFStream
      * by the method definition or explicit cache controls (see Section 4.2.2 of
      * [RFC7234]).
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.9
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.410
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const GONE = 410;
+    public const GONE = 410;
 
     /**
      * The 411 (Length Required) status code indicates that the server refuses
@@ -675,13 +617,11 @@ interface RFC7231 extends ProposedStandard, IETFStream
      * Content-Length header field containing the length of the message body in
      * the request message.
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.10
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.411
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const LENGTH_REQUIRED = 411;
+    public const LENGTH_REQUIRED = 411;
 
     /**
      * The 413 (Payload Too Large) status code indicates that the server is
@@ -693,36 +633,32 @@ interface RFC7231 extends ProposedStandard, IETFStream
      * header field to indicate that it is temporary and after what time the
      * client may try again.
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.11
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.413
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const PAYLOAD_TOO_LARGE = 413;
+    public const PAYLOAD_TOO_LARGE = 413;
 
-     /**
-      * The 414 (URI Too Long) status code indicates that the server is
-      * refusing to service the request because the request-target (Section 5.3
-      * of [RFC7230]) is longer than the server is willing to interpret. This
-      * rare condition is only likely to occur when a client has improperly
-      * converted a POST request to a GET request with long query information,
-      * when the client has descended into a "black hole" of redirection (e.g.,
-      * a redirected URI prefix that points to a suffix of itself) or when the
-      * server is under attack by a client attempting to exploit potential
-      * security holes.¶
-      *
-      * A 414 response is cacheable by default; i.e., unless otherwise indicated
-      * by the method definition or explicit cache controls (see Section 4.2.2
-      * of [RFC7234]).
-      *
-      * @codingStandardsIgnoreStart
-      *
-      * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.414
-      * @codingStandardsIgnoreEnd
-      * @var int
-      */
-    const URI_TOO_LONG = 414;
+    /**
+     * The 414 (URI Too Long) status code indicates that the server is
+     * refusing to service the request because the request-target (Section 5.3
+     * of [RFC7230]) is longer than the server is willing to interpret. This
+     * rare condition is only likely to occur when a client has improperly
+     * converted a POST request to a GET request with long query information,
+     * when the client has descended into a "black hole" of redirection (e.g.,
+     * a redirected URI prefix that points to a suffix of itself) or when the
+     * server is under attack by a client attempting to exploit potential
+     * security holes.¶
+     *
+     * A 414 response is cacheable by default; i.e., unless otherwise indicated
+     * by the method definition or explicit cache controls (see Section 4.2.2
+     * of [RFC7234]).
+     *
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.12
+     *
+     * @var int
+     */
+    public const URI_TOO_LONG = 414;
 
     /**
      * The 415 (Unsupported Media Type) status code indicates that the origin
@@ -731,26 +667,22 @@ interface RFC7231 extends ProposedStandard, IETFStream
      * problem might be due to the request's indicated Content-Type or
      * Content-Encoding, or as a result of inspecting the data directly.
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.13
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.415
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const UNSUPPORTED_MEDIA_TYPE = 415;
+    public const UNSUPPORTED_MEDIA_TYPE = 415;
 
     /**
      * The 417 (Expectation Failed) status code indicates that the expectation
      * given in the request's Expect header field (Section 5.1.1) could not be
      * met by at least one of the inbound servers.
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.14
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.417
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const EXPECTATION_FAILED = 417;
+    public const EXPECTATION_FAILED = 417;
 
     /**
      * The 426 (Upgrade Required) status code indicates that the server refuses
@@ -769,26 +701,22 @@ interface RFC7231 extends ProposedStandard, IETFStream
      *
      * This service requires use of the HTTP/3.0 protocol.
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.15
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.426
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const UPGRADE_REQUIRED = 426;
+    public const UPGRADE_REQUIRED = 426;
 
     /**
      * The 500 (Internal Server Error) status code indicates that the server
      * encountered an unexpected condition that prevented it from fulfilling the
      * request.
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.1
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.500
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const INTERNAL_SERVER_ERROR = 500;
+    public const INTERNAL_SERVER_ERROR = 500;
 
     /**
      * The 501 (Not Implemented) status code indicates that the server does not
@@ -800,26 +728,22 @@ interface RFC7231 extends ProposedStandard, IETFStream
      * by the method definition or explicit cache controls (see Section 4.2.2 of
      * [RFC7234]).
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.2
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.501
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const NOT_IMPLEMENTED = 501;
+    public const NOT_IMPLEMENTED = 501;
 
     /**
      * The 502 (Bad Gateway) status code indicates that the server, while acting
      * as a gateway or proxy, received an invalid response from an inbound
      * server it accessed while attempting to fulfill the request.
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.3
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.502
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const BAD_GATEWAY = 502;
+    public const BAD_GATEWAY = 502;
 
     /**
      * The 503 (Service Unavailable) status code indicates that the server is
@@ -833,26 +757,22 @@ interface RFC7231 extends ProposedStandard, IETFStream
      * has to use it when becoming overloaded. Some servers might simply refuse
      * the connection.
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.4
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.503
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const SERVICE_UNAVAILABLE = 503;
+    public const SERVICE_UNAVAILABLE = 503;
 
     /**
      * The 504 (Gateway Timeout) status code indicates that the server, while
      * acting as a gateway or proxy, did not receive a timely response from an
      * upstream server it needed to access in order to complete the request.
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.5
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.504
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const GATEWAY_TIMEOUT = 504;
+    public const GATEWAY_TIMEOUT = 504;
 
     /**
      * The 505 (HTTP Version Not Supported) status code indicates that the
@@ -864,11 +784,9 @@ interface RFC7231 extends ProposedStandard, IETFStream
      * 505 response that describes why that version is not supported and what
      * other protocols are supported by that server.
      *
-     * @codingStandardsIgnoreStart
+     * @see https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.6
      *
-     * @link https://svn.tools.ietf.org/svn/wg/httpbis/specs/rfc7231.html#status.505
-     * @codingStandardsIgnoreEnd
      * @var int
      */
-    const HTTP_VERSION_NOT_SUPPORTED = 505;
+    public const HTTP_VERSION_NOT_SUPPORTED = 505;
 }

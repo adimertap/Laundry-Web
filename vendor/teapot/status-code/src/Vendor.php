@@ -18,8 +18,9 @@
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
-*/
+ * @see https://github.com/teapot-php/status-code
+ */
+
 namespace Teapot\StatusCode;
 
 use Teapot\StatusCode\Vendor\Apache;
@@ -47,7 +48,7 @@ use Teapot\StatusCode\Vendor\Twitter;
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
 interface Vendor extends Apache, CloudFlare, Microsoft, Nginx, Twitter
 {

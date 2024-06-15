@@ -18,8 +18,9 @@
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
+
 namespace Teapot\StatusCode\RFC;
 
 use Teapot\StatusCode\RFC\Status\DraftStandard;
@@ -42,7 +43,7 @@ use Teapot\StatusCode\RFC\Stream\IETF as IETFStream;
  * @copyright 2013-2016 B Hanlon. All rights reserved.
  * @license   MIT http://opensource.org/licenses/MIT
  *
- * @link https://shrikeh.github.com/teapot
+ * @see https://github.com/teapot-php/status-code
  */
 interface RFC2616 extends DraftStandard, IETFStream
 {
@@ -58,11 +59,11 @@ interface RFC2616 extends DraftStandard, IETFStream
      * is received in response before continuing (or receive
      * 417 Expectation Failed and not continue).
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.1.1
      *
      * @var int
      */
-    const CONTINUING = 100;
+    public const CONTINUING = 100;
 
     /**
      * This means the requester has asked the server to switch protocols and
@@ -74,11 +75,11 @@ interface RFC2616 extends DraftStandard, IETFStream
      * no response is available yet.[3] This prevents the client from timing out
      * and assuming the request was lost.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.1.2
      *
      * @var int
      */
-    const SWITCHING_PROTOCOLS = 101;
+    public const SWITCHING_PROTOCOLS = 101;
 
     /**
      * The request has succeeded. The information returned with the response is
@@ -91,11 +92,11 @@ interface RFC2616 extends DraftStandard, IETFStream
      * TRACE an entity containing the request message as received by the end
      * server.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.2.1
      *
      * @var int
      */
-    const OK = 200;
+    public const OK = 200;
 
     /**
      * The request has been fulfilled and resulted in a new resource being
@@ -110,11 +111,11 @@ interface RFC2616 extends DraftStandard, IETFStream
      * action cannot be carried out immediately, the server SHOULD respond with
      * 202 (Accepted) response instead.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.2.2
      *
      * @var int
      */
-    const CREATED = 201;
+    public const CREATED = 201;
 
     /**
      * The request has been accepted for processing, but the processing has not
@@ -132,11 +133,11 @@ interface RFC2616 extends DraftStandard, IETFStream
      * pointer to a status monitor or some estimate of when the user can expect
      * the request to be fulfilled.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.2.3
      *
      * @var int
      */
-    const ACCEPTED = 202;
+    public const ACCEPTED = 202;
 
     /**
      * The returned metainformation in the entity-header is not the definitive
@@ -147,23 +148,11 @@ interface RFC2616 extends DraftStandard, IETFStream
      * known by the origin server. Use of this response code is not required
      * and is only appropriate when the response would otherwise be 200 (OK).
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.2.4
      *
      * @var int
      */
-    const NON_AUTHORITATIVE_INFORMATION = 203;
-
-    /**
-     * The 203 (Non-Authoritative Information) status code used to be available
-     * via NON_AUTHORATIVE_INFORMATION, which contained a typo. This typo has
-     * since been fixed and this constant has been deprecated in favor of the
-     * properly spelled constant.
-     *
-     * @see Teapot\StatusCode\RFC\RFC2616:NON_AUTHORITATIVE_INFORMATION
-     * @var int
-     * @deprecated
-     */
-    const NON_AUTHORATIVE_INFORMATION = self::NON_AUTHORITATIVE_INFORMATION;
+    public const NON_AUTHORITATIVE_INFORMATION = 203;
 
     /**
      * The server has fulfilled the request but does not need to return an
@@ -181,11 +170,11 @@ interface RFC2616 extends DraftStandard, IETFStream
      * The 204 response MUST NOT include a message-body, and thus is always
      * terminated by the first empty line after the header fields.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.2.5
      *
      * @var int
      */
-    const NO_CONTENT = 204;
+    public const NO_CONTENT = 204;
 
     /**
      * The server has fulfilled the request and the user agent SHOULD reset
@@ -195,11 +184,11 @@ interface RFC2616 extends DraftStandard, IETFStream
      * so that the user can easily initiate another input action. The response
      * MUST NOT include an entity.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.2.6
      *
      * @var int
      */
-    const RESET_CONTENT = 205;
+    public const RESET_CONTENT = 205;
 
     /**
      * The server has fulfilled the partial GET request for the resource. The
@@ -235,11 +224,11 @@ interface RFC2616 extends DraftStandard, IETFStream
      * A cache that does not support the Range and Content-Range headers
      * MUST NOT cache 206 (Partial) responses.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.2.7
      *
      * @var int
      */
-    const PARTIAL_CONTENT = 206;
+    public const PARTIAL_CONTENT = 206;
 
     /**
      * The requested resource corresponds to any one of a set of
@@ -260,11 +249,11 @@ interface RFC2616 extends DraftStandard, IETFStream
      * field value for automatic redirection. This response is cacheable
      * unless indicated otherwise.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.3.1
      *
      * @var int
      */
-    const MULTIPLE_CHOICES = 300;
+    public const MULTIPLE_CHOICES = 300;
 
     /**
      * The requested resource has been assigned a new permanent URI and any
@@ -286,11 +275,11 @@ interface RFC2616 extends DraftStandard, IETFStream
      *     receiving a 301 status code, some existing HTTP/1.0 user agents
      *     will erroneously change it into a GET request.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.3.2
      *
      * @var int
      */
-    const MOVED_PERMANENTLY = 301;
+    public const MOVED_PERMANENTLY = 301;
 
     /**
      * The requested resource resides temporarily under a different URI. Since
@@ -314,11 +303,11 @@ interface RFC2616 extends DraftStandard, IETFStream
      *     been added for servers that wish to make unambiguously clear which
      *     kind of reaction is expected of the client.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.3.3
      *
      * @var int
      */
-    const FOUND = 302;
+    public const FOUND = 302;
 
     /**
      * The response to the request can be found under a different URI and
@@ -337,11 +326,11 @@ interface RFC2616 extends DraftStandard, IETFStream
      *     302 status code may be used instead, since most user agents react
      *     to a 302 response as described here for 303.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.3.4
      *
      * @var int
      */
-    const SEE_OTHER = 303;
+    public const SEE_OTHER = 303;
 
     /**
      * If the client has performed a conditional GET request and access is
@@ -373,11 +362,11 @@ interface RFC2616 extends DraftStandard, IETFStream
      * cache MUST update the entry to reflect any new field values given in the
      * response.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.3.5
      *
      * @var int
      */
-    const NOT_MODIFIED = 304;
+    public const NOT_MODIFIED = 304;
 
     /**
      * The requested resource MUST be accessed through the proxy given by the
@@ -389,11 +378,11 @@ interface RFC2616 extends DraftStandard, IETFStream
      *     Not observing these limitations has significant security
      *     consequences.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.3.6
      *
      * @var int
      */
-    const USE_PROXY = 305;
+    public const USE_PROXY = 305;
 
     /**
      * The requested resource resides temporarily under a different URI. Since
@@ -411,21 +400,21 @@ interface RFC2616 extends DraftStandard, IETFStream
      * request unless it can be confirmed by the user, since this might change
      * the conditions under which the request was issued.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.3.7
      *
      * @var int
      */
-    const TEMPORARY_REDIRECT = 307;
+    public const TEMPORARY_REDIRECT = 307;
 
     /**
      * The request could not be understood by the server due to malformed
      * syntax. The client SHOULD NOT repeat the request without modifications.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.4.1
      *
      * @var int
      */
-    const BAD_REQUEST = 400;
+    public const BAD_REQUEST = 400;
 
     /**
      * The request requires user authentication. The response MUST include a
@@ -441,20 +430,20 @@ interface RFC2616 extends DraftStandard, IETFStream
      * diagnostic information. HTTP access authentication is explained in
      * "HTTP Authentication: Basic and Digest Access Authentication" [43].
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.4.2
      *
      * @var int
      */
-    const UNAUTHORIZED = 401;
+    public const UNAUTHORIZED = 401;
 
     /**
      * This code is reserved for future use.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.4.3
      *
      * @var int
      */
-    const PAYMENT_REQUIRED = 402;
+    public const PAYMENT_REQUIRED = 402;
 
     /**
      * The server understood the request, but is refusing to fulfill it.
@@ -465,11 +454,11 @@ interface RFC2616 extends DraftStandard, IETFStream
      * information available to the client, the status code 404 (Not Found)
      * can be used instead.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.4.4
      *
      * @var int
      */
-    const FORBIDDEN = 403;
+    public const FORBIDDEN = 403;
 
     /**
      * The server has not found anything matching the Request-URI. No
@@ -481,22 +470,22 @@ interface RFC2616 extends DraftStandard, IETFStream
      * reveal exactly why the request has been refused, or when no other
      * response is applicable.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.4.5
      *
      * @var int
      */
-    const NOT_FOUND = 404;
+    public const NOT_FOUND = 404;
 
     /**
      * The method specified in the Request-Line is not allowed for the resource
      * identified by the Request-URI. The response MUST include an Allow header
      * containing a list of valid methods for the requested resource.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.4.6
      *
      * @var int
      */
-    const METHOD_NOT_ALLOWED = 405;
+    public const METHOD_NOT_ALLOWED = 405;
 
     /**
      * The resource identified by the request is only capable of generating
@@ -521,11 +510,11 @@ interface RFC2616 extends DraftStandard, IETFStream
      * stop receipt of more data and query the user for a decision on further
      * actions.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.4.7
      *
      * @var int
      */
-    const NOT_ACCEPTABLE = 406;
+    public const NOT_ACCEPTABLE = 406;
 
     /**
      * This code is similar to 401 (Unauthorized), but indicates that the
@@ -536,22 +525,22 @@ interface RFC2616 extends DraftStandard, IETFStream
      * header field (section 14.34). HTTP access authentication is explained
      * in "HTTP Authentication: Basic and Digest Access Authentication" [43].
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.4.8
      *
      * @var int
      */
-    const PROXY_AUTHENTICATION_REQUIRED = 407;
+    public const PROXY_AUTHENTICATION_REQUIRED = 407;
 
     /**
      * The client did not produce a request within the time that the server
      * was prepared to wait. The client MAY repeat the request without
      * modifications at any later time.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.4.9
      *
      * @var int
      */
-    const REQUEST_TIMEOUT = 408;
+    public const REQUEST_TIMEOUT = 408;
 
     /**
      * The request could not be completed due to a conflict with the current
@@ -571,11 +560,11 @@ interface RFC2616 extends DraftStandard, IETFStream
      * differences between the two versions in a format defined by the
      * response Content-Type.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.4.10
      *
      * @var int
      */
-    const CONFLICT = 409;
+    public const CONFLICT = 409;
 
     /**
      * The requested resource is no longer available at the server and no
@@ -596,11 +585,11 @@ interface RFC2616 extends DraftStandard, IETFStream
      * mark for any length of time -- that is left to the discretion of the
      * server owner.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.4.11
      *
      * @var int
      */
-    const GONE = 410;
+    public const GONE = 410;
 
     /**
      * The server refuses to accept the request without a defined
@@ -608,11 +597,11 @@ interface RFC2616 extends DraftStandard, IETFStream
      * Content-Length header field containing the length of the message-body
      * in the request message.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.4.12
      *
      * @var int
      */
-    const LENGTH_REQUIRED = 411;
+    public const LENGTH_REQUIRED = 411;
 
     /**
      * The precondition given in one or more of the request-header fields
@@ -621,11 +610,11 @@ interface RFC2616 extends DraftStandard, IETFStream
      * metainformation (header field data) and thus prevent the requested
      * method from being applied to a resource other than the one intended.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.4.13
      *
      * @var int
      */
-    const PRECONDITION_FAILED = 412;
+    public const PRECONDITION_FAILED = 412;
 
     /**
      * The server is refusing to process a request because the request entity
@@ -635,11 +624,11 @@ interface RFC2616 extends DraftStandard, IETFStream
      * header field to indicate that it is temporary and after what time the
      * client MAY try again.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.4.14
      *
      * @var int
      */
-    const REQUEST_ENTITY_TOO_LARGE = 413;
+    public const REQUEST_ENTITY_TOO_LARGE = 413;
 
     /**
      * The server is refusing to service the request because the Request-URI
@@ -652,22 +641,22 @@ interface RFC2616 extends DraftStandard, IETFStream
      * present in some servers using fixed-length buffers for reading or
      * manipulating the Request-URI.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.4.15
      *
      * @var int
      */
-    const REQUEST_URI_TOO_LONG = 414;
+    public const REQUEST_URI_TOO_LONG = 414;
 
     /**
      * The server is refusing to service the request because the entity of the
      * request is in a format not supported by the requested resource for the
      * requested method.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.4.16
      *
      * @var int
      */
-    const UNSUPPORTED_MEDIA_TYPE = 415;
+    public const UNSUPPORTED_MEDIA_TYPE = 415;
 
     /**
      * A server SHOULD return a response with this status code if a request
@@ -682,11 +671,11 @@ interface RFC2616 extends DraftStandard, IETFStream
      * the current length of the selected resource (see section 14.16). This
      * response MUST NOT use the multipart/byteranges content-type.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.4.17
      *
      * @var int
      */
-    const REQUESTED_RANGE_NOT_SATISFIABLE = 416;
+    public const REQUESTED_RANGE_NOT_SATISFIABLE = 416;
 
     /**
      * The expectation given in an Expect request-header field (see section
@@ -694,21 +683,21 @@ interface RFC2616 extends DraftStandard, IETFStream
      * the server has unambiguous evidence that the request could not be met
      * by the next-hop server.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.4.18
      *
      * @var int
      */
-    const EXPECTATION_FAILED = 417;
+    public const EXPECTATION_FAILED = 417;
 
     /**
      * The server encountered an unexpected condition which prevented it from
      * fulfilling the request.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.5.1
      *
      * @var int
      */
-    const INTERNAL_SERVER_ERROR = 500;
+    public const INTERNAL_SERVER_ERROR = 500;
 
     /**
      * The server does not support the functionality required to fulfill the
@@ -716,22 +705,22 @@ interface RFC2616 extends DraftStandard, IETFStream
      * recognize the request method and is not capable of supporting it for
      * any resource.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.5.2
      *
      * @var int
      */
-    const NOT_IMPLEMENTED = 501;
+    public const NOT_IMPLEMENTED = 501;
 
     /**
      * The server, while acting as a gateway or proxy, received an invalid
      * response from the upstream server it accessed in attempting to fulfill
      * the request.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.5.3
      *
      * @var int
      */
-    const BAD_GATEWAY = 502;
+    public const BAD_GATEWAY = 502;
 
     /**
      * The server is currently unable to handle the request due to a temporary
@@ -744,11 +733,11 @@ interface RFC2616 extends DraftStandard, IETFStream
      *    server must use it when becoming overloaded. Some servers may wish to
      *    simply refuse the connection.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.5.4
      *
      * @var int
      */
-    const SERVICE_UNAVAILABLE = 503;
+    public const SERVICE_UNAVAILABLE = 503;
 
     /**
      * The server, while acting as a gateway or proxy, did not receive a
@@ -758,11 +747,11 @@ interface RFC2616 extends DraftStandard, IETFStream
      *    Note: Note to implementors: some deployed proxies are known to
      *    return 400 or 500 when DNS lookups time out.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.5.5
      *
      * @var int
      */
-    const GATEWAY_TIMEOUT = 504;
+    public const GATEWAY_TIMEOUT = 504;
 
     /**
      * The server does not support, or refuses to support, the HTTP protocol
@@ -773,9 +762,9 @@ interface RFC2616 extends DraftStandard, IETFStream
      * The response SHOULD contain an entity describing why that version is
      * not supported and what other protocols are supported by that server.
      *
-     * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see https://datatracker.ietf.org/doc/html/rfc2616#section-10.5.6
      *
      * @var int
      */
-    const HTTP_VERSION_NOT_SUPPORTED = 505;
+    public const HTTP_VERSION_NOT_SUPPORTED = 505;
 }
