@@ -6,9 +6,9 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "barryvdh/laravel-cors": "^3.0",
         "barryvdh/laravel-dompdf": "^2.0",
         "cloudinary-labs/cloudinary-laravel": "^2.0",
-        "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "knplabs/knp-snappy": "^1.4",
         "laravel/framework": "^8.75",
@@ -16,7 +16,8 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
         "maatwebsite/excel": "^3.1",
-        "realrashid/sweet-alert": "^5.1"
+        "realrashid/sweet-alert": "^5.1",
+        "symfony/mailer": "^6.1"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

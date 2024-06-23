@@ -4,17 +4,16 @@ namespace CloudinaryLabs\CloudinaryLaravel;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use League\Flysystem\Filesystem;
-use Illuminate\Filesystem\FilesystemAdapter;
 use CloudinaryLabs\CloudinaryLaravel\Commands\BackupFilesCommand;
 use CloudinaryLabs\CloudinaryLaravel\Commands\DeleteFilesCommand;
 use CloudinaryLabs\CloudinaryLaravel\Commands\FetchFilesCommand;
 use CloudinaryLabs\CloudinaryLaravel\Commands\GenerateArchiveCommand;
 use CloudinaryLabs\CloudinaryLaravel\Commands\RenameFilesCommand;
 use CloudinaryLabs\CloudinaryLaravel\Commands\UploadFileCommand;
-use Illuminate\Support\Str;
 
 
 /**
@@ -37,6 +36,7 @@ class CloudinaryServiceProvider extends ServiceProvider
         $this->bootCommands();
         $this->bootPublishing();
         $this->bootCloudinaryDriver();
+        $this->bootRoutes();
     }
 
     /**
@@ -103,10 +103,11 @@ class CloudinaryServiceProvider extends ServiceProvider
     
     protected function getComponentName($componentName) 
     {
-       if( (int)$this->app->version()[0] <= 6 ) {
+       $version = explode(".", $this->app->version());
+       if( (int)$version[0] <= 6 ) {
           $componentName = str_replace("-", "_", $componentName);
        }
-
+        
        return $componentName;
     }
 
@@ -162,16 +163,21 @@ class CloudinaryServiceProvider extends ServiceProvider
         Storage::extend(
             'cloudinary',
             function ($app, $config) {
-
-                $cloudinaryAdapter = new CloudinaryAdapter(config('cloudinary.cloud_url'));
-
-                return new FilesystemAdapter(
-                    new Filesystem($cloudinaryAdapter, $config),
-                    $cloudinaryAdapter,
-                    $config
-                );
+                return new Filesystem(new CloudinaryAdapter(config('cloudinary.cloud_url')));
             }
         );
+    }
+
+    /**
+     * Boot the package routes.
+     *
+     * @return void
+     */
+    protected function bootRoutes()
+    {
+        if (config('cloudinary.upload_route')) {
+            Route::post(config('cloudinary.upload_route'), config('cloudinary.upload_action'));
+        }
     }
 
     /**

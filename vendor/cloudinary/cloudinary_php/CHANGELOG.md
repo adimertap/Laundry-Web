@@ -1,3 +1,42 @@
+2.14.0 / 2024-05-07
+==================
+
+New functionality and features
+------------------------------
+
+  * Add support for `restrictions` parameter in `MetadataField`
+
+2.13.1 / 2024-03-21
+==================
+
+  * Fix `analyze` API endpoint
+
+2.13.0 / 2024-03-12
+==================
+
+New functionality and features
+------------------------------
+
+  * Add support for `analyze` API
+
+2.12.0 / 2023-12-03
+==================
+
+New functionality and features
+------------------------------
+
+  * Add support for access keys management in Account Provisioning API
+  * Add support for `visualSearch` Admin API
+  * Add support for `fields` parameter in Search and Admin APIs
+  * Add support for Search URL
+  * Add support for `useFetchFormat` in `VideoTag`
+  * Add support for `on_success` upload parameter
+
+Other Changes
+-------------
+
+  * Remove redundant `teapot/status-code` dependency
+
 2.11.0 / 2023-05-23
 ==================
 

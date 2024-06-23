@@ -1,39 +1,49 @@
-<div align="center">
-    <h1> Cloudinary Laravel Package</h1>
-</div>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/62209650/196528621-b68e9e10-7e55-4c7d-9177-904cadbb4296.png" align="center" height=50>
+  <source media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/62209650/196528761-a815025a-271a-4d8e-ac7e-cea833728bf9.png" align="center" height=50>
+  <img alt="Cloudinary" src="https://user-images.githubusercontent.com/62209650/196528761-a815025a-271a-4d8e-ac7e-cea833728bf9.png" align="center" height=50>
+</picture>
+&ensp;&ensp;
+<picture style="padding: 50px">
+  <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/1045274/200928533-47539867-07ff-406e-aa8b-25c594652dc8.png" align="center" height=50>
+  <source media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/1045274/200928533-47539867-07ff-406e-aa8b-25c594652dc8.png" align="center" height=50>
+  <img alt="Laravel" src="https://user-images.githubusercontent.com/1045274/200928533-47539867-07ff-406e-aa8b-25c594652dc8.png" align="center" height=50>
+</picture>
 
-<p align="center">
-    <a href="https://packagist.org/packages/cloudinary-labs/cloudinary-laravel">
-        <img src="https://img.shields.io/packagist/dt/cloudinary-labs/cloudinary-laravel.svg?style=flat-square" alt="Total Downloads">
-    </a>
-    <a href="https://packagist.org/packages/cloudinary-labs/cloudinary-laravel">
-        <img src="https://poser.pugx.org/cloudinary-labs/cloudinary-laravel/v/stable.svg" alt="Latest Stable Version">
-    </a>
-    <a href="https://packagist.org/packages/cloudinary-labs/cloudinary-laravel">
-        <img src="https://poser.pugx.org/cloudinary-labs/cloudinary-laravel/license.svg" alt="License">
-    </a>
-</p>
+######
+
+<a href="https://packagist.org/packages/cloudinary-labs/cloudinary-laravel"><img src="https://img.shields.io/packagist/dt/cloudinary-labs/cloudinary-laravel.svg?style=flat-square" alt="Total Downloads"></a> <a href="https://packagist.org/packages/cloudinary-labs/cloudinary-laravel"><img src="https://poser.pugx.org/cloudinary-labs/cloudinary-laravel/v/stable.svg?style=flat-square" alt="Latest Stable Version"></a> <a href="https://github.com/cloudinary-devs/cloudinary-laravel/blob/main/LICENSE"><img alt="GitHub" src="https://img.shields.io/github/license/cloudinary-devs/cloudinary-laravel?label=License&style=flat-square"></a>
 
 > A Laravel Package for uploading, optimizing, transforming and delivering media files with Cloudinary. Furthermore, it provides a fluent and expressive API to easily attach your media files to Eloquent models.
 
-## Disclaimer
+## Contents
 
-> _This software/code provided under Cloudinary Labs is an unsupported pre-production prototype undergoing further development and provided on an “AS IS” basis without warranty of any kind, express or implied, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. Furthermore, Cloudinary is not under any obligation to provide a commercial version of the software.</br> </br> Your use of the Software/code is at your sole risk and Cloudinary will not be liable for any direct, indirect, incidental, special, exemplary, consequential or similar damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of the Software, even if advised of the possibility of such damage.</br> </br> You should refrain from uploading any confidential or personally identifiable information to the Software. All rights to and in the Software are and will remain at all times, owned by, or licensed to Cloudinary._
-
-## Contributions
-Contributions from the community via PRs are welcome and will be fully credited. For details, see [contributions.md](contributing.md).
+* [Usage](#usage)
+    * [Upload, Retrieval, Transformation Method Calls](#upload-retrieval-transformation-method-calls)
+    * [Attach Files to Laravel Eloquent Models](#attach-files-to-laravel-eloquent-models)
+    * [Upload Files Via An Upload Widget](#upload-files-via-an-upload-widget)
+    * [Media Management Via The Command Line](#media-management-via-the-command-line)
+* [Installation](#installation)
+* [Configuration](#configuration)
+* [Disclaimer](#disclaimer)
+* [Contributions](#contributions)
+* [License](#license)
 
 
 ## Usage
 
-**Upload** a file (_Image_, _Video_ or any type of _File_) to **Cloudinary**:
+> Laravel versions **8 and below** should use the **v1.x.x**.
+
+## **Upload, Retrieval & Transformation Media Method Calls**:
+
+**Upload** a file (_Image_, _Video_ or any type of _File_) to **Cloudinary**, **retrieve** and **transform** via any of the following ways:
 
 ```php
 
 /**
 *  Using the Cloudinary Facade
-*  Import the Facade in your Class like so:
 */
+
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 // access the admin api
@@ -124,8 +134,14 @@ $result->getWidth(); // Get the width of the uploaded file
 $result->getHeight(); // Get the height of the uploaded file
 $result->getTimeUploaded(); // Get the time the file was uploaded
 
+/**
+ * You can also check if a file exists
+ */
 
-**Attach Files** to Laravel **Eloquent Models**:
+$url = Storage::disk('cloudinary')->fileExists($publicId);
+```
+
+## **Attach Files** to Laravel **Eloquent Models**:
 
 First, import the `CloudinaryLabs\CloudinaryLaravel\MediaAlly` trait into your Model like so:
 
@@ -196,11 +212,94 @@ $page = Page::find(2);
 $page->detachMedia($file)  // Example of $file is $request->file('file');
 ```
 
-**Upload Files Via An Upload Widget**:
+## **Add Transformation to Uploads Using AttachMedia Method**:
+
+```php
+
+/**
+*  How to resize an image to a specific width and height, and crop it using 'fill' mode
+*/
+
+$options = [
+    'transformation' => [
+        [
+            'width' => 200,    // Desired width
+            'height' => 200,   // Desired height
+            'crop' => 'fill',  // Crop mode (you can change this to 'fit' or other modes)
+        ],
+    ],
+]
+
+$page->attachMedia($file, $options);   // Example of $file is $request->file('file');
+
+/**
+*  How to crop an image to a specific width and height.
+*/
+
+$options = [
+    'transformation' => [
+        [
+            'width' => 200,    // Desired width
+            'height' => 200,   // Desired height
+            'crop' => 'crop',  // Crop mode
+        ],
+    ],
+]
+
+$page->attachMedia($file, $options);   // Example of $file is $request->file('file');
+
+/**
+*  How to rotate an image by a specific degree.
+*/
+
+$options = [
+    'transformation' => [
+        [
+            'angle' => 45,    // Rotation angle
+        ],
+    ],
+]
+
+$page->attachMedia($file, $options);   // Example of $file is $request->file('file');
+
+/**
+*  How to apply a filter to an image.
+*/
+
+$options = [
+    'transformation' => [
+        [
+            'effect' => 'grayscale',    // Filter effect
+        ],
+    ],
+]
+
+$page->attachMedia($file, $options);   // Example of $file is $request->file('file');
+
+/**
+*  How to overlay text on an image.
+*/
+
+$options = [
+    'transformation' => [
+        [
+            'overlay' => [
+                'font_family' => 'arial',
+                'font_size' => 24,
+                'text' => 'Hello World',
+            ],
+        ],
+    ],
+]
+
+$page->attachMedia($file, $options);   // Example of $file is $request->file('file');
+
+```
+
+## **Upload Files Via An Upload Widget**:
 
 Use the `x-cld-upload-button` Blade upload button component that ships with this Package like so:
-
-```html
+```
 <!DOCTYPE html>
 <html>
     <head>
@@ -217,263 +316,33 @@ Use the `x-cld-upload-button` Blade upload button component that ships with this
 
 Other Blade components you can use are:
 
-```html
-
-/**
- *
- *  TRANSFORMATION ACTIONS CATEGORIES:
- *
- *  1. RESIZE
- * - Scale
- * - Limit Fit
- * - Fill
- * - Fit
- * - Crop
- * - Thumbnail
- * - Pad
- * - Limit Fill
- * - Limit Pad
- * - Minimum Fit
- * - Minimum Pad
- *
- *
- *  2. ADJUST
- * - Improve
- * - Unsharp Mask
- * - Saturation
- * - Contrast
- * - Brightness
- * - Gamma
- *
- *
- *  3. EFFECT
- * - Colorize
- * - Blur
- * - Trim
- * - Grayscale
- * - Blackwhite
- * - Sepia
- * - Red Eye
- * - Negate
- * - Oil Paint
- * - Vignette
- * - Simulate Colorblind
- * - Pixelate
- * - Shadow
- *
- *
- *  4. DELIVERY
- * - Format
- * - Quality
- * - Color Space
- * - DPR
- *
- *  5. LAYERS
- * - Image Layer
- * - Text Layer
- *
- *
- */
+```php
 <x-cld-image public-id="prosper" width="300" height="300"></x-cld-image> // Blade Image Component for displaying images
 
 <x-cld-video public-id="awesome"></x-cld-video> // Blade Video Component for displaying videos
-
-/**
- *  ARTISTIC Filters
- *  Possible values: al_dente, athena, audrey, aurora, daguerre, eucalyptus, fes, frost, hairspray, hokusai, incognito, linen, peacock, primavera, quartz, red_rock, refresh, sizzle, sonnet, ukulele, zorro
- *  Reference: https://cloudinary.com/documentation/transformation_reference#e_art
- */
-<x-cld-image public-id="eifrfdh65qvn8rbby3cs" crop='thumb' effect="art|sizzle"></x-cld-image>
-<x-cld-image public-id="eifrfdh65qvn8rbby3cs" crop='thumb' effect="art|audrey"></x-cld-image>
-<x-cld-image public-id="eifrfdh65qvn8rbby3cs" crop='thumb' effect="art|incognito"></x-cld-image>
-<x-cld-image public-id="eifrfdh65qvn8rbby3cs" crop='thumb' art="incognito"></x-cld-image>
-<x-cld-image public-id="eifrfdh65qvn8rbby3cs" crop='thumb' art="audrey"></x-cld-image>
-
-
-/**
- *  Colorize
- */
-<x-cld-image public-id="couple" colorize='rgb:0000_35'></x-cld-image>
-
-/**
- *  Blur - Applies a blurring filter to an asset.
- *  The strength ranges from 1 to 2000
- */
-<x-cld-image public-id="couple" blur='599'></x-cld-image>
-
-/**
- *  Grayscale
- *  Converts an image to grayscale (multiple shades of gray).
- */
-<x-cld-image public-id="couple" grayscale></x-cld-image>
-
-/**
- *  sepia
- *  Changes the color scheme of an image to sepia.
- */
-<x-cld-image public-id="couple" sepia-50></x-cld-image>
-
-/**
- *  redeye
- *  Automatically removes red eyes in an image.
- */
-<x-cld-image public-id="couple" redeye></x-cld-image>
-
-/**
- *  negate
- *  Creates a negative of an image.
- */
-<x-cld-image public-id="couple" negate></x-cld-image>
-
-/**
- *  oil-paint
- *  Applies an oil painting effect.
- */
-<x-cld-image public-id="couple" oil-paint></x-cld-image>
-<x-cld-image public-id="couple" oil-paint=78></x-cld-image>
-
-/**
- *  vignette
- *  Applies a vignette effect to an image.
- *  The strength level of the vignette. Range: 0 to 100
- */
-<x-cld-image public-id="couple" vignette></x-cld-image>
-<x-cld-image public-id="couple" vignette=78></x-cld-image>
-
-
-/**
- *  simulate-colorblind
- *  Simulates the way an image would appear to someone with the specified color blind condition.
- *  The color blind condition to simulate.Possible values: deuteranopia, protanopia, tritanopia, tritanomaly, deuteranomaly, cone_monochromacy, rod_monochromacy
- */
-<x-cld-image public-id="couple" simulate-colorblind></x-cld-image>
-<x-cld-image public-id="couple" simulate-colorblind=protanopia></x-cld-image>
-
-
-/**
- *  pixelate
- *  Applies a pixelation effect.
- *  The width in pixels of each pixelation square. Range: 1 to 200. Default: Determined by an algorithm based on the image dimensions.
- */
-<x-cld-image public-id="couple" pixelate></x-cld-image>
-<x-cld-image public-id="couple" pixelate=5></x-cld-image>
-
-/**
- *  shadow
- *  Adds a gray shadow to the bottom right of an image. You can change the color and location of the shadow using the color and x,y qualifiers.
- *  The format of the shadow is color_offsetX_offsetY_strength
- */
-<x-cld-image public-id="couple" shadow='rgb:999_-15_-15_50'></x-cld-image>
-
-/**
- *  unsharp-mask
- *  Applies an unsharp mask filter to the image.
- *  The strength of the filter. (Range: 1 to 2000, Server default: 100)
- */
-<x-cld-image public-id="couple" unsharp-mask=1799></x-cld-image>
-
-/**
- *  saturation
- *  Adjusts the color saturation.
- *  The level of color saturation (Range: -100 to 100, Server default: 80).
- */
-<x-cld-image public-id="couple" saturation=79></x-cld-image>
-
-/**
- *  brightness
- *  Adjusts the brightness.
- *  The level of brightness (Range: -99 to 100).
- */
-<x-cld-image public-id="couple" brightness=80></x-cld-image>
-
-/**
- *  gamma
- *  Adjusts the gamma level.
- *  The level of gamma (Range: -50 to 150, Server default: 0).
- */
-<x-cld-image public-id="couple" gamma=100></x-cld-image>
-
-/**
- *  trim
- *  Detects and removes image edges whose color is similar to the corner pixels.
- *  The level of tolerance for color similarity. Range: 0 to 100
- *  The color to trim as a named color or an RGB/A hex code.
- *  e.g 50_yellow
- *  50 is for color similarity
- *  yellow is for color override
- */
-<x-cld-image public-id="casual_yellow_red_corners" trim="50_yellow"></x-cld-image>
-
-
-/**
- *  improve-mode
- *  Adjusts an image's colors, contrast and brightness to improve its appearance.
- *  Possible values: mode is 'indoor', 'outdoor'
- *  blend is withing the range of 0 to 100.
- *
- */
-<x-cld-image public-id="couple" improve-mode='indoor_99'></x-cld-image>
-
-
-/**
- *  Blackwhite
- *  Converts an image to black and white.
- *  Threshold - The balance between black (100) and white (0).
- */
-<x-cld-image public-id="couple" blackwhite></x-cld-image>
-<x-cld-image public-id="couple" blackwhite=47></x-cld-image>
-
-
-
-/**
- *  CARTOON Filters
- */
-<x-cld-image public-id="eifrfdh65qvn8rbby3cs" crop='thumb' cartoonify></x-cld-image>
-<x-cld-image public-id="eifrfdh65qvn8rbby3cs" crop='thumb' cartoonify="70:bw"></x-cld-image>
-
-/**
- *  ROTATE
- */
-<x-cld-image public-id="eifrfdh65qvn8rbby3cs" crop='thumb' rotate=80></x-cld-image>
-
-/**
- *  ROUNDED CORNERS
- */
-<x-cld-image public-id="eifrfdh65qvn8rbby3cs" crop='thumb' rounded-corners></x-cld-image>
-
-
-/**
- *  Borders
- */
-// Adds a solid border around an image or video.
-<x-cld-image public-id="eifrfdh65qvn8rbby3cs" crop='thumb' rounded-corners border=4_solid_brown></x-cld-image>
-<x-cld-image public-id="eifrfdh65qvn8rbby3cs" crop='thumb' rounded-corners border=4_solid_rgb:999></x-cld-image>
-
-/**
- *  Background Color
- */
-<x-cld-image public-id="eifrfdh65qvn8rbby3cs" crop='thumb' rotate=40 bg-color='red' rounded-corners border='4_solid_rgb:999'></x-cld-image>
-
-
-/**
- *  Face detection-based image cropping
- *  Crop "thumb" or "crop" and gravity must be used together
- *  Faces will target all the faces
- *  Face will target only one face
- *  You can specify width and height or not
- *  You can use compass to define a fixed location within an asset to focus on e.g north_west, east, south.
- */
- <x-cld-image public-id="couple" crop='thumb' width=150 gravity='faces'></x-cld-image>
- <x-cld-image public-id="couple" crop='crop' gravity='faces'></x-cld-image>
- <x-cld-image public-id="couple" crop='crop' gravity='face'></x-cld-image>
-
-<x-cld-image public-id="couple" crop='crop' width=200 height=200 gravity='compass:east'></x-cld-image>
-<x-cld-image public-id="couple" crop='crop' width=200 height=200 gravity='microwave'></x-cld-image>
 ```
 
+To get the upload image link from the widget in your controller, simply set a route and controller action in your `.env`. For example:
 
+```php
+CLOUDINARY_UPLOAD_ROUTE=api/cloudinary-js-upload
+CLOUDINARY_UPLOAD_ACTION=App\Http\Controllers\Api\CloudinaryController@upload
+```
 
-**Media Management via The Command Line**:
+Make sure to specify the full path to the controller. You should be able to get the URL like so:
+
+```php
+...
+class CloudinaryController extends Controller
+{
+    public function upload(Request $request)
+    {
+        $url = $request->get('cloud_image_url');
+    }
+}
+```
+
+## **Media Management via The Command Line**:
 
 ```bash
 /**
@@ -515,6 +384,14 @@ composer require cloudinary-labs/cloudinary-laravel
 
 Or add the following line to the require block of your `composer.json` file.
 
+### Apps Using Laravel 9
+
+```
+"cloudinary-labs/cloudinary-laravel": "2.0.0"
+```
+
+### Apps Using Laravel 8 and below
+
 ```
 "cloudinary-labs/cloudinary-laravel": "1.0.4"
 ```
@@ -543,6 +420,15 @@ Also, register the Cloudinary Facade like so:
     ...
 ]
 ```
+
+> Note: If you use **Laravel >= 9.0** , you can skip the step (adding the code above for registering the facade) and can just import it in whatever class you need it like so:
+
+```php
+  ...
+  use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+  ...
+```
+
 
 ## Configuration
 
@@ -586,7 +472,17 @@ return [
     * Upload Preset From Cloudinary Dashboard
     *
     */
-    'upload_preset' => env('CLOUDINARY_UPLOAD_PRESET')
+    'upload_preset' => env('CLOUDINARY_UPLOAD_PRESET'),
+    
+    /**
+     * Route to get cloud_image_url from Blade Upload Widget
+     */
+    'upload_route' => env('CLOUDINARY_UPLOAD_ROUTE'),
+
+    /**
+     * Controller action to get cloud_image_url from Blade Upload Widget
+     */
+    'upload_action' => env('CLOUDINARY_UPLOAD_ACTION'),
 ];
 ```
 
@@ -599,7 +495,7 @@ CLOUDINARY_UPLOAD_PRESET=xxxxxxxxxxxxx
 CLOUDINARY_NOTIFICATION_URL=
 ```
 
-***Note:** You need to get these credentials from your [Cloudinary Dashboard](https://cloudinary.com/console)*
+***Note:** You need to get these credentials from your [Cloudinary Dashboard](https://cloudinary.com/console). The CLOUDINARY_URL is the API Environment variable shown in your Cloudinary Dashboard. Use the Copy button there to get the full URL*
 
 *If you are using a hosting service like heroku, forge, digital ocean, etc, please ensure to add the above details to your configuration variables.*
 
@@ -616,6 +512,14 @@ Cloudinary relies on its own JavaScript library to initiate the Cloudinary Uploa
 ```
 
 ***Note:** ONLY LOAD THIS IF YOU HAVE DECIDED TO USE THE UPLOAD WIDGET. IF YOU ARE USING THIS PACKAGE FOR A LARAVEL API BACKEND, YOU DON'T NEED TO DO THIS!*
+
+
+## Disclaimer
+
+> _This software/code provided under Cloudinary Labs is an unsupported pre-production prototype undergoing further development and provided on an “AS IS” basis without warranty of any kind, express or implied, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. Furthermore, Cloudinary is not under any obligation to provide a commercial version of the software.</br> </br> Your use of the Software/code is at your sole risk and Cloudinary will not be liable for any direct, indirect, incidental, special, exemplary, consequential or similar damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of the Software, even if advised of the possibility of such damage.</br> </br> You should refrain from uploading any confidential or personally identifiable information to the Software. All rights to and in the Software are and will remain at all times, owned by, or licensed to Cloudinary._
+
+## Contributions
+Contributions from the community via PRs are welcome and will be fully credited. For details, see [contributions.md](contributing.md).
 
 ## License
 
