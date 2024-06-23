@@ -152,13 +152,13 @@
                     </div>
                     <div class="card-footer bg-light">
                         <div class="d-flex justify-content-between">
-                            <div class="fw-semi-bold fs--1">Total Berat</div>
-                            <div class="fw-bold berat_total" id="berat_total">0 KG</div>
+                            <h5 class=" fs--1">Total Berat</h5>
+                            <h5 class="fw-bold berat_total" id="berat_total">0 KG</h5>
                         </div>
                         <hr>
                         <div class="d-flex justify-content-between mt-2">
-                            <div class="fw-semi-bold fs--1">Total Dibayarkan</div>
-                            <div class="fw-bold payable_total" id="payable_total">Rp. 0.0</div>
+                            <h4 class=" fs--1">Total Dibayarkan</h4>
+                            <h4 class="fw-bold payable_total" id="payable_total">Rp. 0.0</h4>
                         </div>
                     </div>
                    

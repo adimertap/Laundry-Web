@@ -252,16 +252,18 @@ class TransaksiController extends Controller
     public function getAll(Request $request)
     {
         try {
-            $tr = TransaksiLaundry::with([
+            $trQuery = TransaksiLaundry::with([
                 'Pegawai','Jenis'
             ]);        
             if($request->from){
-                $tr->where('tanggal_transaksi', '>=', $request->from);
+                $trQuery->where('tanggal_transaksi', '>=', $request->from);
             }
             if($request->to){
-                $tr->where('tanggal_transaksi', '<=', $request->to);
+                $trQuery->where('tanggal_transaksi', '<=', $request->to);
             }
-            $tr = $tr->orderBy('created_at','DESC')->get();
+            $trQuery->orderBy('created_at', 'DESC');
+            $perPage = 10; // Adjust as needed
+            $tr = $trQuery->paginate($perPage);
             
             $jumlah = TransaksiLaundry::count();
             $total = TransaksiLaundry::sum('total');

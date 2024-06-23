@@ -121,7 +121,7 @@
                             $date = DateTime::createFromFormat('Y-m-d H:i:s', $item->tanggal_ambil);
                             @endphp
                             <tr role="row" class="odd">
-                                <th scope="row" class="no fs--1">{{ $loop->iteration}}.</th>
+                                <th scope="row" class="no fs--1">{{ $loop->iteration + ($tr->currentPage() - 1) * $tr->perPage() }}.</th>
                                 <td class="text-center tanggal_transaksi fs--1">{{ date('d-M-Y H:i:s',
                                     strtotime($item->created_at)) }}</td>
                                 <td class="text-center nomor_transaksi fs--1">{{ $item->Pegawai->name }}</td>
@@ -208,6 +208,9 @@
                             @endforelse
                         </tbody>
                     </table>
+                </div>
+                <div class="d-flex justify-content-center">
+                    {{ $tr->links('vendor.pagination.custom') }}
                 </div>
             </div>
         </div>
@@ -359,7 +362,8 @@
     }
 
     $(document).ready(function () {
-        var table = $('#example').DataTable();
+        var table = $('#example').DataTable({
+        });
 
         $('.selesaiBtn').click(function (e) {
             e.preventDefault();

@@ -10,31 +10,75 @@
         </div>
     </div>
     <div class="col-xl-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-4">
-                        <label class="form-label" for="nama_customer">Nama Customer</label>
-                        <input class="form-control form-select-sm" id="nama_customer" name="nama_customer" type="text"
-                            placeholder="Input Nama Customer" value="{{ $transaksi->nama_customer }}" />
+        <form action="{{ route('transaksi.update', $transaksi->id_transaksi) }}" id="form" method="POST"
+            enctype="multipart/form-data">
+            @method('PUT')
+            @csrf
+            <div class="row">
+                <div class="col-6">
+                    <div class="card mb-3">
+                        <div class="bg-holder d-none d-lg-block bg-card"
+                            style="background-image:url(../../falcon/assets/img/icons/spot-illustrations/corner-4.png);opacity: 0.7;">
+                        </div>
+                        <div class="card-body position-relative">
+                            <h6>Order Code: #{{ $transaksi->kode_transaksi }}</h6>
+                            <input type="hidden" name="id_modal" value="{{ $transaksi->Modal->id_modal }}">
+                            <p class="fs--1">{{ $today }}</p>
+                            <div><strong class="me-2">Status: </strong>
+                                <div class="badge rounded-pill badge-soft-info fs--2">On Progress
+                                    <span class="fas fa-check ms-1" data-fa-transform="shrink-2"></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-4">
-                        <label class="form-label" for="nomor_passport">Nomor Passport</label>
-                        <input class="form-control form-select-sm " id="nomor_passport" name="nomor_passport"
-                            type="number" placeholder="Input Nomor Passport" value="{{ $transaksi->nomor_passport }}" />
-                    </div>
-                    <div class="col-4">
-                        <label class="form-label" for="asal_negara">Asal Negara</label>
-                        <input class="form-control form-select-sm negara_asal" id="negara_asal" name="asal_negara"
-                            type="text" placeholder="Input Asal Negara" value="{{ $transaksi->negara_asal }}" />
+                </div>
+                <div class="col-6">
+                    <div class="card overflow-hidden" style="min-width: 12rem">
+                        <div class="bg-holder bg-card"
+                            style="background-image:url(../../falcon/assets/img/icons/spot-illustrations/corner-2.png);">
+                        </div>
+                        <div class="card-body position-relative">
+                            <h6>Modal Anda Hari Ini</h6>
+                            <h4 class="text-primary jumlah_modal" id="jumlah_modal" data-countup="jumlah_modal">
+                                IDR&nbsp;{{ number_format($modal->riwayat_modal) }}
+                            </h4>
+                            <a class="fw-semi-bold fs--1 text-nowrap" href="{{ route('modal.index') }}">Tambah Modal
+                                <span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 
-    <div class="row mt-2 g-3">
-        <div class="col-xl-7 order-xl-1">
+    <div class="row gx-3">
+        <div class="col-4">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-2">
+                            <label class="form-label" for="nama_customer">Nama Customer</label>
+                            <input class="form-control form-select-sm" id="nama_customer" name="nama_customer"
+                                type="text" placeholder="Input Nama Customer" value="{{ $transaksi->nama_customer }}" />
+                        </div>
+                        <div class="mb-1">
+                            <label class="form-label" for="nomor_passport">Nomor Passport</label>
+                            <input class="form-control form-select-sm " id="nomor_passport" name="nomor_passport"
+                                type="number" placeholder="Input Nomor Passport"
+                                value="{{ $transaksi->nomor_passport }}" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="asal_negara">Asal Negara</label>
+                            <input class="form-control form-select-sm negara_asal" id="negara_asal" name="asal_negara"
+                                type="text" placeholder="Input Asal Negara" value="{{ $transaksi->negara_asal }}" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-8">
+
             <div class="card">
                 <div class="card-header bg-light btn-reveal-trigger d-flex flex-between-center">
                     <h5 class="mb-0">Order Summary</h5>
@@ -56,12 +100,12 @@
                                     <th class="small">Action</th>
                                 </tr>
                             </thead>
-                            <tbody id="konfirmasi">
+                            <tbody id="konfirmasi" style="font-size: 15px!important">
                                 @forelse ($transaksi->detailTransaksi as $item)
                                 <tr id="item-{{ $item->id_detail_transaksi }}" role="row" class="odd">
                                     <td></td>
-                                    <td class="currency_edit"><span
-                                            id="{{ $item->Currency->id_currency }}">{{ $item->Currency->nama_currency }}</span>
+                                    <td class="currency_edit"><span id="{{ $item->Currency->id_currency }}">{{
+                                            $item->Currency->nama_currency }}</span>
                                     </td>
                                     <td class="harga_currency_edit">IDR&nbsp;{{ number_format($item->jumlah_currency) }}
                                     </td>
@@ -83,89 +127,41 @@
                     <div class="fw-bold payable_total" id="payable_total">
                         IDR&nbsp;{{ number_format($transaksi->total) }}</div>
                 </div>
+
             </div>
         </div>
-        <div class="col-xl-5">
-            <form action="{{ route('transaksi.update', $transaksi->id_transaksi) }}" id="form" method="POST"
-                enctype="multipart/form-data">
-                @method('PUT')
-                @csrf
-                <div class="row">
-                    <div class="col-6">
-                        <div class="card mb-3">
-                            <div class="bg-holder d-none d-lg-block bg-card"
-                                style="background-image:url(../../falcon/assets/img/icons/spot-illustrations/corner-4.png);opacity: 0.7;">
-                            </div>
-                            <div class="card-body position-relative">
-                                <h6>Order Code: #{{ $transaksi->kode_transaksi }}</h6>
-                                <input type="hidden" name="id_modal" value="{{ $transaksi->Modal->id_modal }}">
-                                <p class="fs--1">{{ $today }}</p>
-                                <div><strong class="me-2">Status: </strong>
-                                    <div class="badge rounded-pill badge-soft-info fs--2">On Progress
-                                        <span class="fas fa-check ms-1" data-fa-transform="shrink-2"></span>
-                                    </div>
-                                </div>
+    </div>
+    <div class="card mt-4">
+        <div class="card-header bg-light">
+            <h5 class="mb-0">Confirm Transaksi</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-7 col-xl-12 col-xxl-7 px-md-3 mb-xxl-0 position-relative">
+                    <div class="d-flex"><img class="me-3" src="../../falcon/assets/img/icons/shield.png" alt=""
+                            width="60" height="60">
+                        <div class="flex-1">
+                            <h5 class="mb-1">Mohon di lakukan pengecekan kembali</h5>
+                            <p class="fs--1 mb-0">Pastikan transaksi telah sesuai dan cek kembali total
+                                transaksi
+                            </p>
+                            <div class="fs-4 mt-2 fw-semi-bold">All Total: <span class="text-primary">
+                                    <span class="grand_total" id="grand_total">IDR&nbsp;
+                                        {{ number_format($transaksi->total) }}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class="card overflow-hidden" style="min-width: 12rem">
-                            <div class="bg-holder bg-card"
-                                style="background-image:url(../../falcon/assets/img/icons/spot-illustrations/corner-2.png);">
-                            </div>
-                            <div class="card-body position-relative">
-                                <h6>Modal Anda Hari Ini</h6>
-                                <h4 class="text-primary jumlah_modal" id="jumlah_modal" data-countup="jumlah_modal">
-                                    IDR&nbsp;{{ number_format($modal->riwayat_modal) }}
-                                </h4>
-                                <a class="fw-semi-bold fs--1 text-nowrap" href="{{ route('modal.index') }}">Tambah Modal
-                                    <span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="vertical-line d-none d-md-block d-xl-none d-xxl-block"> </div>
                 </div>
+                <div
+                    class="col-md-5 col-xl-12 col-xxl-5 ps-lg-4 pb-3 ps-xl-2 ps-xxl-5 text-center text-md-start text-xl-center text-xxl-start">
+                    <div class="border-dashed-bottom d-block d-md-none d-xl-block d-xxl-none my-4"></div>
 
-                <div class="card">
-                    <div class="card-header bg-light">
-                        <h5 class="mb-0">Confirm Transaksi</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-7 col-xl-12 col-xxl-7 px-md-3 mb-xxl-0 position-relative">
-                                <div class="d-flex"><img class="me-3" src="../../falcon/assets/img/icons/shield.png"
-                                        alt="" width="60" height="60">
-                                    <div class="flex-1">
-                                        <h5 class="mb-2">Check Kembali</h5>
-                                        <div class="form-check mb-0"><input class="form-check-input" id="check_1"
-                                                type="checkbox"><label class="form-check-label mb-0">Check Kembali Order
-                                                Summary<br class="d-none d-md-block d-lg-none"></label></div>
-                                        <div class="form-check mb-0"><input class="form-check-input" id="check_2"
-                                                type="checkbox"><label class="form-check-label mb-0">Check All Total
-                                                Payment<br class="d-none d-md-block d-lg-none"></label></div>
-                                        <p class="fs--1 mb-0">Pastikan transaksi telah sesuai, centang untuk melanjutkan
-                                        </p>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="vertical-line d-none d-md-block d-xl-none d-xxl-block"> </div>
-                            </div>
-                            <div
-                                class="col-md-5 col-xl-12 col-xxl-5 ps-lg-4 ps-xl-2 ps-xxl-5 text-center text-md-start text-xl-center text-xxl-start">
-                                <div class="border-dashed-bottom d-block d-md-none d-xl-block d-xxl-none my-4"></div>
-                                <div class="fs-2 fw-semi-bold">All Total: <span class="text-primary">
-                                        <span class="grand_total" id="grand_total">IDR&nbsp;
-                                            {{ number_format($transaksi->total) }}</span>
-                                </div>
-                                <button class="btn btn-primary mt-3 px-4" data-bs-toggle="modal"
-                                    data-bs-target="#error-modal" type="button">Confirm Data
-                                </button>
-                                <p class="fs--1 mt-3 mb-0">By clicking <strong>Confirm &amp; Edit </strong>button,
-                                    transaction being process
-                            </div>
-                        </div>
-                    </div>
+                    <button class="btn btn-primary mt-3 px-4 py-2" data-bs-toggle="modal" data-bs-target="#error-modal"
+                        type="button">Update Data
+                    </button>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </main>
@@ -281,9 +277,7 @@
         var nama_customer = $('#nama_customer').val()
         var nomor_passport = $('#nomor_passport').val()
         var negara = $('.negara_asal').val()
-        console.log(negara)
-
-
+        
         if (grand_total.includes("IDR&nbsp;0")) {
             Swal.fire({
                 icon: 'error',
@@ -298,26 +292,7 @@
             var modal = $('#jumlah_modal').html()
             var jumlah_modal = modal.split('IDR&nbsp;')[1].replace(',', '').replace(',', '').trim()
 
-            if (check_1 == false) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Check Terlebih Dahulu!',
-                })
-            } else if (check_2 == false) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Check Terlebih Dahulu!',
-                })
-            } else if (check_1 == false && check_2 == false) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Check Terlebih Dahulu!',
-                })
-            } else if (check_1 == true && check_2 == true) {
-
+           
                 var detail = $('#konfirmasi').children()
                 for (let index = 0; index < detail.length; index++) {
                     var children = $(detail[index]).children()
@@ -411,7 +386,7 @@
                         }
                     });
                 }
-            }
+            
         }
     }
 

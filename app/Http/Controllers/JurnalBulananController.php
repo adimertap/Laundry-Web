@@ -18,15 +18,23 @@ class JurnalBulananController extends Controller
      */
     public function index()
     {
-        $transaksi = Transaksi::selectRaw('SUM(total) as grand_total, tanggal_transaksi, DATE_FORMAT(tanggal_transaksi, "%m") as month, YEAR(tanggal_transaksi) as year, COUNT(id_transaksi) as jumlah_transaksi')
-        ->groupBy('month','year')
-        ->orderBy('month','ASC')
-        ->get();
-
-        // return $transaksi;
+        $transaksi = Transaksi::selectRaw(
+            '
+            SUM(CASE WHEN jenis_transaksi = "Beli" THEN total ELSE 0 END) as grand_total, 
+            SUM(CASE WHEN jenis_transaksi = "Jual" THEN total ELSE 0 END) as jual_total,
+            DATE_FORMAT(tanggal_transaksi, "%m") as month, 
+            YEAR(tanggal_transaksi) as year, 
+            SUM(CASE WHEN jenis_transaksi = "Beli" THEN 1 ELSE 0 END) as jumlah_transaksi, 
+            SUM(CASE WHEN jenis_transaksi = "Jual" THEN 1 ELSE 0 END) as jual_transaksi'
+        )
+            ->groupBy('year', 'month')
+            ->orderBy('year', 'DESC')
+            ->orderBy('month', 'DESC')
+            ->get();
 
         return view('pages.jurnal.bulan.index', compact('transaksi'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -35,7 +43,6 @@ class JurnalBulananController extends Controller
      */
     public function create()
     {
-        
     }
 
     /**
@@ -55,27 +62,25 @@ class JurnalBulananController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request,$month)
+    public function show(Request $request, $month)
     {
         $transaksi = Transaksi::whereMonth('tanggal_transaksi', '=', $month)
-        ->selectRaw('DATE_FORMAT(tanggal_transaksi, "%M") as month, SUM(total) as grand_total, tanggal_transaksi, COUNT(id_transaksi) as jumlah_transaksi')
-        ->groupBy('tanggal_transaksi')
-        ->orderBy('tanggal_transaksi','DESC')
-        ->get();
+            ->selectRaw('DATE_FORMAT(tanggal_transaksi, "%M") as month, SUM(total) as grand_total, tanggal_transaksi, COUNT(id_transaksi) as jumlah_transaksi, jenis_transaksi as jenis',)
+            ->groupBy('tanggal_transaksi')
+            ->orderBy('tanggal_transaksi', 'DESC')
+            ->get();
 
         $transaksi_seluruh = Transaksi::with('Pegawai')->whereMonth('tanggal_transaksi', '=', $month);
-        if($request->from){
+        if ($request->from) {
             $transaksi_seluruh->where('tanggal_transaksi', '>=', $request->from);
         }
-        if($request->to){
+        if ($request->to) {
             $transaksi_seluruh->where('tanggal_transaksi', '<=', $request->to);
         }
-        $transaksi_seluruh = $transaksi_seluruh->orderBy('tanggal_transaksi','DESC')->get();
+        $transaksi_seluruh = $transaksi_seluruh->orderBy('tanggal_transaksi', 'DESC')->get();
         $bulan = $month;
 
-        return view('pages.jurnal.bulan.detail', compact('transaksi','transaksi_seluruh','bulan'));
-
-        
+        return view('pages.jurnal.bulan.detail', compact('transaksi', 'transaksi_seluruh', 'bulan'));
     }
 
     /**
@@ -89,13 +94,13 @@ class JurnalBulananController extends Controller
         $transaksi = Transaksi::where('tanggal_transaksi', $tanggal_transaksi)->get();
         return view('pages.jurnal.bulan.detailtanggal', compact('transaksi'));
     }
-    
+
     public function DetailTransaksi($id)
     {
-        $transaksi = Transaksi::with('Pegawai','detailTransaksi.Currency')->find($id);
+        $transaksi = Transaksi::with('Pegawai', 'detailTransaksi.Currency')->find($id);
         $detail = DetailTransaksi::where('id_transaksi', $id)->get();
 
-        return view('pages.jurnal.bulan.detailtransaksi', compact('transaksi','detail'));
+        return view('pages.jurnal.bulan.detailtransaksi', compact('transaksi', 'detail'));
     }
 
     /**

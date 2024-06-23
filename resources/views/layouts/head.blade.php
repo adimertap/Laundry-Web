@@ -14,11 +14,14 @@
     <script src="/../falcon/assets/js/config.js"></script>
     <script src="/../falcon/vendors/overlayscrollbars/OverlayScrollbars.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     {{-- <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js" defer></script> --}}
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet"
         crossorigin="anonymous" />
     <link rel="preconnect" href="https://fonts.gstatic.com/">
+    <link href="/../falcon/vendors/fullcalendar/main.min.css" rel="stylesheet">
+
     <link
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap"
         rel="stylesheet">

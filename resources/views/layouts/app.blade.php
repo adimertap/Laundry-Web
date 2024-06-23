@@ -78,6 +78,7 @@
 
     </main>
 
+    <script src="/../falcon/vendors/fullcalendar/main.min.js"></script>
     <script src="/../falcon/vendors/choices/choices.min.js"></script>
     <script src="/../falcon/vendors/popper/popper.min.js"></script>
     <script src="/../falcon/vendors/bootstrap/bootstrap.min.js"></script>

@@ -27,9 +27,9 @@ class ModalController extends Controller
     public function index()
     {
         if(Auth::user()->role == 'Owner'){
-            $modal = ModalTransaksi::orderBy('created_at', 'DESC')->get();
+            $modal = ModalTransaksi::where('tanggal_modal', '>=', now()->subDays(60))->orderBy('created_at', 'DESC')->get();
         }else{
-            $modal = ModalTransaksi::where('tanggal_modal', Carbon::now()->format('Y-m-d'))->orWhere('riwayat_modal','>', '0')->orderBy('created_at', 'DESC')->get();
+            $modal = ModalTransaksi::where('tanggal_modal', '>=', now()->subDays(60))->where('tanggal_modal', Carbon::now()->format('Y-m-d'))->orWhere('riwayat_modal','>', '0')->orderBy('created_at', 'DESC')->get();
         }
         $modal_today = ModalTransaksi::where('tanggal_modal', Carbon::now()->format('Y-m-d'))->get();
         $modal_tf = ModalTransaksi::where('tanggal_modal', Carbon::now()->format('Y-m-d'))->first();
@@ -40,6 +40,27 @@ class ModalController extends Controller
         }
         return view('pages.modal.index', compact('modal','modal_today','today','jumlah_modal_today','modal_tf'));
     }
+    // public function index()
+    // {
+    //     $today = Carbon::now()->format('Y-m-d');
+    //     $modalQuery = ModalTransaksi::where('tanggal_modal', $today);
+
+    //     if (Auth::user()->role != 'Owner') {
+    //         $modalQuery->orWhere('riwayat_modal', '>', '0');
+    //     }
+
+    //     $modal = $modalQuery->orderBy('created_at', 'DESC')->get();
+    //     $modal_today = $modalQuery->get();
+    //     $modal_tf = $modalQuery->first();
+    //     $jumlah_modal_today = $modalQuery->where('status_modal', 'Terima')->first();
+
+    //     if (count($modal_today) == 0) {
+    //         Alert::warning('Modal Belum Diinput', 'Anda Belum Menginputkan Modal Hari Ini, Lakukan Inputan atau Transfer');
+    //     }
+
+    //     return view('pages.modal.index', compact('modal', 'modal_today', 'today', 'jumlah_modal_today', 'modal_tf'));
+    // }
+
 
     /**
      * Show the form for creating a new resource.
@@ -110,14 +131,14 @@ class ModalController extends Controller
     public function update(Request $request, $id)
     {
         $modal = ModalTransaksi::where('id_modal', $request->modal_edit_id)->first();
-        if($modal->status_modal == 'Tolak' && $modal->jenis_modal == 'Edit Modal' || $modal->status_modal == 'Tolak' && $modal->jenis_modal == 'Penambahan Modal'){
+        if ($modal->status_modal == 'Tolak' && $modal->jenis_modal == 'Edit Modal' || $modal->status_modal == 'Tolak' && $modal->jenis_modal == 'Penambahan Modal') {
             $modal->pengajuan_tambah = $request->jumlah_modal;
             $tambah = $request->jumlah_modal;
 
             // $modal->jumlah_modal = $modal->jumlah_modal + $tambah;
             $modal->riwayat_modal = $modal->riwayat_modal + $tambah;
             $modal->total_modal_backup = $modal->total_modal_backup + $tambah;
-        }else{
+        } else {
             $modal->jumlah_modal = $request->jumlah_modal;
             $modal->riwayat_modal = $request->jumlah_modal;
             $modal->total_modal_backup = $request->jumlah_modal;
@@ -145,7 +166,7 @@ class ModalController extends Controller
         $item->jenis_modal = 'Penambahan Modal';
         $item->save();
 
-        $user = User::where('role','Owner')->get();
+        $user = User::where('role', 'Owner')->get();
         foreach ($user as $tes) {
             Mail::to($tes->email)->send(new MailModalTambah($item));
         }
@@ -165,7 +186,6 @@ class ModalController extends Controller
     public function hapus(Request $request)
     {
         $modal = ModalTransaksi::find($request->modal_delete_id);
-       
 
         $jurnal = Jurnal::where('id_modal', $request->modal_delete_id);
         $jurnal->delete();
@@ -179,7 +199,7 @@ class ModalController extends Controller
     {
         $modal = ModalTransaksi::find($request->modal_transfer_id);
         $modal_tuju = ModalTransaksi::where('tanggal_modal', Carbon::now()->format('Y-m-d'))->first();
-        if(empty($modal_tuju)){
+        if (empty($modal_tuju)) {
             $modal_baru = new ModalTransaksi();
             $modal_baru->tanggal_modal = Carbon::now();
             $modal_baru->jumlah_modal = $modal->riwayat_modal;
@@ -189,7 +209,7 @@ class ModalController extends Controller
             $modal_baru->total_modal_backup = $modal->riwayat_modal;
             $modal_baru->jenis_modal = 'Transfer Modal';
             $modal_baru->save();
-        }else{
+        } else {
             $perhitungan = $modal->riwayat_modal + $modal_tuju->riwayat_modal;
             // $perhitungan_awal = $modal->riwayat_modal + $modal_tuju->jumlah_modal;
             $perhitungan_total = $modal->total_modal_backup + $modal_tuju->total_modal_backup;
@@ -203,13 +223,12 @@ class ModalController extends Controller
         $modal->riwayat_modal = 0;
         $modal->save();
 
-        $user = User::where('role','Owner')->get();
+        $user = User::where('role', 'Owner')->get();
         foreach ($user as $tes) {
             Mail::to($tes->email)->send(new MailTransfer($modal));
         }
 
         Alert::success('Berhasil', 'Data Transfer Modal Berhasil Diajukan, Mohon Menunggu Approval');
         return redirect()->back();
-
     }
 }

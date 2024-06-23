@@ -13,25 +13,39 @@
                         <div class="position-relative z-index-2">
                             <div>
                                 <h3 class="text-primary mb-1">Welcome Back, {{ Auth::user()->name }}!</h3>
-                                <p>Dashboard Pegawai Khusus untuk Pegawai</p>
+                                <i>Dashboard PT. Riastavalasindo</i>
                             </div>
                             @if(Auth::user()->role == 'Owner')
-                            <div class="d-flex py-3">
-                                <div class="pe-3">
-                                    <p class="text-600 fs--1 fw-medium">Jumlah Transaksi Hari Ini</p>
-                                    <h4 class="text-800 mb-0">{{ $jumlah_hari_ini }} Transaksi</h4>
+                            <hr>
+                            <div class="d-flex py-3 ">
+                                <div class="border p-3 px-5">
+                                    <p class="text-700 fs--1 fw-medium">Jumlah Transaksi <br>Customer Hari Ini</p>
+                                    <h5 class="text-800 mb-0">{{ $jumlah_hari_ini }} Transaksi</h5>
                                 </div>
-                                <div class="ps-3">
-                                    <p class="text-600 fs--1">Total Transaksi Hari Ini</p>
-                                    <h4 class="text-800 mb-0">Rp. {{ number_format($total_hari_ini, 0, ',', '.') }}</h4>
+                                <div class="border p-3 px-5">
+                                    <p class="text-700 fs--1">Total Transaksi <br>Customer Hari Ini</p>
+                                    <h5 class="text-800 mb-0">Rp. {{ number_format($total_hari_ini, 0, ',', '.') }}</h5>
+                                </div>
+                                <div class="border p-3 px-5">
+                                    <p class="text-700 fs--1 fw-medium">Jumlah Transaksi <br>Jual Valas Hari Ini</p>
+                                    <h5 class="text-800 mb-0">{{ $jumlah_jual_hari_ini }} Transaksi</h5>
+                                </div>
+                                <div class="border p-3 px-5">
+                                    <p class="text-700 fs--1">Total Transaksi <br>Jual Valas Hari Ini</p>
+                                    <h5 class="text-800 mb-0">Rp. {{ number_format($total_jual_hari_ini, 0, ',', '.') }}</h5>
                                 </div>
                             </div>
                             @else
                             <div class="d-flex py-3">
                                 <div class="pe-3">
-                                    <p class="text-600 fs--1 fw-medium">Total Transaksi Money Changer Anda Hari Ini</p>
+                                    <p class="text-600 fs--1 fw-medium">Total Transaksi Customer Hari Ini</p>
                                     <h4 class="text-800 mb-0">Rp.
                                         {{ number_format($pegawai_money_today_total, 0, ',', '.') }}</h4>
+                                </div>
+                                <div class="pe-3">
+                                    <p class="text-600 fs--1 fw-medium">Total Transaksi Jual Valas Hari Ini</p>
+                                    <h4 class="text-800 mb-0">Rp.
+                                        {{ number_format($pegawai_money_today_total_jual, 0, ',', '.') }}</h4>
                                 </div>
                                 <div class="ps-3">
                                     <p class="text-600 fs--1">Total Transaksi Laundry Anda Hari ini</p>
@@ -113,10 +127,10 @@
             <div class="mb-3">
                 <div class="card bg-light my-3">
                     <div class="card-body p-3">
-                        <p class="fs--1 mb-0"><a href="#!">
+                        <p class="fs--1 mb-0"><i href="#!">
                                 <span class="far fa-bookmark me-2"></span>
                                 <strong>Pilih Aplikasi</strong> untuk membuat transaksi baru money changer atau laundry.
-                        </p>
+                        </i>
                     </div>
                 </div>
                 <div class="d-flex justify-content-center">
@@ -124,9 +138,20 @@
                         <a class="notification p-0" href="{{ route('transaksi.create') }}">
                             <div class="d-flex justify-content-between">
                                 <div class="notification-body p-3">
-                                    <h5 class="mb-1"><strong>Transaksi Money Changer</strong></h5>
+                                    <h5 class="mb-1"><strong>Transaksi Customer</strong></h5>
                                     <span class="notification-time"><span class="me-2" role="img"
-                                            aria-label="Emoji">💵</span>Klik disini untuk Membuat Transaksi Baru</span>
+                                            aria-label="Emoji">💵</span>Klik disini Transaksi Baru</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="fs--1 bg-light" style="width: 800px; margin-right:20px">
+                        <a class="notification p-0" href="{{ route('transaksi-jual.create') }}">
+                            <div class="d-flex justify-content-between">
+                                <div class="notification-body p-3">
+                                    <h5 class="mb-1"><strong>Transaksi Jual Valas</strong></h5>
+                                    <span class="notification-time"><span class="me-2" role="img"
+                                            aria-label="Emoji">💵</span>Klik disini Transaksi Baru</span>
                                 </div>
                             </div>
                         </a>
@@ -136,7 +161,7 @@
                             <div class="notification-body p-3">
                                 <h5 class="mb-1"><strong>Transaksi Laundry</strong></h5>
                                 <span class="notification-time"><span class="me-2" role="img"
-                                        aria-label="Emoji">🧺</span>Klik disini untuk Membuat Transaksi Baru</span>
+                                        aria-label="Emoji">🧺</span>Klik disini Transaksi Baru</span>
                             </div>
                         </a>
                     </div>
@@ -152,18 +177,25 @@
                 <div class="card-body py-3">
                     <div class="row g-0">
                         <div class="col-6 col-md-3 border-200 border-bottom border-end pb-4">
-                            <h6 class="pb-1 text-700">Transaksi Hari Ini</h6>
-                            <p class="font-sans-serif lh-1 mb-1 fs-2">{{ $jumlah_hari_ini }}</p>
+                            <h6 class="pb-1 text-700">Transaksi Customer dan <br> Jual Valas Hari Ini</h6>
+                            <p class="font-sans-serif lh-1 mb-1 fs-2">{{ $jumlah_seluruh }}</p>
                             <div class="d-flex align-items-center">
                                 <h6 class="fs--1 text-500 mb-0">Transaksi</h6>
                             </div>
                         </div>
-                        <div class="col-6 col-md-3 border-200 border-md-200 border-bottom border-md-end pb-4 ps-3">
-                            <h6 class="pb-1 text-700">Total Transaksi Hari Ini</h6>
-                            <p class="font-sans-serif lh-1 mb-1 fs-2">Rp. {{ number_format($total_hari_ini, 0, ',', '.')
-                                }}</p>
+                        <div class="col-6 col-md-3 border-200 border-md-200 border-bottom border-end border-md-end pb-4 ps-3">
+                            <h6 class="pb-1 text-700">Modal Awal Hari Ini</h6>
+                            <p class="font-sans-serif lh-1 mb-1 fs-2">
+                                @if ($sisa_modal == null)
+                                Hari Ini Belum Terdapat Modal
+                                @else
+                                Rp. {{ number_format($sisa_modal->total_modal_backup, 0, ',', '.') }}
+                                @endif
+                            </p>
                             <div class="d-flex align-items-center">
-                                <h6 class="fs--1 text-500 mb-0">Hari Ini</h6>
+                                <h6 class="fs--1 text-500 mb-0">
+                                    Hari Ini
+                                </h6>
                             </div>
                         </div>
                         <div class="col-6 col-md-3 border-200 border-md-200 border-bottom border-end border-md-end pb-4 ps-3">
@@ -175,13 +207,12 @@
                                 Rp. {{ number_format($sisa_modal->riwayat_modal, 0, ',', '.') }}
                                 @endif
                             </p>
-
                             <div class="d-flex align-items-center">
                                 <h6 class="fs--1 text-500 mb-0">
                                     @if ($sisa_modal == null)
                                     Hari Ini Belum Terdapat Modal
                                     @else
-                                    Dari Rp. {{ number_format($sisa_modal->total_modal_backup, 0, ',', '.') }}
+                                    Modal Awal Rp. {{ number_format($sisa_modal->total_modal_backup, 0, ',', '.') }}
                                     @endif
                                 </h6>
                             </div>
@@ -196,7 +227,7 @@
                                 @endif
                             </p>
 
-                            <div class="d-flex align-items-center">
+                            {{-- <div class="d-flex align-items-center">
                                 <h6 class="fs--1 text-500 mb-0">
                                     @if ($sisa_modal == null)
                                     Hari Ini Belum Terdapat Modal
@@ -204,12 +235,12 @@
                                     Dari Rp. {{ number_format($sisa_modal->total_modal_backup + $laundry, 0, ',', '.') }}
                                     @endif
                                 </h6>
-                            </div>
+                            </div> --}}
                         </div>
 
                         <div
                             class="col-6 col-md-4 border-200 border-md-200 border-bottom border-md-bottom-0 border-md-end pt-4 pb-md-0 ps-3 ps-md-0">
-                            <h6 class="pb-1 text-700">Transaksi Bulan Ini</h6>
+                            <h6 class="pb-1 text-700">Transaksi Customer Bulan Ini</h6>
                             <p class="font-sans-serif lh-1 mb-1 fs-2">{{ $jumlah_bulan_ini, 0, ',', '.' }}</p>
                             <div class="d-flex align-items-center">
                                 <h6 class="fs--1 text-500 mb-0">Transaksi</h6>
@@ -217,7 +248,7 @@
                             </div>
                         </div>
                         <div class="col-6 col-md-4 border-200 border-md-bottom-0 border-end pt-4 pb-md-0 ps-md-3">
-                            <h6 class="pb-1 text-700">Total Transaksi Bulan Ini </h6>
+                            <h6 class="pb-1 text-700">Total Transaksi Customer Bulan Ini </h6>
                             <p class="font-sans-serif lh-1 mb-1 fs-2">Rp. {{ number_format($total_bulan_ini, 0, ',',
                                 '.') }}</p>
                             <div class="d-flex align-items-center">
@@ -232,6 +263,32 @@
                                 <h6 class="fs--1 text-500 mb-0">Bulan {{ $bulan_ini }}</h6>
                             </div>
                         </div>
+                        <hr class="mt-3">
+                        <div
+                            class="col-6 col-md-4 border-200 border-md-200 border-bottom border-md-bottom-0 border-md-end pt-4 pb-md-0 ps-3 ps-md-0">
+                            <h6 class="pb-1 text-700">Transaksi Jual Valas Bulan Ini</h6>
+                            <p class="font-sans-serif lh-1 mb-1 fs-2">{{ $jumlah_jual_bulan_ini, 0, ',', '.' }}</p>
+                            <div class="d-flex align-items-center">
+                                <h6 class="fs--1 text-500 mb-0">Transaksi</h6>
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 border-200 border-md-bottom-0 border-end pt-4 pb-md-0 ps-md-3">
+                            <h6 class="pb-1 text-700">Total Transaksi Jual Valas Bulan Ini </h6>
+                            <p class="font-sans-serif lh-1 mb-1 fs-2">Rp. {{ number_format($total_jual_bulan_ini, 0, ',',
+                                '.') }}</p>
+                            <div class="d-flex align-items-center">
+                                <h6 class="fs--1 text-500 mb-0">Bulan {{ $bulan_ini }}</h6>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 pb-0 pt-4 ps-3">
+                            {{-- <h6 class="pb-1 text-700">Total Modal Terpakai Bulan Ini</h6>
+                            <p class="font-sans-serif lh-1 mb-1 fs-2">Rp. {{ number_format($total_modal_bulan_ini, 0,
+                                ',', '.') }}</p>
+                            <div class="d-flex align-items-center">
+                                <h6 class="fs--1 text-500 mb-0">Bulan {{ $bulan_ini }}</h6>
+                            </div> --}}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -241,14 +298,14 @@
                 <div class="card-body py-3">
                     <div class="row g-0">
                         <div class="col-6 col-md-4 border-200 border-bottom border-end pb-4">
-                            <h6 class="pb-1 text-700">Transaksi Money Changer Anda Hari Ini</h6>
+                            <h6 class="pb-1 text-700">Transaksi Customer</h6>
                             <p class="font-sans-serif lh-1 mb-1 fs-2">{{ $pegawai_count_money_today }}</p>
                             <div class="d-flex align-items-center">
                                 <h6 class="fs--1 text-500 mb-0">Transaksi</h6>
                             </div>
                         </div>
                         <div class="col-6 col-md-4 border-200 border-md-200 border-bottom border-md-end pb-4 ps-3">
-                            <h6 class="pb-1 text-700">Total Transaksi Money Changer Anda Hari Ini</h6>
+                            <h6 class="pb-1 text-700">Total Transaksi Customer Anda Hari Ini</h6>
                             <p class="font-sans-serif lh-1 mb-1 fs-2">Rp. {{ number_format($pegawai_money_today_total, 0, ',', '.')
                                 }}</p>
                             <div class="d-flex align-items-center">
@@ -257,9 +314,35 @@
                         </div>
                         <div
                             class="col-6 col-md-4 border-200 border-bottom border-end border-md-end-0 pb-4 pt-4 pt-md-0 ps-md-3">
-                            <h6 class="pb-1 text-700">Total Transaksi Money Changer Anda Bulan Ini</h6>
+                            <h6 class="pb-1 text-700">Total Transaksi Customer Anda Bulan Ini</h6>
                             <p class="font-sans-serif lh-1 mb-1 fs-2">
                                 Rp. {{ number_format($pegawai_sum_money_bulan, 0, ',', '.')
+                            }}
+                                <div class="d-flex align-items-center">
+                                    <h6 class="fs--1 text-500 mb-0">Bulan Ini: {{ $bulan_ini }}</h6>
+                                </div>
+                            </p>
+                        </div>
+                        <div class="col-6 col-md-4 border-200 border-bottom border-end pb-4">
+                            <h6 class="pb-1 text-700">Transaksi Jual Valas</h6>
+                            <p class="font-sans-serif lh-1 mb-1 fs-2">{{ $pegawai_count_money_today_jual }}</p>
+                            <div class="d-flex align-items-center">
+                                <h6 class="fs--1 text-500 mb-0">Transaksi</h6>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 border-200 border-md-200 border-bottom border-md-end pb-4 ps-3">
+                            <h6 class="pb-1 text-700">Total Transaksi Jual Valas Anda Hari Ini</h6>
+                            <p class="font-sans-serif lh-1 mb-1 fs-2">Rp. {{ number_format($pegawai_money_today_total_jual, 0, ',', '.')
+                                }}</p>
+                            <div class="d-flex align-items-center">
+                                <h6 class="fs--1 text-500 mb-0">Hari Ini</h6>
+                            </div>
+                        </div>
+                        <div
+                            class="col-6 col-md-4 border-200 border-bottom border-end border-md-end-0 pb-4 pt-4 pt-md-0 ps-md-3">
+                            <h6 class="pb-1 text-700">Total Transaksi Jual Valas Anda Bulan Ini</h6>
+                            <p class="font-sans-serif lh-1 mb-1 fs-2">
+                                Rp. {{ number_format($pegawai_sum_money_bulan_jual, 0, ',', '.')
                             }}
                                 <div class="d-flex align-items-center">
                                     <h6 class="fs--1 text-500 mb-0">Bulan Ini: {{ $bulan_ini }}</h6>

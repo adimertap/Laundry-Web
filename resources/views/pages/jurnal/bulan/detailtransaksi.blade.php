@@ -26,6 +26,7 @@
         </div>
     </div>
 
+    @if($transaksi->jenis_transaksi == 'Beli')
     <div class="card mb-3">
         <div class="card-body">
             <div class="row">
@@ -50,6 +51,9 @@
             </div>
         </div>
     </div>
+    @endif
+
+   
 
     <div class="card mb-3">
         <div class="card-body">

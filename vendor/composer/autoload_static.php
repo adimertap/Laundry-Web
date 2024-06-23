@@ -368,8 +368,8 @@ class ComposerStaticInitc53ff5cd9de05ea5f2e9c3fb9d738f33
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -614,6 +614,10 @@ class ComposerStaticInitc53ff5cd9de05ea5f2e9c3fb9d738f33
         'App\\Exports\\ExcelLaundry' => __DIR__ . '/../..' . '/app/Exports/ExcelLaundry.php',
         'App\\Exports\\ExcelTransaksi' => __DIR__ . '/../..' . '/app/Exports/ExcelTransaksi.php',
         'App\\Exports\\TransaksiHarianExport' => __DIR__ . '/../..' . '/app/Exports/TransaksiHarianExport.php',
+        'App\\Http\\Controllers\\Absensi\\JadwalKerjaController' => __DIR__ . '/../..' . '/app/Http/Controllers/Absensi/JadwalKerjaController.php',
+        'App\\Http\\Controllers\\Absensi\\JadwalUserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Absensi/JadwalUserController.php',
+        'App\\Http\\Controllers\\Absensi\\LaporanAbsensiController' => __DIR__ . '/../..' . '/app/Http/Controllers/Absensi/LaporanAbsensiController.php',
+        'App\\Http\\Controllers\\Absensi\\MasterShiftController' => __DIR__ . '/../..' . '/app/Http/Controllers/Absensi/MasterShiftController.php',
         'App\\Http\\Controllers\\ApprovalModalController' => __DIR__ . '/../..' . '/app/Http/Controllers/ApprovalModalController.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
@@ -655,6 +659,7 @@ class ComposerStaticInitc53ff5cd9de05ea5f2e9c3fb9d738f33
         'App\\Mail\\MailModalTambah' => __DIR__ . '/../..' . '/app/Mail/MailModalTambah.php',
         'App\\Mail\\MailTransfer' => __DIR__ . '/../..' . '/app/Mail/MailTransfer.php',
         'App\\Models\\DetailTransaksi' => __DIR__ . '/../..' . '/app/Models/DetailTransaksi.php',
+        'App\\Models\\JadwalKerja' => __DIR__ . '/../..' . '/app/Models/JadwalKerja.php',
         'App\\Models\\Jurnal' => __DIR__ . '/../..' . '/app/Models/Jurnal.php',
         'App\\Models\\Laundry\\DetailTransaksiLaundry' => __DIR__ . '/../..' . '/app/Models/Laundry/DetailTransaksiLaundry.php',
         'App\\Models\\Laundry\\MasterCategoryPenerima' => __DIR__ . '/../..' . '/app/Models/Laundry/MasterCategoryPenerima.php',
@@ -663,6 +668,7 @@ class ComposerStaticInitc53ff5cd9de05ea5f2e9c3fb9d738f33
         'App\\Models\\LogEdit' => __DIR__ . '/../..' . '/app/Models/LogEdit.php',
         'App\\Models\\LogEditDetail' => __DIR__ . '/../..' . '/app/Models/LogEditDetail.php',
         'App\\Models\\MasterCurrency' => __DIR__ . '/../..' . '/app/Models/MasterCurrency.php',
+        'App\\Models\\MasterShift' => __DIR__ . '/../..' . '/app/Models/MasterShift.php',
         'App\\Models\\ModalTransaksi' => __DIR__ . '/../..' . '/app/Models/ModalTransaksi.php',
         'App\\Models\\Transaksi' => __DIR__ . '/../..' . '/app/Models/Transaksi.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',

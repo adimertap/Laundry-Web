@@ -13,6 +13,19 @@
     <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
         <div class="navbar-vertical-content scrollbar">
             <ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
+                @if(Auth::user()->role != 'Owner')
+                <a class="nav-link mt-4" href="{{ route('dashboard') }}" role="button" data-bs-toggle=""
+                aria-expanded="false">
+                <div class="d-flex align-items-center">
+                    <span class="nav-link-icon">
+                        <i class="fas fa-home"></i>
+                        <i class="fas fa-home"></i>
+                    </span>
+                    <span class="nav-link-text ps-1">Dashboard</span>
+                </div>
+                </a>
+                @endif
+
                 @if (Auth::user()->role == 'Owner')
                 <li class="nav-item">
                     <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
@@ -32,7 +45,7 @@
                     @endphp
                     <ul class="nav collapse {{ (in_array(request()->route()->getName(), $dashboardRoutes)) ? 'show' : '' }}"
                         id="dashboard" style="">
-                        <li class="nav-item">
+                        <li class="nav-item mt-1">
                             <a class="nav-link" href="{{ route('dashboard') }}" data-bs-toggle="" aria-expanded="false">
                                 <div class="d-flex align-items-center">
                                     <span class="nav-link-text ps-1">
@@ -40,14 +53,14 @@
                                 </div>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item mt-1">
                             <a class="nav-link" href="{{ route('dashboard-laundry') }}" data-bs-toggle=""
                                 aria-expanded="false">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Laundry</span>
                                 </div>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item mt-1">
                             <a class="nav-link" href="{{ url('https://ratepos.ptriastavalasindo.com/') }}"
                                 data-bs-toggle="" aria-expanded="false">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Web
@@ -82,6 +95,7 @@
                             <span class="nav-link-text ps-1">Currency</span>
                         </div>
                     </a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link dropdown-indicator" href="#master" role="button" data-bs-toggle="collapse"
                         aria-expanded="false" aria-controls="master">
@@ -97,14 +111,14 @@
                     @endphp
                     <ul class="nav collapse {{ (in_array(request()->route()->getName(), $master_temp)) ? 'show' : '' }}"
                         id="master" style="">
-                        <li class="nav-item">
+                        <li class="nav-item mt-1">
                             <a class="nav-link" href="{{ route('laundry-type.index') }}" data-bs-toggle=""
                                 aria-expanded="false">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Harga dan
                                         Type</span></div>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item mt-1">
                             <a class="nav-link" href="{{ route('laundry-jenis.index') }}" data-bs-toggle=""
                                 aria-expanded="false">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Jenis
@@ -114,6 +128,45 @@
                     </ul>
                 </li>
                 @endif
+                <li class="nav-item">
+                    <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+                        <div class="col-auto navbar-vertical-label">Jadwal</div>
+                        <div class="col ps-0">
+                            <hr class="mb-0 navbar-vertical-divider">
+                        </div>
+                    </div>
+                    @if (Auth::user()->role == 'Owner')
+                    <a class="nav-link" href="{{ route('shift.index') }}" role="button" data-bs-toggle=""
+                        aria-expanded="false">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon">
+                                <i class="fas fa-business-time"></i>
+                            </span>
+                            <span class="nav-link-text ps-1">Shift</span>
+                        </div>
+                    </a>
+                    <a class="nav-link" href="{{ route('jadwal.index') }}" role="button" data-bs-toggle=""
+                        aria-expanded="false">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </span>
+                            <span class="nav-link-text ps-1">Jadwal</span>
+                        </div>
+                    </a>
+                    @endif
+                    <a class="nav-link" href="{{ route('jadwal-user.index') }}" role="button" data-bs-toggle=""
+                        aria-expanded="false">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </span>
+                            <span class="nav-link-text ps-1">Jadwal & Absen</span>
+                        </div>
+                    </a>
+                    
+
+                </li>
                 <li class="nav-item">
                     <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
                         <div class="col-auto navbar-vertical-label">Transaction</div>
@@ -129,7 +182,7 @@
                             </span><span class="nav-link-text ps-1">Money Changer</span></div>
                     </a>
                     @php
-                    $money_temp = ['modal.index', 'transaksi.create'];
+                    $money_temp = ['modal.index', 'transaksi.create','transaksi-jual.create'];
                     @endphp
                     <ul class="nav collapse {{ (in_array(request()->route()->getName(), $money_temp)) ? 'show' : '' }}"
                         id="transaksimoney" style="">
@@ -140,10 +193,17 @@
                                 </div>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item mt-1">
                             <a class="nav-link" href="{{ route('transaksi.create') }}" data-bs-toggle=""
                                 aria-expanded="false">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Transaksi</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item mt-1">
+                            <a class="nav-link" href="{{ route('transaksi-jual.create') }}" data-bs-toggle=""
+                                aria-expanded="false">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Transaksi Jual</span>
                                 </div>
                             </a>
                         </li>
@@ -203,7 +263,7 @@
                             </a>
                         </li>
                         @if(Auth::user()->role == 'Owner')
-                        <li class="nav-item">
+                        <li class="nav-item mt-1">
                             <a class="nav-link" href="{{ route('jurnal-harian.index') }}" data-bs-toggle=""
                                 aria-expanded="false">
                                 <div class="d-flex align-items-center">
@@ -212,7 +272,7 @@
                                 </div>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item mt-1">
                             <a class="nav-link" href="{{ route('jurnal-debit-kredit.index') }}" data-bs-toggle=""
                                 aria-expanded="false">
                                 <div class="d-flex align-items-center">
@@ -221,7 +281,7 @@
                                 </div>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item mt-1">
                             <a class="nav-link" href="{{ route('jurnal-bulanan.index') }}" data-bs-toggle=""
                                 aria-expanded="false">
                                 <div class="d-flex align-items-center">
@@ -245,7 +305,7 @@
                     @endphp
                     <ul class="nav collapse {{ (in_array(request()->route()->getName(), $laporan_laundry)) ? 'show' : '' }}"
                         id="laporanLaundry" style="">
-                        <li class="nav-item">
+                        <li class="nav-item mt-1">
                             <a class="nav-link" href="{{ route('transaksi-laundry.index') }}" data-bs-toggle=""
                                 aria-expanded="false">
                                 <div class="d-flex align-items-center">
@@ -254,7 +314,7 @@
                                 </div>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item mt-1">
                             <a class="nav-link" href="{{ route('transaksi-laundry-all') }}" data-bs-toggle=""
                                 aria-expanded="false">
                                 <div class="d-flex align-items-center">
@@ -263,7 +323,7 @@
                                 </div>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item mt-1">
                             <a class="nav-link" href="{{ route('transaksi-laundry-customer') }}" data-bs-toggle=""
                                 aria-expanded="false">
                                 <div class="d-flex align-items-center">
@@ -273,7 +333,7 @@
                             </a>
                         </li>
                         @if(Auth::user()->role == 'Owner')
-                        <li class="nav-item">
+                        <li class="nav-item mt-1">
                             <a class="nav-link" href="{{ route('bulanan-laundry.index') }}" data-bs-toggle=""
                                 aria-expanded="false">
                                 <div class="d-flex align-items-center">
@@ -284,6 +344,41 @@
                         </li>
                         @endif
                     </ul>
+
+                    <a class="nav-link dropdown-indicator collapsed" href="#laporanAbsen" role="button"
+                        data-bs-toggle="collapse" aria-expanded="true" aria-controls="laporanAbsen">
+                        <div class="d-flex align-items-center"><span class="nav-link-icon">
+                                <i class="fas fa-calendar-alt"></i></span><span class="nav-link-text ps-1">Laporan
+                                Absensi</span></div>
+                    </a>
+                    @php
+                    $laporan_absensi = ['getUserReport', 'jadwal-laporan.index' ];
+                    @endphp
+                    <ul class="nav collapse {{ (in_array(request()->route()->getName(), $laporan_absensi)) ? 'show' : '' }}"
+                        id="laporanAbsen" style="">
+                        @if(Auth::user()->role == 'Owner')
+                        <li class="nav-item mt-1">
+                            <a class="nav-link" href="{{ route('getUserReport') }}" data-bs-toggle=""
+                                aria-expanded="false">
+                                <div class="d-flex align-items-center">
+                                    <span class="nav-link-text ps-1">
+                                        Laporan Pegawai</span>
+                                </div>
+                            </a>
+                        </li>
+                        @endif
+
+                        <li class="nav-item mt-1">
+                            <a class="nav-link" href="{{ route('jadwal-laporan.index') }}" data-bs-toggle=""
+                                aria-expanded="false">
+                                <div class="d-flex align-items-center">
+                                    <span class="nav-link-text ps-1">
+                                        Laporan Saya</span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+
                 </li>
                 @if (Auth::user()->role == 'Owner')
                 <li class="nav-item">

@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\JadwalKerja;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Carbon\Carbon;
+use Alert;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+
 
 class LoginController extends Controller
 {
@@ -29,9 +34,8 @@ class LoginController extends Controller
 
     protected function authenticated($request, $user)
     {
-       $tes = $user->role;
+
         return redirect('/');
-      
     }
 
     // protected $redirectTo = RouteServiceProvider::HOME;

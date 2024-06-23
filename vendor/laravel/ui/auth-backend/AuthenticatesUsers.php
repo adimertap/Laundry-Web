@@ -2,9 +2,12 @@
 
 namespace Illuminate\Foundation\Auth;
 
+use App\Models\JadwalKerja;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Alert;
+use Carbon\Carbon;
 use Illuminate\Validation\ValidationException;
 
 trait AuthenticatesUsers
@@ -31,6 +34,19 @@ trait AuthenticatesUsers
      */
     public function login(Request $request)
     {
+        // $user = User::where('email', $request->email)->first();
+        // if($user->role != 'Owner'){
+        //     $timezone = new \DateTimeZone('Asia/Makassar');
+        //     $jadwalToday = JadwalKerja::with('Shift', 'User')->where('id', $user->id)
+        //     ->where('tanggal', Carbon::today($timezone))
+        //     ->first();
+    
+        //     if(!$jadwalToday){
+        //         Alert::warning('warning', 'Tidak Ada Jadwal Hari Ini!');
+        //         return redirect()->back();
+        //     }
+        // }
+        
         $this->validateLogin($request);
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
@@ -75,6 +91,7 @@ trait AuthenticatesUsers
         ]);
     }
 
+
     /**
      * Attempt to log the user into the application.
      *
@@ -114,6 +131,7 @@ trait AuthenticatesUsers
         if ($response = $this->authenticated($request, $this->guard()->user())) {
             return $response;
         }
+        // dd($request->session()->all());
 
         return $request->wantsJson()
                     ? new JsonResponse([], 204)
@@ -129,7 +147,7 @@ trait AuthenticatesUsers
      */
     protected function authenticated(Request $request, $user)
     {
-        //
+
     }
 
     /**
