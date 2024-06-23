@@ -62,10 +62,15 @@ class JadwalUserController extends Controller
  
          // Radius Salah
          //  -8.035976527872002, 114.38504957190355
- 
+
          // Radius Basurra
-         $fixedLatitude = -6.200000; // Example fixed latitude
-         $fixedLongitude = 106.816666; // Example fixed longitude
+         // -6.200000, 106.816666
+
+         // Radius PT Riastavalasindo on googlemaps
+         //  -8.701647497474847, 115.16637512084526
+
+         $fixedLatitude = -8.701647497474847; // Example fixed latitude
+         $fixedLongitude = 115.16637512084526; // Example fixed longitude
  
          return view('absensi.absen', compact('jadwalMasukFilled','countTodayStatusX','jadwal', 'jadwalToday', 'currentMonth', 'jadwalTodayCount', 'today', 'fixedLatitude', 'fixedLongitude'));
     }
