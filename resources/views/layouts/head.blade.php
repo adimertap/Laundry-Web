@@ -45,7 +45,6 @@
             container.classList.add('container-fluid');
         }
 
-
         $(document).ready(function () {
             $('.changeBtn').click(function (e) {
                 e.preventDefault();

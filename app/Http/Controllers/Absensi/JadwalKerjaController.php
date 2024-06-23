@@ -174,11 +174,11 @@ class JadwalKerjaController extends Controller
         try {
             DB::beginTransaction();
 
-            $check = JadwalKerja::where('tanggal', $request->start_date)->where('shift_id', $request->shiftEdit)->first();
-            if($check){
-                Alert::warning('Warning', 'Jadwal pada tanggal dan shift telah terisi');
-                return redirect()->back();
-            }
+            // $check = JadwalKerja::where('tanggal', $request->start_date)->where('shift_id', $request->shiftEdit)->first();
+            // if($check){
+            //     Alert::warning('Warning', 'Jadwal pada tanggal dan shift telah terisi');
+            //     return redirect()->back();
+            // }
 
             $data = JadwalKerja::where('jadwal_id', $request->jadwalIdEdit)->first();
             $data->id = $request->pegawai;
