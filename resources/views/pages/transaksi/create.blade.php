@@ -340,7 +340,7 @@
                             console.log(response)
                             window.location.href = '/transaksi/create'
                             window.open(
-                                '/cetak/' + response->id_transaksi,
+                                '/cetak/' + response.id_transaksi,
                                 '_blank'
                             );
 
