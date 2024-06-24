@@ -338,11 +338,11 @@
                         data: data,
                         success: function (response) {
                             console.log(response)
-                            window.location.href = '/transaksi/create'
-                            window.open(
-                                '/cetak/' + response,
-                                '_blank'
-                            );
+                            // window.location.href = '/transaksi/create'
+                            // window.open(
+                            //     '/cetak/' + response->id_transaksi,
+                            //     '_blank'
+                            // );
 
                             const Toast = Swal.mixin({
                                 toast: true,
