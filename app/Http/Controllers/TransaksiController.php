@@ -312,7 +312,7 @@ class TransaksiController extends Controller
         $jumlah_transaksi = Transaksi::where('id_pegawai', Auth::user()->id)->where('tanggal_transaksi', Carbon::now()->format('Y-m-d'))->count();
         $total_transaksi = Transaksi::where('id_pegawai', Auth::user()->id)->where('tanggal_transaksi', Carbon::now()->format('Y-m-d'))->sum('total');
         // $id = Transaksi::getId();
-        $id = Transaksi::getIdJual();
+        $id = Transaksi::getIdBeli();
         foreach ($id as $value);
         $idlama = $value->id_transaksi;
         $idbaru = $idlama + 1;
