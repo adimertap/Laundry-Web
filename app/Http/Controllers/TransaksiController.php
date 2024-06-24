@@ -345,8 +345,17 @@ class TransaksiController extends Controller
             $transaksi->jenis_transaksi = 'Beli';
             $transaksi->save();
 
-            $transaksi->detailTransaksi()->insert($request->detail);
+            // $transaksi->detailTransaksi()->insert($request->detail);
             foreach ($request->detail as $key) {
+
+                $det = new DetailTransaksi;
+                $det->currency_id = $key['currency_id'];
+                $det->jumlah_currency = $key['jumlah_currency'];
+                $det->jumlah_tukar = $key['jumlah_tukar'];
+                $det->total_tukar = $key['total_tukar'];
+                $det->id_transaksi = $transaksi->id_transaksi;
+                $det->save();
+
                 $jurnal = new Jurnal();
                 $jurnal->id_transaksi = $transaksi->id_transaksi;
                 $jurnal->tanggal_jurnal = $transaksi->tanggal_transaksi;
