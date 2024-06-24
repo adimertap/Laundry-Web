@@ -380,7 +380,7 @@ class TransaksiController extends Controller
             $modal->save();
             DB::commit();
             Alert::success('Berhasil', 'Data Transaksi Berhasil Ditambahkan');
-            return $request;
+            return $transaksi->id_transaksi;
         } catch (\Throwable $th) {
             dd($th);
             DB::rollBack();

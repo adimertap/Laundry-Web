@@ -337,9 +337,10 @@
                         url: '/transaksi',
                         data: data,
                         success: function (response) {
+                            console.log(response)
                             window.location.href = '/transaksi/create'
                             window.open(
-                                '/cetak/' + id_transaksi,
+                                '/cetak/' + response,
                                 '_blank'
                             );
 
