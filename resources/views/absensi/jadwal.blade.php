@@ -290,7 +290,10 @@
                     , method: 'GET'
                     , success: function(data) {
                         console.log(data)
-                        var formattedStartDate = new Date(data.start_date).toISOString().split('T')[0];
+                        // var formattedStartDate = new Date(data.start_date).toISOString().split('T')[0];
+                        var startDate = new Date(data.start_date);
+                        startDate.setDate(startDate.getDate() + 1);
+                        var formattedStartDate = startDate.toISOString().split('T')[0];
                         // Populate modal with fetched data
                         $('#jadwalIdEdit').val(data.id)
                         $('#startDateEdit').val(formattedStartDate);

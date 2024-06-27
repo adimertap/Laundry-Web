@@ -48,7 +48,7 @@ class TransaksiJualController extends Controller
 
             $report = $jurnalQuery->selectRaw('nama_currency as nama_kurs, SUM(jumlah_tukar) as jumlah_tukar, kurs as nilai_kurs, jenis_kurs as jenis')
                 ->where('jenis_jurnal', 'Kredit Jual')
-                ->groupBy('nama_currency', 'kurs', 'jenis_kurs')
+                ->groupBy('nama_currency', 'jenis_kurs')
                 ->get();
 
             $valas = $jurnalQuery->selectRaw('nama_currency as nama_kurs, SUM(jumlah_tukar) as jumlah, kurs as nilai, jenis_kurs as jenis, SUM(total_tukar) as total')
@@ -63,7 +63,7 @@ class TransaksiJualController extends Controller
                     $report = $jurnalQuery->where('id_pegawai', $request->filterData)
                         ->selectRaw('nama_currency as nama_kurs, SUM(jumlah_tukar) as jumlah_tukar, kurs as nilai_kurs, jenis_kurs as jenis, id_pegawai as user')
                         ->where('jenis_jurnal', 'Kredit Jual')
-                        ->groupBy('nama_currency', 'kurs', 'jenis_kurs', 'id_pegawai')
+                        ->groupBy('nama_currency', 'jenis_kurs', 'id_pegawai')
                         ->get();
                     return view('pages.TransaksiJual.owner', compact('valas', 'transaksi', 'count', 'today', 'total_transaksi', 'currency', 'pegawai', 'report'));
                 }
