@@ -98,12 +98,15 @@ class TransaksiController extends Controller
                 ->orderBy('updated_at', 'DESC');
             $jurnalQuery = Jurnal::join('tb_currency', 'tb_jurnal.id_currency', 'tb_currency.id_currency')
                 ->where('tanggal_jurnal', $today);
+                $jurnalQuery2 = Jurnal::join('tb_currency', 'tb_jurnal.id_currency', 'tb_currency.id_currency')
+                ->where('tanggal_jurnal', $today);
 
             if ($isPegawai) {
                 $transaksiQuery->where('id_pegawai', $user->id);
                 $jurnalQuery->where('id_pegawai', $user->id);
-            }
+                $jurnalQuery2->where('id_pegawai', $user->id);
 
+            }
 
             $transaksi = $transaksiQuery->get();
             $count = $transaksiQuery->count();
@@ -112,10 +115,10 @@ class TransaksiController extends Controller
 
             $report = $jurnalQuery->selectRaw('nama_currency as nama_kurs, SUM(jumlah_tukar) as jumlah_tukar, kurs as nilai_kurs, jenis_kurs as jenis')
                 ->where('jenis_jurnal', 'Debit')
-                ->groupBy('nama_currency', 'jenis_kurs')
+                ->groupBy('nama_currency','kurs', 'jenis_kurs')
                 ->get();
 
-            $valas = $jurnalQuery->selectRaw('nama_currency as nama_kurs, SUM(jumlah_tukar) as jumlah, kurs as nilai, jenis_kurs as jenis, SUM(total_tukar) as total')
+            $valas = $jurnalQuery2->selectRaw('nama_currency as nama_kurs, SUM(jumlah_tukar) as jumlah, kurs as nilai, jenis_kurs as jenis, SUM(total_tukar) as total')
                 ->where('jenis_jurnal', 'Debit')
                 ->groupBy('nama_currency', 'jenis_kurs')
                 ->get();
@@ -123,13 +126,19 @@ class TransaksiController extends Controller
 
             if (!$isPegawai) {
                 $pegawai = User::where('role', '!=', 'Owner')->get();
-
                 if ($request->filterData) {
                     $report = $jurnalQuery->where('id_pegawai', $request->filterData)
                         ->selectRaw('nama_currency as nama_kurs, SUM(jumlah_tukar) as jumlah_tukar, kurs as nilai_kurs, jenis_kurs as jenis, id_pegawai as user')
                         ->where('jenis_jurnal', 'Debit')
+                        ->groupBy('nama_currency', 'jenis_kurs','kurs', 'id_pegawai')
+                        ->get();
+                        
+                    $valas = $jurnalQuery2->where('id_pegawai', $request->filterData)
+                        ->selectRaw('nama_currency as nama_kurs, SUM(jumlah_tukar) as jumlah_tukar, kurs as nilai_kurs, jenis_kurs as jenis, id_pegawai as user')
+                        ->where('jenis_jurnal', 'Debit')
                         ->groupBy('nama_currency', 'jenis_kurs', 'id_pegawai')
                         ->get();
+                    
                     return view('pages.transaksi.owner', compact('valas','transaksi', 'count', 'today', 'total_transaksi', 'currency', 'pegawai', 'report'));
                 }
 
