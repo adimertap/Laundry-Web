@@ -352,11 +352,20 @@
                                 Absensi</span></div>
                     </a>
                     @php
-                    $laporan_absensi = ['getUserReport', 'jadwal-laporan.index' ];
+                    $laporan_absensi = ['getUserReport', 'jadwal-laporan.index','report-jadwal-harian' ];
                     @endphp
                     <ul class="nav collapse {{ (in_array(request()->route()->getName(), $laporan_absensi)) ? 'show' : '' }}"
                         id="laporanAbsen" style="">
                         @if(Auth::user()->role == 'Owner')
+                        <li class="nav-item mt-1">
+                            <a class="nav-link" href="{{ route('report-jadwal-harian') }}" data-bs-toggle=""
+                                aria-expanded="false">
+                                <div class="d-flex align-items-center">
+                                    <span class="nav-link-text ps-1">
+                                        Laporan Harian</span>
+                                </div>
+                            </a>
+                        </li>
                         <li class="nav-item mt-1">
                             <a class="nav-link" href="{{ route('getUserReport') }}" data-bs-toggle=""
                                 aria-expanded="false">
@@ -377,6 +386,8 @@
                                 </div>
                             </a>
                         </li>
+
+                       
                     </ul>
 
                 </li>

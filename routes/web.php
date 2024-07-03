@@ -48,6 +48,8 @@ Route::middleware(['web'])->group(function () {
        Route::resource('jadwal-user', JadwalUserController::class);
        Route::resource('jadwal-laporan', LaporanAbsensiController::class);
        Route::get('/api/jadwal-kerja', [App\Http\Controllers\Absensi\JadwalKerjaController::class, 'getJadwalKerja']);
+        Route::get('/report/jadwal/harian', [App\Http\Controllers\Absensi\LaporanAbsensiController::class, 'today'])->name('report-jadwal-harian');
+
        Route::get('/api/get-event/{id}', [App\Http\Controllers\Absensi\JadwalKerjaController::class, 'getEventDetails']);
        Route::get('/api/get-user', [App\Http\Controllers\Absensi\LaporanAbsensiController::class, 'getUser'])->name('getUserReport');
 
