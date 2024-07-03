@@ -315,17 +315,18 @@
                         , success: function(data) {
                             var events = [];
                             data.forEach(function(jadwal) {
-                                var eventColor;
-                                events.push({
-                                    id: jadwal.jadwal_id, // Assuming you have an ID for each event
-                                    title: `${jadwal.user.name} - ${jadwal.shift.shift_name}`
-                                    , start: jadwal.tanggal
-                                    , end: jadwal.tanggal_akhir, // Assuming your date fields are single day events
-                                    extendedProps: {
-                                        shift_in: jadwal.shift.shift_in
-                                        , shift_out: jadwal.shift.shift_out
-                                    }
-                                });
+                                if (jadwal.user && jadwal.user.name && jadwal.shift && jadwal.shift.shift_name) { // Check if jadwal.user is not null and has a name property
+                                    events.push({
+                                        id: jadwal.jadwal_id, // Assuming you have an ID for each event
+                                        title: `${jadwal.user.name} - ${jadwal.shift.shift_name}`,
+                                        start: jadwal.tanggal,
+                                        end: jadwal.tanggal_akhir, // Assuming your date fields are single day events
+                                        extendedProps: {
+                                            shift_in: jadwal.shift.shift_in,
+                                            shift_out: jadwal.shift.shift_out
+                                        }
+                                    });
+                                }
                             });
                             successCallback(events);
                         }
