@@ -115,9 +115,9 @@
                                 </td>
                                 <td class="text-center">
                                     @if(!$item->jumlah_valas) 
-                                    0 / {{ number_format($item->last_nilai_jual, 2, ',', '.') }}
+                                    {{ number_format($item->last_nilai_jual, 2, ',', '.') }}
                                     @else
-                                    {{ $item->jumlah_valas }} / {{ number_format($item->last_nilai_jual, 2, ',', '.') }}
+                                    {{ number_format($item->last_nilai_jual, 2, ',', '.') }}
                                     @endif
                                     </td>
                                 <td class="text-center">
