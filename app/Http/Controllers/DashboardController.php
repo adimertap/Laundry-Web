@@ -156,6 +156,68 @@ class DashboardController extends Controller
         return view('pages.dashboard.dashboardpegawai');
     }
 
+    public function reset_password_v2($id){
+        $user = User::where('id',$id)->first();
+        if(!$user){
+            Alert::warning('Error', 'User tidak ditemukan');
+            return redirect()->back();
+        }else{
+            return view('auth.passwords.resetv2', compact('user'));
+        }
+    }
+    public function change_password_v2(){
+        return view('auth.passwords.email');
+    }
+
+    public function change_password_v2_post(Request $request){
+        try {
+            $email = $request->email;
+            $password = $request->password;
+            if($password !== $request->confirm_password){
+                Alert::warning('Error', 'Password Confirm not match');
+                return redirect()->back();
+            }
+            $user = User::where('email', $email)->first();
+            if (!$user) {
+                Alert::warning('Error', 'User not Found, Try Again');
+                return redirect()->back();
+            }
+            $user->password = bcrypt($password);
+            $user->update();
+
+            Alert::success('Berhasil', 'Berhasil Reset Password');
+            return redirect()->route('login');
+        } catch (\Throwable $th) {
+            Alert::warning('Error', 'Internal Server Error, Try Refreshing The Page');
+            return redirect()->back();
+        }
+    }
+
+    public function reset_password_v2_post(Request $request, $id){
+        try {
+            $password = $request->password;
+            if($password !== $request->confirm_password){
+                Alert::warning('Error', 'Password Confirm not match');
+                return redirect()->back();
+            }
+            $user = User::where('id', $id)->first();
+            if (!$user) {
+                Alert::warning('Error', 'User not Found, Try Again');
+                return redirect()->back();
+            }
+            $user->password = bcrypt($password);
+            $user->update();
+
+            Alert::success('Berhasil', 'Berhasil Reset Password');
+            // return redirect()->back();
+            return redirect()->route('master-pegawai.edit', $id);
+
+        } catch (\Throwable $th) {
+            Alert::warning('Error', 'Internal Server Error, Try Refreshing The Page');
+            return redirect()->back();
+        }
+    }
+
     public function change_password(Request $request)
     {
         try {

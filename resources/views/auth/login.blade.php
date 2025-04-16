@@ -56,7 +56,7 @@
                                                 <div class="d-flex justify-content-between"><label class="form-label"
                                                         for="inputChoosePassword">Password</label></div>
                                                 <input class="form-control @error('password') is-invalid @enderror"
-                                                    id="inputChoosePassword" placeholder="Enter Password" type="text"
+                                                    id="inputChoosePassword" placeholder="Enter Password" type="password"
                                                     name="password" required autocomplete="current-password">
                                                 @error('password')
                                                 <div class="invalid-feedback">

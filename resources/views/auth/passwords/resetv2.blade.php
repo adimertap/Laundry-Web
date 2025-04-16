@@ -36,16 +36,16 @@
                         <div class="card-header">{{ __('Reset Password') }}</div>
 
                         <div class="card-body">
-                            <form method="POST" action="{{ route('change_password_v2') }}">
+                            <form method="POST" action="{{ route('reset_password_v2', $user->id) }}">
                                 @csrf
 
                                 <div class="row mb-3">
                                     <label for="email"
-                                        class="col-md-4 col-form-label text-md-end">{{ __('Email') }}</label>
+                                        class="col-md-4 col-form-label text-md-end">{{ __('Pegawai') }}</label>
 
                                     <div class="col-md-6">
-                                        <input id="email" type="email"
-                                            class="form-control @error('email') is-invalid @enderror" name="email">
+                                        <input id="email" type="email" value="{{ $user->name }}"
+                                            class="form-control @error('email') is-invalid @enderror" name="email" disabled>
 
                                         @error('email')
                                         <span class="invalid-feedback" role="alert">

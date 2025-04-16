@@ -42,16 +42,22 @@ Route::middleware(['web'])->group(function () {
     Route::get('/show-session', [SessionTestController::class, 'showSession']);
 
     Auth::routes();
+    Route::get('/change-password/v2', [\App\Http\Controllers\DashboardController::class, 'change_password_v2'])->name('change_password_v2');
+    Route::post('/change-password/v2', [\App\Http\Controllers\DashboardController::class, 'change_password_v2_post'])->name('change_password_v2_post');
+
+    Route::get('/reset-password/pegawai/{id}', [\App\Http\Controllers\DashboardController::class, 'reset_password_v2'])->name('reset_password_v2');
+    Route::post('/reset-password/pegawai/{id}', [\App\Http\Controllers\DashboardController::class, 'reset_password_v2_post'])->name('reset_password_v2_post');
+
     Route::group(['middleware' => 'auth'], function () {
-       //JADWAL
-       Route::resource('jadwal', JadwalKerjaController::class);
-       Route::resource('jadwal-user', JadwalUserController::class);
-       Route::resource('jadwal-laporan', LaporanAbsensiController::class);
-       Route::get('/api/jadwal-kerja', [App\Http\Controllers\Absensi\JadwalKerjaController::class, 'getJadwalKerja']);
+        //JADWAL
+        Route::resource('jadwal', JadwalKerjaController::class);
+        Route::resource('jadwal-user', JadwalUserController::class);
+        Route::resource('jadwal-laporan', LaporanAbsensiController::class);
+        Route::get('/api/jadwal-kerja', [App\Http\Controllers\Absensi\JadwalKerjaController::class, 'getJadwalKerja']);
         Route::get('/report/jadwal/harian', [App\Http\Controllers\Absensi\LaporanAbsensiController::class, 'today'])->name('report-jadwal-harian');
 
-       Route::get('/api/get-event/{id}', [App\Http\Controllers\Absensi\JadwalKerjaController::class, 'getEventDetails']);
-       Route::get('/api/get-user', [App\Http\Controllers\Absensi\LaporanAbsensiController::class, 'getUser'])->name('getUserReport');
+        Route::get('/api/get-event/{id}', [App\Http\Controllers\Absensi\JadwalKerjaController::class, 'getEventDetails']);
+        Route::get('/api/get-user', [App\Http\Controllers\Absensi\LaporanAbsensiController::class, 'getUser'])->name('getUserReport');
 
         Route::group(['middleware' => ['jadwal.checking']], function () {
             // LAUNDRY
@@ -92,7 +98,7 @@ Route::middleware(['web'])->group(function () {
             Route::resource('jurnal-debit-kredit', JurnalKreditDebitController::class);
             Route::post('/delete-jurnal', [\App\Http\Controllers\JurnalKreditDebitController::class, 'hapus'])->name('jurnal-delete');
 
-            
+
 
             //LAUNDRY
             Route::resource('transaksi-laundry', LaundryTransaksiController::class);
@@ -139,7 +145,6 @@ Route::middleware(['web'])->group(function () {
 
             Route::get('/download-harian', [\App\Http\Controllers\TransaksiController::class, 'Export_dokumen'])->name('export-dokumen-harian');
             Route::get('/download-harian/jual', [\App\Http\Controllers\TransaksiController::class, 'Export_dokumen_jual'])->name('export-dokumen-harian-jual');
-
         });
     });
 });
